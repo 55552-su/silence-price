@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>沉默的代价 - 海报</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;700;900&family=Noto+Serif+SC:wght@700;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;background:#111}
+/* Poster container - 9:16 vertical ratio */
+.poster{
+  position:relative;width:540px;height:960px;margin:0 auto;overflow:hidden;
+  background:linear-gradient(175deg,#0a0e1a 0%,#111832 25%,#1a1040 50%,#2a1545 70%,#0d0d1a 100%);
+}
+
+/* === TOP ATMOSPHERIC LAYER === */
+.atmos{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 40% at 50% 15%, rgba(102,126,234,.12) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 30% at 20% 80%, rgba(180,80,200,.08) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 25% at 80% 60%, rgba(80,200,168,.06) 0%, transparent 60%);
+  pointer-events:none;z-index:1;
+}
+
+/* === GRID/NOISE TEXTURE === */
+.texture{
+  position:absolute;inset:0;z-index:2;pointer-events:none;opacity:.04;
+  background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,.3) 39px,rgba(255,255,255,.3) 40px),
+    repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,255,255,.3) 39px,rgba(255,255,255,.3) 40px);
+}
+
+/* === DIAGONAL LIGHT STREAK === */
+.streak{
+  position:absolute;top:-100px;left:50%;width:2px;height:400px;z-index:3;
+  background:linear-gradient(180deg,transparent,rgba(102,126,234,.3),transparent);
+  transform:rotate(-20deg);pointer-events:none;
+}
+.streak:nth-child(2){left:30%;height:300px;opacity:.5;transform:rotate(-15deg)}
+.streak:nth-child(3){left:72%;height:250px;opacity:.4;transform:rotate(-25deg)}
+
+/* === TITLE AREA === */
+.title-area{
+  position:absolute;top:48px;left:0;right:0;z-index:10;text-align:center;
+}
+.title-en{
+  font-family:'Noto Sans SC',sans-serif;font-size:11px;font-weight:300;
+  letter-spacing:8px;color:rgba(255,255,255,.35);text-transform:uppercase;
+  margin-bottom:10px;
+}
+.title-main{
+  font-family:'Noto Serif SC','Noto Sans SC',serif;font-size:52px;font-weight:900;
+  color:#fff;letter-spacing:12px;line-height:1.25;
+  text-shadow:0 0 60px rgba(102,126,234,.4),0 2px 20px rgba(0,0,0,.6);
+  position:relative;display:inline-block;
+}
+.title-main::after{
+  content:'';position:absolute;bottom:-8px;left:15%;right:15%;height:2px;
+  background:linear-gradient(90deg,transparent,rgba(102,126,234,.6),rgba(180,80,200,.4),transparent);
+}
+.title-sub{
+  margin-top:20px;font-family:'Noto Sans SC',sans-serif;font-size:13px;font-weight:300;
+  letter-spacing:5px;color:rgba(255,255,255,.45);
+}
+.title-badge{
+  display:inline-block;margin-top:14px;padding:4px 18px;
+  border:1px solid rgba(102,126,234,.35);border-radius:20px;
+  font-size:11px;letter-spacing:3px;color:rgba(102,126,234,.7);
+  font-family:'Noto Sans SC',sans-serif;
+}
+
+/* === CHARACTER COMPOSITION === */
+.chars-layer{position:absolute;bottom:160px;left:0;right:0;height:520px;z-index:5}
+
+/* Main protagonist - center front */
+.char{position:absolute;bottom:0;filter:drop-shadow(0 8px 30px rgba(0,0,0,.6));transition:all .3s}
+.char img{height:100%;width:auto;object-fit:contain}
+
+.char-linxiao{left:50%;transform:translateX(-50%);height:460px;z-index:8}
+.char-prosecutor{right:-8px;height:400px;z-index:7}
+.char-xiaomeng{left:-2px;height:370px;z-index:6;opacity:.92}
+.char-zhaokai{right:90px;height:350px;z-index:5;opacity:.82;filter:drop-shadow(0 8px 30px rgba(0,0,0,.6)) brightness(.75)}
+.char-zhangyue{left:65px;height:330px;z-index:4;opacity:.78}
+.char-teacher{left:165px;height:340px;z-index:3;opacity:.65}
+
+/* Foreground gradient to blend characters into bottom */
+.chars-fade{
+  position:absolute;bottom:160px;left:0;right:0;height:120px;z-index:9;
+  background:linear-gradient(0deg,#0d0d1a 0%,transparent 100%);
+  pointer-events:none;
+}
+
+/* === BOTTOM AREA === */
+.bottom-area{
+  position:absolute;bottom:0;left:0;right:0;height:180px;z-index:10;
+  background:linear-gradient(0deg,rgba(8,8,18,.98) 60%,transparent 100%);
+  display:flex;align-items:flex-end;justify-content:center;padding-bottom:28px;
+}
+.bottom-content{
+  display:flex;align-items:center;gap:28px;
+}
+.qr-wrap{
+  width:100px;height:100px;padding:6px;
+  background:rgba(255,255,255,.95);border-radius:10px;
+  box-shadow:0 0 30px rgba(102,126,234,.2);
+  flex-shrink:0;
+}
+.qr-wrap img{width:100%;height:100%;object-fit:contain;border-radius:4px}
+.bottom-text{text-align:left}
+.bottom-text .scan{
+  font-family:'Noto Sans SC',sans-serif;font-size:14px;font-weight:700;
+  color:rgba(255,255,255,.85);letter-spacing:2px;margin-bottom:4px;
+}
+.bottom-text .scan-sub{
+  font-size:11px;color:rgba(255,255,255,.4);letter-spacing:1px;
+  font-family:'Noto Sans SC',sans-serif;line-height:1.6;
+}
+.bottom-text .scan-tag{
+  display:inline-block;margin-top:6px;padding:2px 10px;
+  background:rgba(102,126,234,.15);border:1px solid rgba(102,126,234,.25);
+  border-radius:12px;font-size:10px;color:rgba(102,126,234,.7);letter-spacing:1px;
+}
+
+/* === DECORATIVE ELEMENTS === */
+.deco-line-left{
+  position:absolute;top:200px;left:24px;width:1px;height:120px;z-index:4;
+  background:linear-gradient(180deg,transparent,rgba(102,126,234,.25),transparent);
+}
+.deco-line-right{
+  position:absolute;top:240px;right:24px;width:1px;height:100px;z-index:4;
+  background:linear-gradient(180deg,transparent,rgba(180,80,200,.2),transparent);
+}
+.deco-dot{
+  position:absolute;width:4px;height:4px;border-radius:50%;z-index:4;
+}
+.deco-dot:nth-child(1){top:195px;left:23px;background:rgba(102,126,234,.5)}
+.deco-dot:nth-child(2){top:325px;left:23px;background:rgba(102,126,234,.3)}
+.deco-dot:nth-child(3){top:235px;right:23px;background:rgba(180,80,200,.4)}
+.deco-dot:nth-child(4){top:345px;right:23px;background:rgba(180,80,200,.2)}
+
+/* Corner accents */
+.corner{position:absolute;width:30px;height:30px;z-index:4;opacity:.3}
+.corner-tl{top:20px;left:20px;border-top:1px solid rgba(255,255,255,.4);border-left:1px solid rgba(255,255,255,.4)}
+.corner-tr{top:20px;right:20px;border-top:1px solid rgba(255,255,255,.4);border-right:1px solid rgba(255,255,255,.4)}
+
+/* Side label */
+.side-label{
+  position:absolute;top:50%;right:18px;z-index:4;
+  writing-mode:vertical-rl;font-size:9px;letter-spacing:4px;
+  color:rgba(255,255,255,.15);font-family:'Noto Sans SC',sans-serif;
+  transform:translateY(-50%);
+}
+
+/* Theme tagline floating */
+.tagline{
+  position:absolute;bottom:190px;left:0;right:0;text-align:center;z-index:10;
+  font-family:'Noto Sans SC',sans-serif;font-size:13px;letter-spacing:6px;
+  color:rgba(255,255,255,.55);font-weight:400;
+  text-shadow:0 0 20px rgba(0,0,0,.8);
+}
+</style>
+</head>
+<body>
+<div class="poster">
+  <!-- Atmosphere -->
+  <div class="atmos"></div>
+  <div class="texture"></div>
+  <div class="streak"></div><div class="streak"></div><div class="streak"></div>
+
+  <!-- Decorative -->
+  <div class="deco-line-left"></div>
+  <div class="deco-line-right"></div>
+  <div class="deco-dot"></div><div class="deco-dot"></div><div class="deco-dot"></div><div class="deco-dot"></div>
+  <div class="corner corner-tl"></div>
+  <div class="corner corner-tr"></div>
+  <div class="side-label">ANTI-SCHOOL-BULLYING</div>
+
+  <!-- Title -->
+  <div class="title-area">
+    <div class="title-en">interactive visual novel</div>
+    <div class="title-main">沉默的代价</div>
+    <div class="title-sub">反校园霸凌互动剧情游戏</div>
+    <div class="title-badge">多结局 · 多分支 · 沉浸体验</div>
+  </div>
+
+  <!-- Characters -->
+  <div class="chars-layer">
+    <div class="char char-teacher"><img src="v2_teacher_normal.png" alt="王老师"></div>
+    <div class="char char-zhangyue"><img src="v2_zhangyue_normal.png" alt="张悦"></div>
+    <div class="char char-zhaokai"><img src="v2_zhaokai_bully.png" alt="赵凯"></div>
+    <div class="char char-xiaomeng"><img src="v2_xiaomeng_scared.png" alt="苏小萌"></div>
+    <div class="char char-prosecutor"><img src="v2_prosecutor_normal.png" alt="陈检察官"></div>
+    <div class="char char-linxiao"><img src="v2_linxiao_determined.png" alt="林晓"></div>
+  </div>
+  <div class="chars-fade"></div>
+
+  <!-- Tagline -->
+  <div class="tagline">面对欺凌 · 你的选择决定一切</div>
+
+  <!-- Bottom -->
+  <div class="bottom-area">
+    <div class="bottom-content">
+      <div class="qr-wrap"><img src="qrcode_game.png" alt="扫码游戏"></div>
+      <div class="bottom-text">
+        <div class="scan">微信扫码 开始游戏</div>
+        <div class="scan-sub">你的每一个选择<br>都将改变故事走向</div>
+        <div class="scan-tag">H5 互动剧情</div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
