@@ -2,213 +2,307 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>沉默的代价 - 海报</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>沉默的代价 - 反校园霸凌互动剧情游戏 海报</title>
+<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@400;600;700;900&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;700;900&family=Noto+Serif+SC:wght@700;900&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{width:100%;height:100%;background:#111}
-/* Poster container - 9:16 vertical ratio */
+html,body{width:100%;height:100%;background:#e8ddd0;display:flex;justify-content:center;align-items:flex-start;padding:20px 0}
+
 .poster{
-  position:relative;width:540px;height:960px;margin:0 auto;overflow:hidden;
-  background:linear-gradient(175deg,#0a0e1a 0%,#111832 25%,#1a1040 50%,#2a1545 70%,#0d0d1a 100%);
+  position:relative;width:750px;height:1334px;overflow:hidden;
+  background:linear-gradient(175deg,#7EC8E3 0%,#ADE0F2 8%,#FCEABB 22%,#FFF5E6 38%,#FFFAF2 52%,#FDE8C8 72%,#F5C77E 100%);
+  box-shadow:0 8px 60px rgba(0,0,0,.25);font-family:'Noto Sans SC',sans-serif;border-radius:4px;
 }
 
-/* === TOP ATMOSPHERIC LAYER === */
-.atmos{
-  position:absolute;inset:0;
-  background:
-    radial-gradient(ellipse 80% 40% at 50% 15%, rgba(102,126,234,.12) 0%, transparent 70%),
-    radial-gradient(ellipse 60% 30% at 20% 80%, rgba(180,80,200,.08) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 25% at 80% 60%, rgba(80,200,168,.06) 0%, transparent 60%);
-  pointer-events:none;z-index:1;
+/* — Sunlight rays from top-right — */
+.sunrays{position:absolute;top:-300px;right:-200px;width:900px;height:900px;z-index:1;pointer-events:none;
+  background:conic-gradient(from 200deg at 50% 0%,
+    transparent 0deg,rgba(255,220,100,.18) 6deg,transparent 12deg,
+    transparent 20deg,rgba(255,210,80,.12) 26deg,transparent 32deg,
+    transparent 42deg,rgba(255,225,120,.15) 48deg,transparent 54deg,
+    transparent 66deg,rgba(255,200,80,.10) 72deg,transparent 78deg,
+    transparent 92deg,rgba(255,220,100,.13) 98deg,transparent 104deg,
+    transparent 120deg,rgba(255,200,60,.08) 126deg,transparent 132deg,
+    transparent 150deg,rgba(255,230,130,.10) 156deg,transparent 162deg,
+    transparent 180deg);
+  opacity:.85;
 }
 
-/* === GRID/NOISE TEXTURE === */
-.texture{
-  position:absolute;inset:0;z-index:2;pointer-events:none;opacity:.04;
-  background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,.3) 39px,rgba(255,255,255,.3) 40px),
-    repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,255,255,.3) 39px,rgba(255,255,255,.3) 40px);
+/* — Geometric diamond pattern — */
+.geo{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.035;
+  background-image:
+    repeating-linear-gradient(60deg,transparent,transparent 30px,rgba(180,130,40,.6) 30px,rgba(180,130,40,.6) 31px),
+    repeating-linear-gradient(-60deg,transparent,transparent 30px,rgba(180,130,40,.6) 30px,rgba(180,130,40,.6) 31px);
 }
 
-/* === DIAGONAL LIGHT STREAK === */
-.streak{
-  position:absolute;top:-100px;left:50%;width:2px;height:400px;z-index:3;
-  background:linear-gradient(180deg,transparent,rgba(102,126,234,.3),transparent);
-  transform:rotate(-20deg);pointer-events:none;
-}
-.streak:nth-child(2){left:30%;height:300px;opacity:.5;transform:rotate(-15deg)}
-.streak:nth-child(3){left:72%;height:250px;opacity:.4;transform:rotate(-25deg)}
+/* — Warm glows — */
+.glow{position:absolute;border-radius:50%;z-index:1;pointer-events:none}
+.glow-tr{top:-100px;right:-60px;width:420px;height:420px;background:radial-gradient(circle,rgba(255,200,60,.3) 0%,transparent 70%)}
+.glow-bl{bottom:100px;left:-80px;width:350px;height:350px;background:radial-gradient(circle,rgba(135,206,235,.18) 0%,transparent 70%)}
+.glow-center{top:300px;left:50%;transform:translateX(-50%);width:500px;height:300px;background:radial-gradient(ellipse,rgba(255,245,220,.4) 0%,transparent 70%)}
 
-/* === TITLE AREA === */
-.title-area{
-  position:absolute;top:48px;left:0;right:0;z-index:10;text-align:center;
+/* — Floating leaves — */
+.leaf{position:absolute;z-index:2;pointer-events:none;width:20px;height:10px;background:#7BAE4E;border-radius:0 50% 50% 50%;opacity:.12}
+.l1{top:190px;left:70px;transform:rotate(-45deg)}
+.l2{top:350px;right:50px;transform:rotate(25deg);width:16px;height:8px;background:#8FB860}
+.l3{top:680px;left:35px;transform:rotate(-55deg);width:26px;height:13px;opacity:.09}
+.l4{top:520px;right:90px;transform:rotate(50deg);width:14px;height:7px;opacity:.10;background:#6B9E3A}
+.l5{top:850px;right:40px;transform:rotate(-20deg);width:18px;height:9px;opacity:.08}
+
+/* — Corner accents — */
+.corner{position:absolute;width:36px;height:36px;z-index:3;opacity:.18}
+.c-tl{top:24px;left:24px;border-top:2px solid #A08040;border-left:2px solid #A08040}
+.c-tr{top:24px;right:24px;border-top:2px solid #A08040;border-right:2px solid #A08040}
+.c-bl{bottom:24px;left:24px;border-bottom:2px solid #A08040;border-left:2px solid #A08040}
+.c-br{bottom:24px;right:24px;border-bottom:2px solid #A08040;border-right:2px solid #A08040}
+
+/* — Deco dots — */
+.dot{position:absolute;border-radius:50%;z-index:2;pointer-events:none}
+.d1{top:270px;left:45px;width:7px;height:7px;background:rgba(255,180,60,.2)}
+.d2{top:295px;left:60px;width:4px;height:4px;background:rgba(255,180,60,.15)}
+.d3{top:280px;right:50px;width:6px;height:6px;background:rgba(100,180,230,.18)}
+.d4{top:310px;right:38px;width:4px;height:4px;background:rgba(100,180,230,.12)}
+.d5{top:650px;left:55px;width:5px;height:5px;background:rgba(255,180,60,.12)}
+
+/* — Side text deco — */
+.side-l{position:absolute;top:400px;left:18px;z-index:2;writing-mode:vertical-rl;font-size:10px;letter-spacing:5px;color:rgba(100,70,30,.1);font-family:'Noto Serif SC',serif}
+.side-r{position:absolute;top:440px;right:18px;z-index:2;writing-mode:vertical-rl;font-size:9px;letter-spacing:4px;color:rgba(100,70,30,.08);font-family:'Noto Sans SC',sans-serif}
+
+/* ========== TOP BADGE ========== */
+.top-badge{
+  position:absolute;top:34px;left:50%;transform:translateX(-50%);z-index:10;
+  background:linear-gradient(135deg,#C0392B,#A93226);
+  color:#fff;padding:7px 30px;border-radius:20px;
+  font-size:13px;letter-spacing:4px;font-weight:500;
+  box-shadow:0 3px 16px rgba(180,50,40,.3);white-space:nowrap;
 }
-.title-en{
-  font-family:'Noto Sans SC',sans-serif;font-size:11px;font-weight:300;
-  letter-spacing:8px;color:rgba(255,255,255,.35);text-transform:uppercase;
-  margin-bottom:10px;
-}
+
+/* ========== TITLE ========== */
+.title-area{position:absolute;top:76px;left:0;right:0;z-index:10;text-align:center;padding:0 40px}
+
 .title-main{
-  font-family:'Noto Serif SC','Noto Sans SC',serif;font-size:52px;font-weight:900;
-  color:#fff;letter-spacing:12px;line-height:1.25;
-  text-shadow:0 0 60px rgba(102,126,234,.4),0 2px 20px rgba(0,0,0,.6);
-  position:relative;display:inline-block;
+  font-family:'Ma Shan Zheng',cursive;
+  font-size:96px;font-weight:400;
+  color:#2C1810;letter-spacing:14px;line-height:1.15;
+  display:inline-block;position:relative;
+  text-shadow:
+    3px 4px 0px rgba(120,70,20,.2),
+    -1px -1px 0px rgba(255,255,240,.5),
+    0 0 50px rgba(200,140,40,.15),
+    0 6px 12px rgba(0,0,0,.1),
+    1px 1px 2px rgba(80,40,10,.3);
 }
+/* Brush stroke underline */
 .title-main::after{
-  content:'';position:absolute;bottom:-8px;left:15%;right:15%;height:2px;
-  background:linear-gradient(90deg,transparent,rgba(102,126,234,.6),rgba(180,80,200,.4),transparent);
+  content:'';position:absolute;bottom:2px;left:3%;right:3%;height:5px;
+  background:linear-gradient(90deg,transparent 0%,rgba(192,57,43,.45) 15%,rgba(192,57,43,.5) 50%,rgba(200,120,40,.35) 85%,transparent 100%);
+  border-radius:3px;transform:skewX(-3deg);
 }
+
 .title-sub{
-  margin-top:20px;font-family:'Noto Sans SC',sans-serif;font-size:13px;font-weight:300;
-  letter-spacing:5px;color:rgba(255,255,255,.45);
-}
-.title-badge{
-  display:inline-block;margin-top:14px;padding:4px 18px;
-  border:1px solid rgba(102,126,234,.35);border-radius:20px;
-  font-size:11px;letter-spacing:3px;color:rgba(102,126,234,.7);
-  font-family:'Noto Sans SC',sans-serif;
+  margin-top:18px;font-family:'Noto Sans SC',sans-serif;
+  font-size:22px;font-weight:500;letter-spacing:10px;color:#5A3520;opacity:.65;
 }
 
-/* === CHARACTER COMPOSITION === */
-.chars-layer{position:absolute;bottom:160px;left:0;right:0;height:520px;z-index:5}
+.title-flavor{
+  margin-top:10px;font-family:'Noto Serif SC',serif;
+  font-size:13px;letter-spacing:4px;color:#8B6914;opacity:.4;
+}
 
-/* Main protagonist - center front */
-.char{position:absolute;bottom:0;filter:drop-shadow(0 8px 30px rgba(0,0,0,.6));transition:all .3s}
-.char img{height:100%;width:auto;object-fit:contain}
+/* ========== THEME BANNER ========== */
+.theme-banner{
+  position:absolute;top:310px;left:50%;transform:translateX(-50%);z-index:10;
+  background:linear-gradient(135deg,rgba(25,70,150,.88),rgba(20,55,120,.92));
+  color:#fff;padding:11px 40px;border-radius:28px;
+  font-size:18px;letter-spacing:6px;font-weight:700;
+  box-shadow:0 4px 24px rgba(25,70,150,.25),inset 0 1px 0 rgba(255,255,255,.15);
+  white-space:nowrap;
+}
 
-.char-linxiao{left:50%;transform:translateX(-50%);height:460px;z-index:8}
-.char-prosecutor{right:-8px;height:400px;z-index:7}
-.char-xiaomeng{left:-2px;height:370px;z-index:6;opacity:.92}
-.char-zhaokai{right:90px;height:350px;z-index:5;opacity:.82;filter:drop-shadow(0 8px 30px rgba(0,0,0,.6)) brightness(.75)}
-.char-zhangyue{left:65px;height:330px;z-index:4;opacity:.78}
-.char-teacher{left:165px;height:340px;z-index:3;opacity:.65}
+/* ========== CHARACTERS ========== */
+.chars{position:absolute;bottom:260px;left:0;right:0;height:640px;z-index:5}
 
-/* Foreground gradient to blend characters into bottom */
-.chars-fade{
-  position:absolute;bottom:160px;left:0;right:0;height:120px;z-index:9;
-  background:linear-gradient(0deg,#0d0d1a 0%,transparent 100%);
+.ch{position:absolute;bottom:0}
+.ch img{height:100%;width:auto;object-fit:contain;filter:drop-shadow(0 5px 18px rgba(0,0,0,.18))}
+
+/* Bully — far right, in shadow, smaller */
+.ch-zhaokai{right:20px;height:380px;z-index:3;opacity:.5}
+.ch-zhaokai img{filter:brightness(.65) saturate(.6) drop-shadow(0 5px 18px rgba(0,0,0,.25))}
+
+/* Teacher — right-center area */
+.ch-teacher{right:145px;height:440px;z-index:4;opacity:.82}
+
+/* Friend — left side */
+.ch-zhangyue{left:35px;height:430px;z-index:5;opacity:.88}
+
+/* Victim — left-center */
+.ch-xiaomeng{left:155px;height:480px;z-index:6}
+
+/* Prosecutor — right, authoritative */
+.ch-prosecutor{right:30px;height:520px;z-index:7}
+
+/* Protagonist — center front, tallest */
+.ch-linxiao{left:50%;transform:translateX(-50%);height:580px;z-index:8}
+
+/* Character name tags */
+.ch-name{
+  position:absolute;bottom:-2px;left:50%;transform:translateX(-50%);
+  font-size:11px;color:rgba(60,30,10,.5);letter-spacing:2px;white-space:nowrap;
+  font-family:'Noto Sans SC',sans-serif;font-weight:500;
+  background:rgba(255,245,220,.6);padding:2px 10px;border-radius:8px;
+}
+
+/* ========== BOTTOM FADE ========== */
+.bottom-fade{
+  position:absolute;bottom:220px;left:0;right:0;height:140px;z-index:6;
+  background:linear-gradient(0deg,rgba(245,205,140,.97) 0%,rgba(245,210,160,.6) 50%,transparent 100%);
   pointer-events:none;
 }
 
-/* === BOTTOM AREA === */
-.bottom-area{
-  position:absolute;bottom:0;left:0;right:0;height:180px;z-index:10;
-  background:linear-gradient(0deg,rgba(8,8,18,.98) 60%,transparent 100%);
-  display:flex;align-items:flex-end;justify-content:center;padding-bottom:28px;
-}
-.bottom-content{
-  display:flex;align-items:center;gap:28px;
-}
-.qr-wrap{
-  width:100px;height:100px;padding:6px;
-  background:rgba(255,255,255,.95);border-radius:10px;
-  box-shadow:0 0 30px rgba(102,126,234,.2);
-  flex-shrink:0;
-}
-.qr-wrap img{width:100%;height:100%;object-fit:contain;border-radius:4px}
-.bottom-text{text-align:left}
-.bottom-text .scan{
-  font-family:'Noto Sans SC',sans-serif;font-size:14px;font-weight:700;
-  color:rgba(255,255,255,.85);letter-spacing:2px;margin-bottom:4px;
-}
-.bottom-text .scan-sub{
-  font-size:11px;color:rgba(255,255,255,.4);letter-spacing:1px;
-  font-family:'Noto Sans SC',sans-serif;line-height:1.6;
-}
-.bottom-text .scan-tag{
-  display:inline-block;margin-top:6px;padding:2px 10px;
-  background:rgba(102,126,234,.15);border:1px solid rgba(102,126,234,.25);
-  border-radius:12px;font-size:10px;color:rgba(102,126,234,.7);letter-spacing:1px;
-}
-
-/* === DECORATIVE ELEMENTS === */
-.deco-line-left{
-  position:absolute;top:200px;left:24px;width:1px;height:120px;z-index:4;
-  background:linear-gradient(180deg,transparent,rgba(102,126,234,.25),transparent);
-}
-.deco-line-right{
-  position:absolute;top:240px;right:24px;width:1px;height:100px;z-index:4;
-  background:linear-gradient(180deg,transparent,rgba(180,80,200,.2),transparent);
-}
-.deco-dot{
-  position:absolute;width:4px;height:4px;border-radius:50%;z-index:4;
-}
-.deco-dot:nth-child(1){top:195px;left:23px;background:rgba(102,126,234,.5)}
-.deco-dot:nth-child(2){top:325px;left:23px;background:rgba(102,126,234,.3)}
-.deco-dot:nth-child(3){top:235px;right:23px;background:rgba(180,80,200,.4)}
-.deco-dot:nth-child(4){top:345px;right:23px;background:rgba(180,80,200,.2)}
-
-/* Corner accents */
-.corner{position:absolute;width:30px;height:30px;z-index:4;opacity:.3}
-.corner-tl{top:20px;left:20px;border-top:1px solid rgba(255,255,255,.4);border-left:1px solid rgba(255,255,255,.4)}
-.corner-tr{top:20px;right:20px;border-top:1px solid rgba(255,255,255,.4);border-right:1px solid rgba(255,255,255,.4)}
-
-/* Side label */
-.side-label{
-  position:absolute;top:50%;right:18px;z-index:4;
-  writing-mode:vertical-rl;font-size:9px;letter-spacing:4px;
-  color:rgba(255,255,255,.15);font-family:'Noto Sans SC',sans-serif;
-  transform:translateY(-50%);
-}
-
-/* Theme tagline floating */
+/* ========== TAGLINE ========== */
 .tagline{
-  position:absolute;bottom:190px;left:0;right:0;text-align:center;z-index:10;
-  font-family:'Noto Sans SC',sans-serif;font-size:13px;letter-spacing:6px;
-  color:rgba(255,255,255,.55);font-weight:400;
-  text-shadow:0 0 20px rgba(0,0,0,.8);
+  position:absolute;bottom:238px;left:0;right:0;text-align:center;z-index:10;
+  font-family:'Noto Serif SC',serif;font-size:16px;letter-spacing:7px;
+  color:#5A3520;font-weight:600;opacity:.6;
+}
+
+/* ========== BOTTOM SECTION ========== */
+.bottom{
+  position:absolute;bottom:0;left:0;right:0;height:230px;z-index:10;
+  background:linear-gradient(0deg,rgba(235,195,120,.99) 0%,rgba(240,205,145,.97) 60%,rgba(245,215,160,.9) 85%,transparent 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:34px;
+}
+
+/* QR Row */
+.qr-row{display:flex;align-items:center;gap:28px;margin-bottom:18px}
+
+.qr-box{
+  width:116px;height:116px;
+  background:rgba(255,255,255,.96);border-radius:16px;
+  box-shadow:0 4px 20px rgba(0,0,0,.08);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  flex-shrink:0;border:2px dashed rgba(160,110,40,.15);
+}
+.qr-box .qr-icon{font-size:38px;color:#C8A960;margin-bottom:4px}
+.qr-box .qr-label{font-size:10px;color:#A08050;letter-spacing:1px}
+
+.qr-info{text-align:left}
+.qr-info .qi-title{font-size:22px;font-weight:700;color:#2C1810;letter-spacing:3px;margin-bottom:4px}
+.qr-info .qi-desc{font-size:13px;color:#5A3520;letter-spacing:1px;line-height:1.8;opacity:.65}
+.qr-info .qi-tag{
+  display:inline-block;margin-top:8px;padding:3px 16px;
+  background:rgba(25,70,150,.08);border:1px solid rgba(25,70,150,.18);
+  border-radius:14px;font-size:11px;color:rgba(25,70,150,.65);letter-spacing:2px;
+}
+
+/* Legal footer text */
+.footer-text{font-size:11px;color:#8B6914;letter-spacing:3px;opacity:.4}
+
+/* ========== CAMPUS SILHOUETTE ========== */
+.campus{position:absolute;bottom:220px;left:0;right:0;height:60px;z-index:1;pointer-events:none;opacity:.04}
+.campus::before{
+  content:'';position:absolute;bottom:0;left:40px;width:160px;height:55px;
+  background:#5A3520;
+  clip-path:polygon(10% 100%,10% 35%,0% 35%,50% 0%,100% 35%,90% 35%,90% 100%);
+}
+.campus::after{
+  content:'';position:absolute;bottom:0;right:60px;width:200px;height:45px;
+  background:#5A3520;border-radius:6px 6px 0 0;
 }
 </style>
 </head>
 <body>
+
 <div class="poster">
-  <!-- Atmosphere -->
-  <div class="atmos"></div>
-  <div class="texture"></div>
-  <div class="streak"></div><div class="streak"></div><div class="streak"></div>
+  <!-- Background effects -->
+  <div class="sunrays"></div>
+  <div class="geo"></div>
+  <div class="glow glow-tr"></div>
+  <div class="glow glow-bl"></div>
+  <div class="glow glow-center"></div>
+  <div class="campus"></div>
 
-  <!-- Decorative -->
-  <div class="deco-line-left"></div>
-  <div class="deco-line-right"></div>
-  <div class="deco-dot"></div><div class="deco-dot"></div><div class="deco-dot"></div><div class="deco-dot"></div>
-  <div class="corner corner-tl"></div>
-  <div class="corner corner-tr"></div>
-  <div class="side-label">ANTI-SCHOOL-BULLYING</div>
+  <!-- Floating leaves -->
+  <div class="leaf l1"></div><div class="leaf l2"></div><div class="leaf l3"></div>
+  <div class="leaf l4"></div><div class="leaf l5"></div>
 
-  <!-- Title -->
+  <!-- Corner accents -->
+  <div class="corner c-tl"></div><div class="corner c-tr"></div>
+  <div class="corner c-bl"></div><div class="corner c-br"></div>
+
+  <!-- Decorative dots -->
+  <div class="dot d1"></div><div class="dot d2"></div><div class="dot d3"></div>
+  <div class="dot d4"></div><div class="dot d5"></div>
+
+  <!-- Side text -->
+  <div class="side-l">勇气与正义</div>
+  <div class="side-r">ANTI-BULLYING</div>
+
+  <!-- Top Badge -->
+  <div class="top-badge">检察机关未成年人法治教育</div>
+
+  <!-- Title Area -->
   <div class="title-area">
-    <div class="title-en">interactive visual novel</div>
     <div class="title-main">沉默的代价</div>
     <div class="title-sub">反校园霸凌互动剧情游戏</div>
-    <div class="title-badge">多结局 · 多分支 · 沉浸体验</div>
+    <div class="title-flavor">每一次沉默，都有代价</div>
   </div>
+
+  <!-- Theme Banner -->
+  <div class="theme-banner">守护未成年人 检察在行动</div>
 
   <!-- Characters -->
-  <div class="chars-layer">
-    <div class="char char-teacher"><img src="v2_teacher_normal.png" alt="王老师"></div>
-    <div class="char char-zhangyue"><img src="v2_zhangyue_normal.png" alt="张悦"></div>
-    <div class="char char-zhaokai"><img src="v2_zhaokai_bully.png" alt="赵凯"></div>
-    <div class="char char-xiaomeng"><img src="v2_xiaomeng_scared.png" alt="苏小萌"></div>
-    <div class="char char-prosecutor"><img src="v2_prosecutor_normal.png" alt="陈检察官"></div>
-    <div class="char char-linxiao"><img src="v2_linxiao_determined.png" alt="林晓"></div>
-  </div>
-  <div class="chars-fade"></div>
-
-  <!-- Tagline -->
-  <div class="tagline">面对欺凌 · 你的选择决定一切</div>
-
-  <!-- Bottom -->
-  <div class="bottom-area">
-    <div class="bottom-content">
-      <div class="qr-wrap"><img src="qrcode_game.png" alt="扫码游戏"></div>
-      <div class="bottom-text">
-        <div class="scan">微信扫码 开始游戏</div>
-        <div class="scan-sub">你的每一个选择<br>都将改变故事走向</div>
-        <div class="scan-tag">H5 互动剧情</div>
-      </div>
+  <div class="chars">
+    <div class="ch ch-zhaokai">
+      <img src="v2_zhaokai_bully.png" alt="赵凯">
+      <div class="ch-name">赵凯</div>
+    </div>
+    <div class="ch ch-teacher">
+      <img src="v2_teacher_normal.png" alt="老师">
+      <div class="ch-name">老师</div>
+    </div>
+    <div class="ch ch-zhangyue">
+      <img src="v2_zhangyue_normal.png" alt="张悦">
+      <div class="ch-name">张悦</div>
+    </div>
+    <div class="ch ch-xiaomeng">
+      <img src="v2_xiaomeng_scared.png" alt="苏小萌">
+      <div class="ch-name">苏小萌</div>
+    </div>
+    <div class="ch ch-prosecutor">
+      <img src="v2_prosecutor_normal.png" alt="陈检察官">
+      <div class="ch-name">陈检察官</div>
+    </div>
+    <div class="ch ch-linxiao">
+      <img src="v2_linxiao_normal.png" alt="林晓">
+      <div class="ch-name">林晓</div>
     </div>
   </div>
+
+  <!-- Bottom fade -->
+  <div class="bottom-fade"></div>
+
+  <!-- Tagline -->
+  <div class="tagline">面对欺凌 你的选择决定一切</div>
+
+  <!-- Bottom Section -->
+  <div class="bottom">
+    <div class="qr-row">
+      <!-- QR Code Placeholder -->
+      <div class="qr-box">
+        <div class="qr-icon">&#9634;</div>
+        <div class="qr-label">QR Code</div>
+      </div>
+      <div class="qr-info">
+        <div class="qi-title">扫码即玩</div>
+        <div class="qi-desc">你的每一个选择<br>都将改变故事走向</div>
+        <div class="qi-tag">H5 互动视觉小说</div>
+      </div>
+    </div>
+    <div class="footer-text">检察机关未成年人法治教育 · 互动普法</div>
+  </div>
 </div>
+
 </body>
 </html>
