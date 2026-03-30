@@ -203,18 +203,28 @@ const IMG={
     linxiao:'v2_linxiao_normal.png',
     linxiao_determined:'v2_linxiao_determined.png',
     linxiao_sad:'v2_linxiao_sad.png',
+    linxiao_angry:'v2_linxiao_angry.png',
+    linxiao_think:'v2_linxiao_think.png',
     xiaomeng_scared:'v2_xiaomeng_scared.png',
     xiaomeng_cry:'v2_xiaomeng_cry.png',
     xiaomeng_smile:'v2_xiaomeng_smile.png',
+    xiaomeng_hopeful:'v2_xiaomeng_hopeful.png',
+    xiaomeng_normal:'v2_xiaomeng_normal.png',
     zhaokai:'v2_zhaokai_bully.png',
     zhaokai_remorse:'v2_zhaokai_remorse.png',
+    zhaokai_angry:'v2_zhaokai_angry.png',
+    zhaokai_scared:'v2_zhaokai_scared.png',
     prosecutor:'v2_prosecutor_normal.png',
     prosecutor_serious:'v2_prosecutor_serious.png',
     prosecutor_warm:'v2_prosecutor_warm.png',
+    prosecutor_explain:'v2_prosecutor_explain.png',
     zhangyue:'v2_zhangyue_normal.png',
     zhangyue_worried:'v2_zhangyue_worried.png',
+    zhangyue_determined:'v2_zhangyue_determined.png',
+    zhangyue_smile:'v2_zhangyue_smile.png',
     teacher:'v2_teacher_normal.png',
-    teacher_serious:'v2_teacher_serious.png'
+    teacher_serious:'v2_teacher_serious.png',
+    teacher_worried:'v2_teacher_worried.png'
   },
   scenes:{
     corridor:'scene_corridor.png',
@@ -445,7 +455,7 @@ const STORY={
   next:'ch1_10'
 },
 'ch1_09c':{
-  scene:'classroom',chars:[{id:'zhangyue_worried',pos:'right'},{id:'linxiao_determined',pos:'left'}],
+  scene:'classroom',chars:[{id:'zhangyue_worried',pos:'right'},{id:'linxiao_angry',pos:'left'}],
   speaker:'张悦',speakerType:'',
   dialog:['别冲动！你现在去只会打草惊蛇。','如果赵凯真的在欺负人，你直接去找他，他反而会更小心隐藏。','我们得聪明点。先观察，收集证据。'],
   next:'ch1_10'
@@ -519,7 +529,7 @@ const STORY={
   next:'ch1_18'
 },
 'ch1_18':{
-  chars:[{id:'linxiao_determined',pos:'center'}],
+  chars:[{id:'linxiao_think',pos:'center'}],
   speaker:'旁白',speakerType:'narrator',
   dialog:['赵凯走远了。苏小萌还呆呆地站在原地。','林晓握紧了拳头。','现在，他需要做一个选择。'],
   choices:[
@@ -561,6 +571,7 @@ const STORY={
 },
 'ch2a_06':{
   speaker:'林晓',speakerType:'',
+  chars:[{id:'linxiao_angry',pos:'left'},{id:'zhaokai',pos:'right'}],
   dialog:['赵凯，你欺负苏小萌的事，我都知道了。','威胁、勒索、抢钱——你以为没人会管吗？'],
   next:'ch2a_07'
 },
@@ -577,7 +588,7 @@ const STORY={
 },
 'ch2a_09':{
   scene:'classroom',
-  chars:[{id:'linxiao',pos:'left'},{id:'zhangyue_worried',pos:'right'}],
+  chars:[{id:'linxiao',pos:'left'},{id:'zhangyue_determined',pos:'right'}],
   speaker:'张悦',speakerType:'',
   dialog:['天哪，你真的当面说了？你疯了吗！','赵凯那人……你不知道他有多记仇。','上学期李明阳就是因为顶了他一句，被他带人堵了三天。'],
   next:'ch2a_10'
@@ -593,7 +604,7 @@ const STORY={
   next:'ch2a_choice2'
 },
 'ch2a_choice2':{
-  chars:[{id:'linxiao_determined',pos:'center'}],
+  chars:[{id:'linxiao_think',pos:'center'}],
   speaker:'旁白',speakerType:'narrator',
   dialog:['被孤立的恐惧开始蔓延。但林晓知道，退缩只会让情况更糟。'],
   choices:[
@@ -733,7 +744,7 @@ const STORY={
   next:'ch3_t03'
 },
 'ch3_t03':{
-  chars:[{id:'linxiao',pos:'left'},{id:'teacher_serious',pos:'right'}],
+  chars:[{id:'linxiao',pos:'left'},{id:'teacher_worried',pos:'right'}],
   speaker:'王老师',speakerType:'teacher',
   dialog:function(){
     if(state.hasEvidence) return['（看完视频后，沉默了很久）','……这比我想象的严重得多。有了这个视频，事情就不一样了。','林晓，你做得非常好。这个证据非常关键。'];
@@ -789,6 +800,7 @@ const STORY={
 },
 'ch3_tk07':{
   speaker:'旁白',speakerType:'narrator',
+  chars:[{id:'linxiao',pos:'left'},{id:'xiaomeng_hopeful',pos:'right'}],
   dialog:['苏小萌抬起头，泪水模糊的眼睛里，第一次有了一点光。','她轻轻地点了点头。'],
   next:'ch3_storm'
 },
@@ -849,7 +861,7 @@ const STORY={
 'ch3_storm':{
   chapter:'第三章',chapterTitle:'风 暴',chapterLabel:'第三章',
   scene:'classroom',shake:true,music:'dark',
-  chars:[{id:'zhaokai',pos:'center'}],
+  chars:[{id:'zhaokai_angry',pos:'center'}],
   speaker:'旁白',speakerType:'narrator',
   dialog:['风暴来得比想象中更快。','不知道是谁走漏了消息——赵凯发现有人在针对他。'],
   next:'ch3_s02'
@@ -881,6 +893,7 @@ const STORY={
 'ch3_s06':{
   speaker:'旁白',speakerType:'narrator',
   dialog:['赵凯狠狠推了林晓一下。','路过的几个同学假装没看见，匆匆走开。','只有张悦冲了过来。'],
+  chars:[{id:'linxiao',pos:'left'},{id:'zhangyue_determined',pos:'right'}],
   next:'ch3_s07'
 },
 'ch3_s07':{
@@ -910,7 +923,7 @@ const STORY={
   next:'ch4_03'
 },
 'ch4_03':{
-  chars:[{id:'prosecutor_serious',pos:'center'}],
+  chars:[{id:'prosecutor_explain',pos:'center'}],
   speaker:'陈检察官',speakerType:'prosecutor',
   dialog:['什么是校园欺凌？','很多人觉得，「不就是同学之间闹着玩嘛。」','但是——当一个人反复地、蓄意地被伤害，而且无力反抗，这就是欺凌。','推搡、辱骂、起侮辱性外号、故意孤立排挤、在网上散布谣言、索要钱财——','这些全部都是欺凌行为。其中有些已经触犯了法律。'],
   next:'ch4_04'
@@ -956,7 +969,7 @@ const STORY={
 },
 'ch4_07':{
   scene:'meeting',
-  chars:[{id:'prosecutor_serious',pos:'left'},{id:'zhaokai',pos:'right'}],
+  chars:[{id:'prosecutor_serious',pos:'left'},{id:'zhaokai_scared',pos:'right'}],
   speaker:'旁白',speakerType:'narrator',
   dialog:['在审查起诉阶段，陈检察官依法讯问了赵凯。','他的父母也被通知到场。','面对检察官和确凿的证据，赵凯的嚣张收敛了不少。'],
   next:'ch4_08'
@@ -1048,8 +1061,8 @@ const STORY={
 'ch5_check':{
   scene:'schoolgate',
   chars:function(){
-    if(state.courage>=5&&state.trust>=4)return[{id:'linxiao',pos:'left'},{id:'xiaomeng_smile',pos:'center'},{id:'zhangyue',pos:'right'}];
-    if(state.courage>=3)return[{id:'linxiao',pos:'left'},{id:'xiaomeng_scared',pos:'right'}];
+    if(state.courage>=5&&state.trust>=4)return[{id:'linxiao',pos:'left'},{id:'xiaomeng_smile',pos:'center'},{id:'zhangyue_smile',pos:'right'}];
+    if(state.courage>=3)return[{id:'linxiao',pos:'left'},{id:'xiaomeng_hopeful',pos:'right'}];
     return[{id:'linxiao_sad',pos:'center'}];
   },
   speaker:'旁白',speakerType:'narrator',
@@ -1067,7 +1080,7 @@ const STORY={
 
 'ending_best':{
   scene:'schoolgate',music:'ending',
-  chars:[{id:'linxiao',pos:'left'},{id:'xiaomeng_smile',pos:'center'},{id:'zhangyue',pos:'right'}],
+  chars:[{id:'linxiao',pos:'left'},{id:'xiaomeng_normal',pos:'center'},{id:'zhangyue_smile',pos:'right'}],
   speaker:'旁白',speakerType:'narrator',
   dialog:[
     '在检察机关的督促下，明德中学进行了全面整改。',
@@ -1087,7 +1100,7 @@ const STORY={
 
 'ending_good':{
   scene:'schoolgate',music:'ending',
-  chars:[{id:'linxiao',pos:'left'},{id:'xiaomeng_scared',pos:'right'}],
+  chars:[{id:'linxiao',pos:'left'},{id:'xiaomeng_hopeful',pos:'right'}],
   speaker:'旁白',speakerType:'narrator',
   dialog:[
     '在公安机关和检察机关的共同介入下，赵凯受到了应有的法律处理。',
