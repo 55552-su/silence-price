@@ -121,29 +121,30 @@ html,body{width:100%;height:100%;background:#e8ddd0;display:flex;justify-content
 }
 
 /* ========== CHARACTERS ========== */
-.chars{position:absolute;bottom:260px;left:0;right:0;height:640px;z-index:5}
+.chars{position:absolute;bottom:260px;left:0;right:0;height:580px;z-index:5}
 
 .ch{position:absolute;bottom:0}
 .ch img{height:100%;width:auto;object-fit:contain;filter:drop-shadow(0 5px 18px rgba(0,0,0,.18))}
 
-/* Bully — far right, in shadow, smaller */
-.ch-zhaokai{right:20px;height:380px;z-index:3;opacity:.5}
-.ch-zhaokai img{filter:brightness(.65) saturate(.6) drop-shadow(0 5px 18px rgba(0,0,0,.25))}
+/* Arc layout: spread characters so faces are all visible */
+/* Back-left: bully (in shadow, small) */
+.ch-zhaokai{left:-50px;height:310px;z-index:1;opacity:.35}
+.ch-zhaokai img{filter:brightness(.5) saturate(.4) drop-shadow(0 5px 18px rgba(0,0,0,.25))}
 
-/* Teacher — right-center area */
-.ch-teacher{right:145px;height:440px;z-index:4;opacity:.82}
+/* Left: friend */
+.ch-zhangyue{left:20px;height:400px;z-index:3}
 
-/* Friend — left side */
-.ch-zhangyue{left:35px;height:430px;z-index:5;opacity:.88}
+/* Center-left: protagonist (tall, prominent) */
+.ch-linxiao{left:155px;height:530px;z-index:6}
 
-/* Victim — left-center */
-.ch-xiaomeng{left:155px;height:480px;z-index:6}
+/* Center-right: prosecutor (tall, authoritative) */
+.ch-prosecutor{right:120px;height:510px;z-index:5}
 
-/* Prosecutor — right, authoritative */
-.ch-prosecutor{right:30px;height:520px;z-index:7}
+/* Right: victim */
+.ch-xiaomeng{right:10px;height:410px;z-index:3}
 
-/* Protagonist — center front, tallest */
-.ch-linxiao{left:50%;transform:translateX(-50%);height:580px;z-index:8}
+/* Back-right: teacher */
+.ch-teacher{right:-60px;height:340px;z-index:1;opacity:.8}
 
 /* Character name tags */
 .ch-name{
@@ -252,31 +253,31 @@ html,body{width:100%;height:100%;background:#e8ddd0;display:flex;justify-content
   <!-- Theme Banner -->
   <div class="theme-banner">守护未成年人 检察在行动</div>
 
-  <!-- Characters -->
+  <!-- Characters (left to right: bully, friend, protagonist, prosecutor, victim, teacher) -->
   <div class="chars">
     <div class="ch ch-zhaokai">
       <img src="v2_zhaokai_bully.png" alt="赵凯">
       <div class="ch-name">赵凯</div>
     </div>
-    <div class="ch ch-teacher">
-      <img src="v2_teacher_normal.png" alt="老师">
-      <div class="ch-name">老师</div>
-    </div>
     <div class="ch ch-zhangyue">
       <img src="v2_zhangyue_normal.png" alt="张悦">
       <div class="ch-name">张悦</div>
     </div>
-    <div class="ch ch-xiaomeng">
-      <img src="v2_xiaomeng_scared.png" alt="苏小萌">
-      <div class="ch-name">苏小萌</div>
+    <div class="ch ch-linxiao">
+      <img src="v2_linxiao_normal.png" alt="林晓">
+      <div class="ch-name">林晓</div>
     </div>
     <div class="ch ch-prosecutor">
       <img src="v2_prosecutor_normal.png" alt="陈检察官">
       <div class="ch-name">陈检察官</div>
     </div>
-    <div class="ch ch-linxiao">
-      <img src="v2_linxiao_normal.png" alt="林晓">
-      <div class="ch-name">林晓</div>
+    <div class="ch ch-xiaomeng">
+      <img src="v2_xiaomeng_scared.png" alt="苏小萌">
+      <div class="ch-name">苏小萌</div>
+    </div>
+    <div class="ch ch-teacher">
+      <img src="v2_teacher_normal.png" alt="老师">
+      <div class="ch-name">老师</div>
     </div>
   </div>
 

@@ -36,18 +36,27 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'PingFang SC','Hira
 
 /* === CHARACTER LAYER === */
 #char-layer{position:absolute;inset:0;z-index:2;pointer-events:none}
-.char-sprite{position:absolute;bottom:12%;height:65%;max-height:520px;max-width:42%;object-fit:contain;transition:all .6s cubic-bezier(.25,.46,.45,.94);opacity:0;transform:translateY(20px);filter:drop-shadow(0 4px 20px rgba(0,0,0,.5))}
+.char-sprite{position:absolute;bottom:12%;height:65%;max-height:520px;max-width:36%;object-fit:contain;transition:all .6s cubic-bezier(.25,.46,.45,.94);opacity:0;transform:translateY(20px);filter:drop-shadow(0 4px 20px rgba(0,0,0,.5))}
 .char-sprite.active{opacity:1;transform:translateY(0)}
-.char-sprite.left{left:2%}
+.char-sprite.left{left:-2%}
 .char-sprite.center{left:50%;transform:translateX(-50%)}
 .char-sprite.center.active{transform:translateX(-50%) translateY(0)}
-.char-sprite.right{right:2%}
+.char-sprite.right{right:-2%}
 .char-sprite.dim{filter:brightness(.5) drop-shadow(0 4px 20px rgba(0,0,0,.5))}
-/* Mobile: prevent character overlap */
-@media(max-width:480px){.char-sprite{height:50%;max-height:360px;max-width:38%;bottom:15%}.char-sprite.left{left:0%}.char-sprite.right{right:0%}}
-@media(max-width:375px){.char-sprite{height:45%;max-height:300px;max-width:35%}}
-.char-sprite.multi{max-width:30%;height:55%;max-height:420px}
-@media(max-width:480px){.char-sprite.multi{height:42%;max-height:280px;max-width:28%}}
+/* Mobile */
+@media(max-width:480px){
+  .char-sprite{height:60%;max-height:460px;max-width:40%;bottom:13%}
+  .char-sprite.left{left:-5%}
+  .char-sprite.right{right:-5%}
+  .char-sprite.center{max-width:44%}
+}
+@media(max-width:375px){
+  .char-sprite{height:56%;max-height:420px;max-width:38%}
+  .char-sprite.center{max-width:42%}
+}
+.char-sprite.multi{max-width:28%;height:52%;max-height:420px}
+@media(max-width:480px){.char-sprite.multi{height:48%;max-height:360px;max-width:32%}
+.char-sprite.multi.left{left:-6%}.char-sprite.multi.right{right:-6%}}
 
 /* === DIALOG BOX === */
 #dialog-layer{position:absolute;bottom:0;left:0;right:0;z-index:10;padding:0 .8rem 1.2rem}
@@ -122,24 +131,25 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'PingFang SC','Hira
 #particle-canvas{position:absolute;inset:0;z-index:3;pointer-events:none}
 
 /* === TITLE SCREEN ENHANCEMENTS === */
-#title-screen{background:linear-gradient(180deg,#0a1628 0%,#162044 25%,#3a2360 50%,#c8602a 80%,#e8a040 100%);overflow:hidden}
-.title-badge{font-size:.6rem;color:rgba(255,255,255,.7);letter-spacing:.2em;padding:4px 14px;border:1px solid rgba(255,255,255,.2);border-radius:20px;margin-bottom:1.2rem;background:rgba(255,255,255,.06);z-index:2}
+#title-screen{background:#0a1628;overflow:hidden}
+.title-bg-img{position:absolute;inset:0;z-index:0;background:url('title_bg.png') center/cover no-repeat;opacity:.85}
+.title-bg-overlay{position:absolute;inset:0;z-index:0;background:linear-gradient(180deg,rgba(10,22,40,.3) 0%,rgba(10,22,40,.1) 30%,rgba(200,96,42,.1) 60%,rgba(232,160,64,.25) 100%)}
+.title-emblem{position:absolute;top:12%;left:50%;transform:translateX(-50%);width:80px;height:80px;z-index:2;background:url('title_emblem.png') center/contain no-repeat;opacity:.85;filter:drop-shadow(0 2px 12px rgba(232,160,64,.4))}
+.title-badge{font-size:.6rem;color:rgba(255,255,255,.85);letter-spacing:.2em;padding:5px 16px;border:1px solid rgba(255,255,255,.3);border-radius:20px;margin-bottom:1rem;background:rgba(0,0,0,.25);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:2}
 .title-main{font-size:2.6rem;font-weight:800;color:#fff;letter-spacing:.2em;text-shadow:0 0 60px rgba(232,160,64,.6),0 0 120px rgba(232,160,64,.3),0 2px 8px rgba(0,0,0,.5);margin-bottom:.6rem;z-index:2;animation:title-glow 3s ease-in-out infinite}
 @keyframes title-glow{0%,100%{text-shadow:0 0 60px rgba(232,160,64,.6),0 0 120px rgba(232,160,64,.3),0 2px 8px rgba(0,0,0,.5)}50%{text-shadow:0 0 80px rgba(232,160,64,.8),0 0 160px rgba(232,160,64,.5),0 2px 8px rgba(0,0,0,.5)}}
-.title-sub{font-size:.85rem;color:rgba(255,255,255,.6);letter-spacing:.25em;margin-bottom:3rem;font-weight:300;z-index:2}
-.title-start-btn{padding:.9rem 3.5rem;border:2px solid rgba(232,160,64,.5);border-radius:50px;color:#fff;font-size:1rem;letter-spacing:.35em;cursor:pointer;background:rgba(232,160,64,.12);transition:all .3s;position:relative;overflow:hidden;z-index:2;animation:btn-pulse 2.5s ease-in-out infinite}
+.title-sub{font-size:.85rem;color:rgba(255,255,255,.7);letter-spacing:.25em;margin-bottom:3rem;font-weight:300;z-index:2;text-shadow:0 1px 4px rgba(0,0,0,.4)}
+.title-start-btn{padding:.9rem 3.5rem;border:2px solid rgba(232,160,64,.5);border-radius:50px;color:#fff;font-size:1rem;letter-spacing:.35em;cursor:pointer;background:rgba(232,160,64,.15);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:all .3s;position:relative;overflow:hidden;z-index:2;animation:btn-pulse 2.5s ease-in-out infinite}
 @keyframes btn-pulse{0%,100%{box-shadow:0 0 20px rgba(232,160,64,.2),0 0 40px rgba(232,160,64,.1)}50%{box-shadow:0 0 30px rgba(232,160,64,.4),0 0 60px rgba(232,160,64,.2);border-color:rgba(232,160,64,.7)}}
 .title-start-btn:active{background:rgba(232,160,64,.25);transform:scale(.97)}
-.title-credit{position:absolute;bottom:2rem;font-size:.6rem;color:rgba(255,255,255,.18);letter-spacing:.08em;z-index:2;text-align:center;padding:0 1rem}
+.title-credit{position:absolute;bottom:2rem;font-size:.6rem;color:rgba(255,255,255,.25);letter-spacing:.08em;z-index:2;text-align:center;padding:0 1rem}
 .title-rays{position:absolute;top:30%;left:50%;width:300px;height:300px;transform:translate(-50%,-50%);z-index:1;pointer-events:none}
-.title-ray{position:absolute;top:50%;left:50%;width:4px;height:180px;background:linear-gradient(180deg,rgba(232,180,80,.3),transparent);transform-origin:top center;border-radius:2px;animation:ray-rotate 20s linear infinite}
+.title-ray{position:absolute;top:50%;left:50%;width:4px;height:180px;background:linear-gradient(180deg,rgba(232,180,80,.25),transparent);transform-origin:top center;border-radius:2px;animation:ray-rotate 20s linear infinite}
 @keyframes ray-rotate{from{transform:rotate(var(--r))}to{transform:rotate(calc(var(--r) + 360deg))}}
-.title-silhouette{position:absolute;bottom:0;left:0;right:0;height:80px;z-index:1;pointer-events:none}
-.title-silhouette::before{content:'';position:absolute;bottom:0;left:5%;width:50px;height:60px;background:#0a1020;clip-path:polygon(0 100%,0 20%,15% 0,30% 0,30% 30%,50% 30%,50% 10%,70% 10%,70% 25%,100% 25%,100% 100%)}
-.title-silhouette::after{content:'';position:absolute;bottom:0;right:8%;width:70px;height:55px;background:#0a1020;clip-path:polygon(0 100%,0 35%,20% 35%,20% 10%,40% 10%,40% 0,60% 0,60% 10%,80% 10%,80% 30%,100% 30%,100% 100%)}
-.title-building-mid{position:absolute;bottom:0;left:30%;width:90px;height:70px;background:#0c1225;clip-path:polygon(0 100%,0 40%,10% 40%,10% 15%,25% 15%,25% 5%,35% 5%,35% 0,45% 0,45% 5%,55% 5%,55% 20%,70% 20%,70% 10%,85% 10%,85% 30%,100% 30%,100% 100%)}
-.title-building-r{position:absolute;bottom:0;left:55%;width:60px;height:50px;background:#0e1428;clip-path:polygon(0 100%,0 30%,30% 30%,30% 0,70% 0,70% 30%,100% 30%,100% 100%)}
-@media(max-width:480px){.title-main{font-size:2rem}.title-rays{width:220px;height:220px}.title-ray{height:130px}}
+.title-silhouette{display:none}
+.title-building-mid{display:none}
+.title-building-r{display:none}
+@media(max-width:480px){.title-main{font-size:2rem}.title-rays{width:220px;height:220px}.title-ray{height:130px}.title-emblem{width:60px;height:60px;top:14%}}
 </style>
 </head>
 <body>
@@ -153,13 +163,15 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'PingFang SC','Hira
 
   <!-- Title -->
   <div id="title-screen">
+    <div class="title-bg-img"></div>
+    <div class="title-bg-overlay"></div>
     <div class="title-rays" id="title-rays"></div>
+    <div class="title-emblem"></div>
     <div class="title-badge">检察机关未成年人法治教育</div>
     <div class="title-main">沉默的代价</div>
     <div class="title-sub">反校园霸凌互动剧情</div>
     <div class="title-start-btn" id="start-btn">开始游戏</div>
     <div class="title-credit">向每一位勇敢发声的少年致敬 | Music by Kevin MacLeod (incompetech.com) CC BY 4.0</div>
-    <div class="title-silhouette"><div class="title-building-mid"></div><div class="title-building-r"></div></div>
   </div>
 
   <!-- Scene BG -->
@@ -413,7 +425,7 @@ let state={courage:0,trust:0,hasEvidence:false,currentNode:null,textQueue:[],typ
 const $=id=>document.getElementById(id);
 
 function preloadImages(cb){
-  const all=[...Object.values(IMG.chars),...Object.values(IMG.scenes)];
+  const all=[...Object.values(IMG.chars),...Object.values(IMG.scenes),'title_bg.png','title_emblem.png'];
   const audioFiles=Object.values(BGM.files);
   const total=all.length+audioFiles.length;
   let loaded=0;let done=false;const bar=$('loading-bar');
