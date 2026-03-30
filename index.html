@@ -7,7 +7,7 @@
 <style>
 /* === RESET & BASE === */
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{width:100%;height:100%;overflow:hidden;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans SC',sans-serif;background:#000;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
+html,body{width:100%;height:100%;overflow:hidden;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans SC',sans-serif;background:#000;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;-webkit-text-size-adjust:100%;touch-action:manipulation}
 #game{position:relative;width:100%;height:100%;overflow:hidden}
 
 /* === LOADING SCREEN === */
@@ -48,12 +48,12 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'PingFang SC','Hira
 #dialog-layer{position:absolute;bottom:0;left:0;right:0;z-index:10;padding:0 .8rem 1.2rem}
 #dialog-box{background:rgba(10,10,20,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:1rem 1.2rem .9rem;min-height:140px;position:relative;transition:opacity .4s,transform .4s;opacity:0;transform:translateY(20px)}
 #dialog-box.active{opacity:1;transform:translateY(0)}
-.speaker-name{display:inline-block;font-size:.78rem;color:#667eea;font-weight:600;margin-bottom:.5rem;letter-spacing:.08em;padding:2px 10px;background:rgba(102,126,234,.12);border-radius:20px}
+.speaker-name{display:inline-block;font-size:.85rem;color:#667eea;font-weight:600;margin-bottom:.5rem;letter-spacing:.08em;padding:2px 10px;background:rgba(102,126,234,.12);border-radius:20px}
 .speaker-name.bully{color:#e84057;background:rgba(232,64,87,.12)}
 .speaker-name.prosecutor{color:#50c8a8;background:rgba(80,200,168,.12)}
 .speaker-name.narrator{color:rgba(255,255,255,.5);background:rgba(255,255,255,.06);font-style:italic}
 .speaker-name.teacher{color:#d4a056;background:rgba(212,160,86,.12)}
-#dialog-text{font-size:.9rem;line-height:1.75;color:rgba(255,255,255,.88);min-height:3.2em}
+#dialog-text{font-size:1.05rem;line-height:1.8;color:rgba(255,255,255,.88);min-height:3.2em;text-align:center}
 #dialog-text .char{display:inline;opacity:0}
 #dialog-text .char.show{opacity:1}
 .dialog-indicator{position:absolute;bottom:10px;right:16px;width:8px;height:8px;border-right:2px solid rgba(255,255,255,.4);border-bottom:2px solid rgba(255,255,255,.4);transform:rotate(45deg);animation:indicator-bounce 1s infinite}
@@ -62,7 +62,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'PingFang SC','Hira
 /* === CHOICES === */
 #choices-layer{position:absolute;bottom:0;left:0;right:0;z-index:20;display:none;flex-direction:column;align-items:center;padding:0 1.2rem 2rem;gap:.7rem}
 #choices-layer.active{display:flex}
-.choice-btn{width:100%;max-width:380px;padding:.85rem 1.2rem;background:rgba(15,15,30,.85);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(102,126,234,.3);border-radius:12px;color:rgba(255,255,255,.9);font-size:.85rem;line-height:1.5;cursor:pointer;transition:all .25s;text-align:left;letter-spacing:.03em}
+.choice-btn{width:100%;max-width:380px;padding:.9rem 1.2rem;background:rgba(15,15,30,.85);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(102,126,234,.3);border-radius:12px;color:rgba(255,255,255,.9);font-size:.95rem;line-height:1.5;cursor:pointer;transition:all .25s;text-align:center;letter-spacing:.04em}
 .choice-btn:active{background:rgba(102,126,234,.2);border-color:rgba(102,126,234,.6);transform:scale(.98)}
 
 /* === CHAPTER TITLE OVERLAY === */
@@ -225,17 +225,19 @@ const IMG={
   }
 };
 
-let state={courage:0,trust:0,currentNode:null,textQueue:[],typing:false,textComplete:false,choicesActive:false};
+let state={courage:0,trust:0,hasEvidence:false,currentNode:null,textQueue:[],typing:false,textComplete:false,choicesActive:false};
 const $=id=>document.getElementById(id);
 
 function preloadImages(cb){
   const all=[...Object.values(IMG.chars),...Object.values(IMG.scenes)];
   const audioFiles=Object.values(BGM.files);
   const total=all.length+audioFiles.length;
-  let loaded=0;const bar=$('loading-bar');
-  const tick=()=>{loaded++;bar.style.width=Math.round(loaded/total*100)+'%';if(loaded>=total)cb()};
+  let loaded=0;let done=false;const bar=$('loading-bar');
+  const finish=()=>{if(done)return;done=true;cb()};
+  const tick=()=>{loaded++;bar.style.width=Math.round(loaded/total*100)+'%';if(loaded>=total)finish()};
   all.forEach(src=>{const img=new Image();img.onload=img.onerror=tick;img.src=src});
-  audioFiles.forEach(src=>{const a=new Audio();a.preload='auto';a.oncanplaythrough=a.onerror=tick;a.src=src});
+  audioFiles.forEach(src=>{const a=new Audio();a.preload='auto';a.oncanplaythrough=a.onerror=tick;a.src=src;setTimeout(()=>{if(!done){tick()}},3000)});
+  setTimeout(finish,8000);
 }
 function setScene(key){
   const bg=$('scene-bg');bg.style.transition='opacity 1s';bg.style.opacity='0';
@@ -286,7 +288,6 @@ const BGM={
     if(!mood||mood===this.currentMood)return;
     if(!this.files[mood])return;
     const targetVol=this.vol;
-    // fade out current track
     if(this.currentAudio){
       const old=this.currentAudio;
       this.fadingOut=old;
@@ -298,15 +299,22 @@ const BGM={
     this.currentMood=mood;
     const audio=this._create(mood);
     this.currentAudio=audio;
-    audio.play().then(()=>{
-      // fade in new track
-      let v=0;
-      const fadeIn=setInterval(()=>{
-        v+=0.015;
-        if(v>=targetVol){audio.volume=targetVol;clearInterval(fadeIn)}
-        else{audio.volume=v}
-      },50);
-    }).catch(e=>{console.log('BGM blocked:',e)});
+    const startPlay=()=>{
+      audio.play().then(()=>{
+        let v=0;
+        const fadeIn=setInterval(()=>{
+          v+=0.015;
+          if(v>=targetVol){audio.volume=targetVol;clearInterval(fadeIn)}
+          else{audio.volume=v}
+        },50);
+      }).catch(e=>{
+        console.log('BGM blocked:',e);
+        const unlock=()=>{audio.play().catch(()=>{});document.removeEventListener('touchstart',unlock);document.removeEventListener('click',unlock)};
+        document.addEventListener('touchstart',unlock,{once:true});
+        document.addEventListener('click',unlock,{once:true});
+      });
+    };
+    startPlay();
   },
   stop(){
     if(this.currentAudio){
@@ -330,7 +338,7 @@ const BGM={
   init(){/* no-op, kept for compat */}
 };
 function toggleMenu(){$('menu-overlay').classList.toggle('active')}
-function restartGame(){BGM.stop();$('menu-overlay').classList.remove('active');$('ending-screen').classList.remove('active');state={courage:0,trust:0,currentNode:null,textQueue:[],typing:false,textComplete:false,choicesActive:false};updateStats();$('stats-bar').classList.remove('active');showDialog(false);$('char-layer').innerHTML='';$('title-screen').classList.add('active');$('title-screen').classList.remove('fadeout')}
+function restartGame(){BGM.stop();$('menu-overlay').classList.remove('active');$('ending-screen').classList.remove('active');state={courage:0,trust:0,hasEvidence:false,currentNode:null,textQueue:[],typing:false,textComplete:false,choicesActive:false};updateStats();$('stats-bar').classList.remove('active');showDialog(false);$('char-layer').innerHTML='';$('title-screen').classList.add('active');$('title-screen').classList.remove('fadeout')}
 
 function playNode(nodeId){
   const node=STORY[nodeId];if(!node){console.error('Missing:',nodeId);return}state.currentNode=nodeId;
@@ -399,6 +407,15 @@ const STORY={
 'ch1_06':{
   speaker:'旁白',speakerType:'narrator',
   dialog:['林晓帮她捡起书本，注意到她手背上有几道红痕。','她飞快地把手缩了回去。'],
+  choices:[
+    {text:'追问——"小萌，这些伤是怎么来的？你可以告诉我。"',next:'ch1_06b',courage:1,trust:1,notify:'勇气+1 信任+1'},
+    {text:'不再多问——也许她不想说，先尊重她的意愿',next:'ch1_07',courage:0}
+  ]
+},
+'ch1_06b':{
+  chars:[{id:'xiaomeng_scared',pos:'right'},{id:'linxiao',pos:'left'}],
+  speaker:'苏小萌',speakerType:'',
+  dialog:['（慌张地）真的没事……我自己磕的。','你别问了好不好？求你了。'],
   next:'ch1_07'
 },
 'ch1_07':{
@@ -415,6 +432,22 @@ const STORY={
 'ch1_09':{
   speaker:'张悦',speakerType:'',
   dialog:['自己弄的？书包带哪有那么容易断……','上周体育课，赵凯故意把球砸她头上，还当着全班笑她"反应慢"。','我觉得不只是开玩笑那么简单。'],
+  choices:[
+    {text:'留心观察——"你说得对，我们先注意看看赵凯到底在做什么"',next:'ch1_10',courage:1,notify:'勇气+1'},
+    {text:'会不会想多了——"也许只是同学之间闹着玩？"',next:'ch1_09b'},
+    {text:'直接去问赵凯——"我现在就去找赵凯当面对质"',next:'ch1_09c',courage:2,notify:'勇气+2'}
+  ]
+},
+'ch1_09b':{
+  scene:'classroom',chars:[{id:'zhangyue_worried',pos:'center'}],
+  speaker:'张悦',speakerType:'',
+  dialog:['闹着玩？你没看到小萌的眼神吗？那是害怕。','闹着玩的前提是两个人都觉得好笑。她笑了吗？'],
+  next:'ch1_10'
+},
+'ch1_09c':{
+  scene:'classroom',chars:[{id:'zhangyue_worried',pos:'right'},{id:'linxiao_determined',pos:'left'}],
+  speaker:'张悦',speakerType:'',
+  dialog:['别冲动！你现在去只会打草惊蛇。','如果赵凯真的在欺负人，你直接去找他，他反而会更小心隐藏。','我们得聪明点。先观察，收集证据。'],
   next:'ch1_10'
 },
 'ch1_10':{
@@ -431,6 +464,30 @@ const STORY={
 'ch1_12':{
   speaker:'旁白',speakerType:'narrator',
   dialog:['教室里一阵沉默。几个同学偷偷看了赵凯一眼，又迅速移开了目光。','赵凯靠在椅背上，嘴角微微上扬。','没有人说话。'],
+  choices:[
+    {text:'举手告诉老师——"王老师，我有些情况想反映"',next:'ch1_12b',courage:2,trust:1,notify:'勇气+2 信任+1'},
+    {text:'保持沉默——在这么多人面前说不太合适，下课再找老师',next:'ch1_13'}
+  ]
+},
+'ch1_12b':{
+  scene:'classroom',chars:[{id:'linxiao',pos:'left'},{id:'teacher',pos:'right'}],
+  speaker:'王老师',speakerType:'teacher',
+  dialog:['林晓，你说。'],
+  next:'ch1_12c'
+},
+'ch1_12c':{
+  speaker:'林晓',speakerType:'',
+  dialog:['我今天早上看到苏小萌在走廊……她的状况不太好。','我觉得可能不是简单的请假。'],
+  next:'ch1_12d'
+},
+'ch1_12d':{
+  speaker:'王老师',speakerType:'teacher',
+  dialog:['谢谢你，林晓。我会关注的。','（转向全班）同学们之间要互相关心，有什么问题可以找老师谈。'],
+  next:'ch1_12e'
+},
+'ch1_12e':{
+  speaker:'旁白',speakerType:'narrator',
+  dialog:['林晓注意到，赵凯的目光扫了他一眼。','那眼神里带着一丝冰冷的警告。'],
   next:'ch1_13'
 },
 'ch1_13':{
@@ -551,7 +608,7 @@ const STORY={
   chapter:'第二章',chapterTitle:'暗 证',chapterLabel:'第二章',
   scene:'corridor',music:'tense',chars:[{id:'linxiao',pos:'center'}],
   speaker:'旁白',speakerType:'narrator',
-  dialog:['林晓按下了录像键。','手在微微发抖，但他稳住了手机。','赵凯威胁的声音、小萌哭泣的画面——全部记录了下来。','这可能是改变一切的证据。'],
+  dialog:function(){state.hasEvidence=true;return['林晓按下了录像键。','手在微微发抖，但他稳住了手机。','赵凯威胁的声音、小萌哭泣的画面——全部记录了下来。','这可能是改变一切的证据。']},
   next:'ch2b_02'
 },
 'ch2b_02':{
@@ -669,14 +726,20 @@ const STORY={
 },
 'ch3_t02':{
   speaker:'林晓',speakerType:'',
-  dialog:['王老师，我有件事必须跟您说。','赵凯一直在欺负苏小萌。不是偶尔开玩笑——是长期的。','他威胁她，抢她的钱，还让全班孤立她。'],
+  dialog:function(){
+    if(state.hasEvidence) return['王老师，我有件事必须跟您说，而且我有证据。','赵凯一直在欺负苏小萌。不是偶尔开玩笑——是长期的。','他威胁她，抢她的钱，还让全班孤立她。','我拍到了他威胁小萌的视频。'];
+    return['王老师，我有件事必须跟您说。','赵凯一直在欺负苏小萌。不是偶尔开玩笑——是长期的。','他威胁她，抢她的钱，还让全班孤立她。'];
+  },
   next:'ch3_t03'
 },
 'ch3_t03':{
   chars:[{id:'linxiao',pos:'left'},{id:'teacher_serious',pos:'right'}],
   speaker:'王老师',speakerType:'teacher',
-  dialog:['你说的……是真的？','我确实注意到小萌最近状态不好，但我以为只是青春期的情绪波动……','你有具体的证据吗？'],
-  next:'ch3_t04'
+  dialog:function(){
+    if(state.hasEvidence) return['（看完视频后，沉默了很久）','……这比我想象的严重得多。有了这个视频，事情就不一样了。','林晓，你做得非常好。这个证据非常关键。'];
+    return['你说的……是真的？','我确实注意到小萌最近状态不好，但我以为只是青春期的情绪波动……','你有具体的证据吗？'];
+  },
+  next:function(){return state.hasEvidence?'ch3_t05':'ch3_t04';}
 },
 'ch3_t04':{
   speaker:'林晓',speakerType:'',
@@ -685,17 +748,10 @@ const STORY={
 },
 'ch3_t05':{
   speaker:'王老师',speakerType:'teacher',
-  dialog:['（沉默了很久）','……是我的疏忽。我应该更早意识到的。','林晓，谢谢你告诉我。','不过……坦白说，之前有同学反映过赵凯的问题，学校只是口头批评了两句。','班上同学都怕他，没人敢站出来作证，学校也一直没当回事。'],
-  next:'ch3_t06'
-},
-'ch3_t06':{
-  speaker:'林晓',speakerType:'',
-  dialog:['那怎么办？难道就没有人能管了吗？'],
-  next:'ch3_t07'
-},
-'ch3_t07':{
-  speaker:'王老师',speakerType:'teacher',
-  dialog:['不是的。我会向学校德育处报告，但同时——','我记得检察院最近有个"法治进校园"的联络机制。','这种涉嫌违法的情况，应该让检察机关介入。','我来联系他们。林晓，你做了对的事情。'],
+  dialog:function(){
+    if(state.hasEvidence) return['不过……坦白说，之前有同学反映过赵凯的问题，学校只是口头批评了两句。','现在有了视频证据，我会立刻向德育处报告。','同时，这种涉嫌违法的情况，我觉得应该让检察机关也了解一下。','检察院有"法治进校园"的联络机制，我来联系他们。'];
+    return['不过……坦白说，之前有同学反映过赵凯的问题，学校只是口头批评了两句。','班上同学都怕他，没人敢站出来作证，学校也一直没当回事。','但这次你亲眼所见，我会认真对待的。','我会向德育处报告，同时——','我记得检察院有个"法治进校园"的联络机制。','这种涉嫌违法的情况，应该让检察机关也介入。','我来联系他们。林晓，你做了对的事情。'];
+  },
   next:'ch3_storm'
 },
 
@@ -836,7 +892,7 @@ const STORY={
 },
 'ch3_s08':{
   speaker:'王老师',speakerType:'teacher',
-  dialog:['赵凯！你在做什么！所有人回教室！','（对林晓低声说）你没事吧？','我已经联系了检察院驻我们学校的法治副校长。明天他们会来学校。','你做得对，林晓。坚持住。'],
+  dialog:['赵凯！你在做什么！所有人回教室！','（对林晓低声说）你没事吧？','我已经联系了检察院驻我们学校的法治副校长，同时也向学校报告了。','赵凯的行为可能涉嫌违法，学校会配合相关部门调查处理。','你做得对，林晓。坚持住。'],
   next:'ch4_arrive'
 },
 
@@ -845,30 +901,31 @@ const STORY={
   chapter:'第四章',chapterTitle:'检察之光',chapterLabel:'第四章',
   scene:'meeting',music:'hopeful',chars:[{id:'prosecutor',pos:'center'}],
   speaker:'旁白',speakerType:'narrator',
-  dialog:['第二天上午，学校会议室。','一位穿着浅蓝衬衫、深蓝领带的女性走了进来。','她的眼神温和但透着一股不容置疑的坚定。','她是检察院未成年人检察部的陈检察官。'],
+  dialog:['第二天上午，学校会议室。','一位穿着浅蓝衬衫、深蓝领带的女性走了进来。','她的眼神温和但透着一股不容置疑的坚定。','她是检察院驻明德中学的法治副校长——陈检察官。'],
   next:'ch4_02'
 },
 'ch4_02':{
   speaker:'陈检察官',speakerType:'prosecutor',
-  dialog:['同学们好，老师们好。我是陈检察官。','今天来到明德中学，是因为我们收到了涉及校园欺凌的线索。','在正式调查之前，我想先跟大家聊一个问题——'],
+  dialog:['同学们好，老师们好。我是陈检察官，也是咱们学校的法治副校长。','今天来到学校，是因为我们收到了涉及校园欺凌的线索。','在具体了解情况之前，我想先跟大家聊一个重要的话题——'],
   next:'ch4_03'
 },
 'ch4_03':{
   chars:[{id:'prosecutor_serious',pos:'center'}],
   speaker:'陈检察官',speakerType:'prosecutor',
-  dialog:['什么是校园欺凌？','很多人觉得，「不就是同学之间闹着玩嘛。」','但是——当一个人反复地、蓄意地被伤害，而且无力反抗，这就是欺凌。','推搡、辱骂、起侮辱性外号、故意孤立排挤、在网上散布谣言、索要钱财——','这些全部都是欺凌行为。有些已经触犯了法律。'],
+  dialog:['什么是校园欺凌？','很多人觉得，「不就是同学之间闹着玩嘛。」','但是——当一个人反复地、蓄意地被伤害，而且无力反抗，这就是欺凌。','推搡、辱骂、起侮辱性外号、故意孤立排挤、在网上散布谣言、索要钱财——','这些全部都是欺凌行为。其中有些已经触犯了法律。'],
   next:'ch4_04'
 },
 'ch4_04':{
   speaker:'陈检察官',speakerType:'prosecutor',
-  dialog:['很多同学可能觉得：「又没出血，不算严重吧？」','但研究表明，校园欺凌造成的心理创伤，可能伴随一个人几十年。','抑郁、焦虑、自我伤害、甚至轻生的念头——','这些都是真实的、严重的后果。'],
+  dialog:['需要特别说明的是——不是所有的校园欺凌都构成犯罪。','比如偶尔的口角、推搡，属于一般的不良行为，学校和家长教育为主。','但如果涉及反复殴打造成伤害、长期威胁恐吓、敲诈勒索钱财——','这些行为就可能触犯刑法了。','而一旦涉及犯罪，就需要公安机关立案侦查，检察机关依法处理。'],
   next:'ch4_legal'
 },
 'ch4_legal':{
   legal:[
     {title:'《未成年人保护法》第39条',body:'学校应当建立学生欺凌防控工作制度，对教职员工、学生等开展防治欺凌的教育和培训。学校对欺凌行为应当立即制止，通知双方父母或者其他监护人参与欺凌行为的认定和处理。'},
     {title:'《预防未成年人犯罪法》',body:'对有严重不良行为的未成年人，公安机关可以根据情况采取训诫、责令参加社会服务、接受专门教育等矫治措施。情节严重构成犯罪的，依法追究刑事责任。'},
-    {title:'检察机关未成年人保护职能',body:'检察院通过行使法律监督权保护未成年人权益：①督促学校等单位履行保护职责；②对侵害未成年人犯罪依法追诉；③开展法治教育和司法救助；④发出检察建议推动制度建设；⑤对不起诉的附条件考验帮教。'},
+    {title:'校园欺凌的法律边界',body:'一般的欺凌行为（辱骂、排挤等）由学校进行纪律处分和教育矫治。但涉及敲诈勒索、故意伤害、侮辱诽谤等达到一定程度的行为，可能构成犯罪，需由公安机关立案侦查，检察机关审查起诉。'},
+    {title:'检察机关的未成年人保护职能',body:'检察院通过行使法律监督权保护未成年人权益：①督促学校等单位履行保护职责；②对侵害未成年人犯罪依法审查起诉；③对符合条件的未成年犯罪嫌疑人适用附条件不起诉；④开展法治教育和司法救助；⑤发出检察建议推动制度建设。'},
     {title:'12309检察服务热线',body:'遭遇或发现校园欺凌、侵害未成年人权益的行为，可拨打12309检察服务热线举报求助。检察机关依法保护举报人信息安全，严禁打击报复。'}
   ],
   next:'ch4_05'
@@ -877,24 +934,36 @@ const STORY={
   scene:'meeting',
   chars:[{id:'prosecutor_warm',pos:'left'},{id:'xiaomeng_scared',pos:'right'}],
   speaker:'旁白',speakerType:'narrator',
-  dialog:['接下来，陈检察官逐一约谈了相关同学。','在专业心理辅导老师的陪同下，苏小萌终于说出了一切。','从开学第一周被赵凯盯上，到持续的威胁、勒索、网络暴力。','整整两个月的噩梦。'],
+  dialog:['陈检察官先与学校进行了详细的沟通，了解了事件的来龙去脉。','随后，在专业心理辅导老师的陪同下，苏小萌终于说出了一切。','从开学第一周被赵凯盯上，到持续的威胁、勒索、网络暴力。','整整两个月的噩梦。'],
   next:'ch4_06'
 },
 'ch4_06':{
   speaker:'旁白',speakerType:'narrator',
-  dialog:['陈检察官认真记录了每一个细节。','她发现——苏小萌不是唯一的受害者。','上学期转走的李明阳，也曾被赵凯长期欺负。','这是一个系统性的问题。'],
+  dialog:['陈检察官认真评估了案件的性质。','赵凯多次索要钱财、言语威胁——这已经不是简单的同学纠纷。','长期、反复的敲诈勒索行为，涉嫌构成犯罪。','而且苏小萌不是唯一的受害者——上学期转走的李明阳，也曾被赵凯长期欺负。','这是一个需要司法介入的案件。'],
+  next:'ch4_06b'
+},
+'ch4_06b':{
+  scene:'meeting',
+  chars:[{id:'prosecutor_serious',pos:'center'}],
+  speaker:'陈检察官',speakerType:'prosecutor',
+  dialog:['根据了解到的情况，赵凯的行为已经涉嫌敲诈勒索，不是普通的校园纠纷了。','我会将线索移交公安机关进行立案侦查。','同时，检察院会依法对案件进行法律监督。'],
+  next:'ch4_06c'
+},
+'ch4_06c':{
+  speaker:'旁白',speakerType:'narrator',
+  dialog:['公安机关迅速介入，进行了调查取证。','调取了监控录像，询问了相关同学，核实了转账记录。','调查结果证实：赵凯在两个月内，先后向苏小萌索要钱财超过八百元，','并多次以暴力相威胁，同时组织其他同学对她进行孤立和网络攻击。','案件侦查完毕后，移送检察院审查起诉。'],
   next:'ch4_07'
 },
 'ch4_07':{
   scene:'meeting',
   chars:[{id:'prosecutor_serious',pos:'left'},{id:'zhaokai',pos:'right'}],
   speaker:'旁白',speakerType:'narrator',
-  dialog:['赵凯被叫到了会议室。','他的父母也被通知到场。','面对检察官，赵凯的嚣张收敛了不少。'],
+  dialog:['在审查起诉阶段，陈检察官依法讯问了赵凯。','他的父母也被通知到场。','面对检察官和确凿的证据，赵凯的嚣张收敛了不少。'],
   next:'ch4_08'
 },
 'ch4_08':{
   speaker:'陈检察官',speakerType:'prosecutor',
-  dialog:['赵凯同学。我是检察院的检察官。','我不是来跟你"聊聊天"的——我是来依法调查的。','你对苏小萌做的那些事，已经涉嫌侮辱罪、敲诈勒索。','你明白这意味着什么吗？'],
+  dialog:['赵凯同学。我是检察院的检察官。','公安机关已经完成了侦查，证据非常充分。','你对苏小萌多次索要钱财、言语威胁，已经涉嫌敲诈勒索罪。','你明白这意味着什么吗？'],
   next:'ch4_09'
 },
 'ch4_09':{
@@ -931,7 +1000,7 @@ const STORY={
 'ch4_15':{
   chars:[{id:'prosecutor_serious',pos:'center'}],
   speaker:'陈检察官',speakerType:'prosecutor',
-  dialog:['赵凯同学，你的家庭情况我会关注。但这不能成为你伤害别人的借口。','鉴于你的年龄和案件情况，我们决定对你适用附条件不起诉。','也就是说，给你一次改正的机会。','但你必须完成以下条件——','第一，向苏小萌和家长真诚道歉并赔偿损失。','第二，接受为期六个月的心理辅导和行为矫正。','考验期内如果再犯，将依法追究刑事责任。'],
+  dialog:['赵凯同学，你的家庭情况我们会关注，但这不能成为伤害别人的借口。','公安机关已经查明了你的犯罪事实。你的行为构成敲诈勒索罪。','但考虑到你是未成年人，是初次犯罪，有悔罪表现，而且犯罪情节相对较轻——','经过我们检察院审查，决定对你适用附条件不起诉。','这意味着：给你一个改过自新的机会，但你必须在考验期内完成以下条件——','第一，向苏小萌和家长真诚道歉并赔偿损失；','第二，接受为期六个月的心理辅导和行为矫正。','考验期内如果违反规定或者再犯新罪，检察院将撤销不起诉决定，依法提起公诉。'],
   next:'ch4_16'
 },
 'ch4_16':{
@@ -943,7 +1012,7 @@ const STORY={
 },
 'ch4_17':{
   speaker:'陈检察官',speakerType:'prosecutor',
-  dialog:['林晓同学，这次的事情能够被及时发现和处理，你的勇气是关键。','在校园欺凌中，旁观者的态度往往决定了事情的走向。','选择沉默，就是在无形中给了施暴者许可。','而选择站出来——哪怕只是一个人，都可能改变一切。'],
+  dialog:['林晓同学，这次的事情能够被及时发现和处理，你的勇气是关键。','你知道吗？在校园欺凌案件中，很多时候不是没有人知道，而是没有人愿意站出来。','旁观者的态度往往决定了事情的走向。','选择沉默，就是在无形中给了施暴者许可。','而选择站出来——哪怕只是一个人，都可能改变一切。'],
   next:'ch4_18'
 },
 'ch4_18':{
@@ -953,7 +1022,7 @@ const STORY={
 },
 'ch4_19':{
   speaker:'陈检察官',speakerType:'prosecutor',
-  dialog:['害怕是正常的。勇敢不是不害怕——是害怕了，依然选择做对的事。','记住，你不是一个人在战斗。','学校、家长、检察机关——我们都是你的后盾。法律，永远站在正义这边。'],
+  dialog:['害怕是正常的。勇敢不是不害怕——是害怕了，依然选择做对的事。','记住，你不是一个人在战斗。','学校、家长、公安机关、检察机关——我们共同构成了保护你们的防线。','发现问题及时报告，剩下的交给我们来处理。法律，永远站在正义这边。'],
   next:'ch4_20'
 },
 'ch4_20':{
@@ -1004,7 +1073,7 @@ const STORY={
     '在检察机关的督促下，明德中学进行了全面整改。',
     '匿名举报信箱、心理咨询室、每月法治课堂——一切都在运转。',
     '苏小萌经过专业的心理辅导，慢慢走出了阴影。她加入了学校新成立的"法治小卫士"社团，用自己的经历帮助其他有类似遭遇的同学。',
-    '赵凯在心理辅导的过程中，第一次学会了反思。他写了一封长长的道歉信。和解需要时间，但改变已经开始。',
+    '赵凯在附条件不起诉的考验期内，认真接受心理辅导和行为矫正，第一次学会了反思。他写了一封长长的道歉信。和解需要时间，但改变已经开始。',
     '陈检察官后来回到学校做了一次回访。她说，这个案子让她相信——每一个勇敢的声音，都有可能改变一所学校、改变很多人的命运。',
     '林晓站在校门口，看着阳光下走过的同学们。他知道——这个世界，因为有人选择了不沉默，而变得好了一点点。'
   ],
@@ -1021,7 +1090,7 @@ const STORY={
   chars:[{id:'linxiao',pos:'left'},{id:'xiaomeng_scared',pos:'right'}],
   speaker:'旁白',speakerType:'narrator',
   dialog:[
-    '在检察机关的介入下，赵凯受到了应有的教育和处分。',
+    '在公安机关和检察机关的共同介入下，赵凯受到了应有的法律处理。',
     '学校根据检察建议进行了整改，设立了举报渠道和心理咨询室。',
     '苏小萌在慢慢恢复，虽然还是有些沉默，但至少不再害怕来学校。',
     '有时候林晓看到她的眼神，还是能感受到那种小心翼翼的不安。',
@@ -1041,8 +1110,8 @@ const STORY={
   chars:[{id:'linxiao_sad',pos:'center'}],
   speaker:'旁白',speakerType:'narrator',
   dialog:[
-    '在检察机关和学校的共同努力下，事情最终得到了处理。',
-    '赵凯受到了教育和惩戒。学校开始了迟来的整改。',
+    '在公安机关、检察机关和学校的共同努力下，事情最终得到了处理。',
+    '赵凯受到了法律的约束和惩戒。学校开始了迟来的整改。',
     '但苏小萌——她最终选择了转学。',
     '那些被孤立、被嘲笑、被威胁的日子，在她心里留下了太深的伤痕。',
     '离开那天，她没有和任何人告别。',
