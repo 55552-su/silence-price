@@ -398,6 +398,9 @@ const IMG={
     linxiao_scared:'v2_linxiao_scared.png',
     linxiao_confident:'v2_linxiao_confident.png',
     linxiao_phone:'v2_linxiao_phone.png',
+    linxiao_serious:'v2_linxiao_serious.png',
+    linxiao_helpless:'v2_linxiao_helpless.png',
+    linxiao_fistpump:'v2_linxiao_fistpump.png',
     xiaomeng_scared:'v2_xiaomeng_scared.png',
     xiaomeng_cry:'v2_xiaomeng_cry.png',
     xiaomeng_smile:'v2_xiaomeng_smile.png',
@@ -627,7 +630,7 @@ const STORY={
   next:'ch1_07'
 },
 'ch1_07':{
-  scene:'classroom',chars:[{id:'linxiao',pos:'left'},{id:'zhangyue_worried',pos:'right'}],
+  scene:'classroom',chars:[{id:'linxiao_serious',pos:'left'},{id:'zhangyue_worried',pos:'right'}],
   speaker:'张悦',speakerType:'',
   dialog:['林晓！你今天看到苏小萌了吗？她最近特别不对劲。','上周我看到她在厕所偷偷哭，而且赵凯那帮人一下课就围着她。'],
   next:'ch1_08'
@@ -786,12 +789,13 @@ const STORY={
 },
 'ch2a_09':{
   scene:'classroom',
-  chars:[{id:'linxiao',pos:'left'},{id:'zhangyue_determined',pos:'right'}],
+  chars:[{id:'linxiao_helpless',pos:'left'},{id:'zhangyue_determined',pos:'right'}],
   speaker:'张悦',speakerType:'',
   dialog:['你真的当面说了？你疯了吗！','赵凯多记仇啊，上学期李明阳顶了他一句，被堵了三天。'],
   next:'ch2a_10'
 },
 'ch2a_10':{
+  chars:[{id:'linxiao_fistpump',pos:'left'},{id:'zhangyue_determined',pos:'right'}],
   speaker:'林晓',speakerType:'',
   dialog:['我知道有风险。但你觉得我看着小萌被这样对待，能当没看见吗？','问题是接下来怎么办。光靠我们两个肯定不行。'],
   next:'ch2a_11'
@@ -826,7 +830,7 @@ const STORY={
   next:'ch2b_03'
 },
 'ch2b_03':{
-  scene:'classroom',chars:[{id:'linxiao',pos:'left'},{id:'zhangyue_worried',pos:'right'}],
+  scene:'classroom',chars:[{id:'linxiao_serious',pos:'left'},{id:'zhangyue_worried',pos:'right'}],
   speaker:'林晓',speakerType:'',
   dialog:['张悦，你看这个视频。'],
   next:'ch2b_04'
@@ -1093,7 +1097,7 @@ const STORY={
 'ch3_s06':{
   speaker:'旁白',speakerType:'narrator',
   dialog:['赵凯狠狠推了林晓一下。路过的同学假装没看见，只有张悦冲了过来。'],
-  chars:[{id:'linxiao',pos:'left'},{id:'zhangyue_determined',pos:'right'}],
+  chars:[{id:'linxiao_fistpump',pos:'left'},{id:'zhangyue_determined',pos:'right'}],
   next:'ch3_s07'
 },
 'ch3_s07':{
