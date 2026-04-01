@@ -602,7 +602,7 @@ const STORY={
   next:'ch1_04'
 },
 'ch1_04':{
-  chars:[{id:'xiaomeng_scared',pos:'right'},{id:'linxiao',pos:'left'}],
+  chars:[{id:'xiaomeng_scared',pos:'right'},{id:'linxiao_worried',pos:'left'}],
   speaker:'林晓',speakerType:'',
   dialog:['小萌？你怎么了？需要帮忙吗？'],
   next:'ch1_05'
@@ -727,7 +727,7 @@ const STORY={
   next:'ch1_18'
 },
 'ch1_18':{
-  chars:[{id:'linxiao_think',pos:'center'}],
+  chars:[{id:'linxiao_shocked',pos:'center'}],
   speaker:'旁白',speakerType:'narrator',
   dialog:['赵凯走远了。苏小萌还呆呆地站在原地。','林晓握紧了拳头——现在，他需要做一个选择。'],
   choices:[
@@ -757,7 +757,7 @@ const STORY={
 },
 'ch2a_04':{
   scene:'corridor',shake:true,
-  chars:[{id:'linxiao_determined',pos:'left'},{id:'zhaokai',pos:'right'}],
+  chars:[{id:'linxiao_shocked',pos:'left'},{id:'zhaokai',pos:'right'}],
   speaker:'旁白',speakerType:'narrator',
   dialog:['这时，赵凯折返了回来——他忘了拿手机。'],
   next:'ch2a_05'
@@ -815,7 +815,7 @@ const STORY={
 // ============ CHAPTER 2B: 暗证 ============
 'ch2b_record':{
   chapter:'第二章',chapterTitle:'暗 证',chapterLabel:'第二章',
-  scene:'corridor',music:'tense',chars:[{id:'linxiao',pos:'center'}],
+  scene:'corridor',music:'tense',chars:[{id:'linxiao_scared',pos:'center'}],
   speaker:'旁白',speakerType:'narrator',
   dialog:function(){state.hasEvidence=true;return['林晓按下了录像键，手在微微发抖，但他稳住了手机。','赵凯威胁的声音、小萌哭泣的画面——全部记录了下来。']},
   next:'ch2b_02'
@@ -842,6 +842,7 @@ const STORY={
   next:'ch2b_06'
 },
 'ch2b_06':{
+  chars:[{id:'linxiao_worried',pos:'left'},{id:'zhangyue_worried',pos:'right'}],
   speaker:'旁白',speakerType:'narrator',
   dialog:['接下来几天，林晓和张悦暗中调查。','小萌课桌上被刻了「废物」，班级群里有人匿名嘲笑她，赵凯已经从她那里拿了好几百块钱。'],
   next:'ch2b_07'
@@ -905,7 +906,7 @@ const STORY={
   next:'ch2c_08'
 },
 'ch2c_08':{
-  chars:[{id:'xiaomeng_cry',pos:'right'},{id:'linxiao_sad',pos:'left'}],
+  chars:[{id:'xiaomeng_cry',pos:'right'},{id:'linxiao_shocked',pos:'left'}],
   speaker:'苏小萌',speakerType:'',
   dialog:['为什么……为什么全世界都讨厌我……','我不想活了……活着好累……'],
   next:'ch2c_09'
@@ -998,7 +999,7 @@ const STORY={
 },
 'ch3_tk07':{
   speaker:'旁白',speakerType:'narrator',
-  chars:[{id:'linxiao',pos:'left'},{id:'xiaomeng_hopeful',pos:'right'}],
+  chars:[{id:'linxiao_smile',pos:'left'},{id:'xiaomeng_hopeful',pos:'right'}],
   dialog:['苏小萌抬起头，泪水模糊的眼睛里，第一次有了一点光。','她轻轻地点了点头。'],
   next:'ch3_storm'
 },
@@ -1029,7 +1030,7 @@ const STORY={
 
 'ch3_hotline':{
   chapter:'第三章',chapterTitle:'一通电话',chapterLabel:'第三章',
-  scene:'corridor',music:'hopeful',chars:[{id:'linxiao_determined',pos:'center'}],
+  scene:'corridor',music:'hopeful',chars:[{id:'linxiao_phone',pos:'center'}],
   speaker:'旁白',speakerType:'narrator',
   dialog:['林晓拿出手机，拨通了12309。','等待接通的几秒钟，漫长得像一个世纪。'],
   next:'ch3_h02'
@@ -1050,6 +1051,7 @@ const STORY={
   next:'ch3_h05'
 },
 'ch3_h05':{
+  chars:[{id:'linxiao_confident',pos:'center'}],
   speaker:'旁白',speakerType:'narrator',
   dialog:['挂掉电话，林晓感到一种从未有过的轻松。两天后，检察院的回复来了。'],
   next:'ch3_storm'
@@ -1071,7 +1073,7 @@ const STORY={
 },
 'ch3_s03':{
   scene:'corridor',
-  chars:[{id:'linxiao',pos:'left'},{id:'zhaokai',pos:'right'}],
+  chars:[{id:'linxiao_scared',pos:'left'},{id:'zhaokai',pos:'right'}],
   speaker:'旁白',speakerType:'narrator',
   dialog:['课间，赵凯带着两个跟班堵住了林晓。'],
   next:'ch3_s04'
@@ -1083,7 +1085,7 @@ const STORY={
   next:'ch3_s05'
 },
 'ch3_s05':{
-  chars:[{id:'linxiao_determined',pos:'left'},{id:'zhaokai',pos:'right'}],
+  chars:[{id:'linxiao_confident',pos:'left'},{id:'zhaokai',pos:'right'}],
   speaker:'林晓',speakerType:'',
   dialog:['赵凯，该害怕的人不是我，是你。','你做的那些事，迟早会有人来找你算账。'],
   next:'ch3_s06'
@@ -1216,7 +1218,7 @@ const STORY={
 },
 'ch4_16':{
   scene:'meeting',
-  chars:[{id:'prosecutor_warm',pos:'left'},{id:'linxiao',pos:'right'}],
+  chars:[{id:'prosecutor_warm',pos:'left'},{id:'linxiao_confident',pos:'right'}],
   speaker:'旁白',speakerType:'narrator',
   dialog:['处理完赵凯的事情后，陈检察官专门找到了林晓。'],
   next:'ch4_17'
@@ -1259,7 +1261,7 @@ const STORY={
 'ch5_check':{
   scene:'schoolgate',
   chars:function(){
-    if(state.courage>=5&&state.trust>=4)return[{id:'linxiao',pos:'left'},{id:'xiaomeng_smile',pos:'center'},{id:'zhangyue_smile',pos:'right'}];
+    if(state.courage>=5&&state.trust>=4)return[{id:'linxiao_smile',pos:'left'},{id:'xiaomeng_smile',pos:'center'},{id:'zhangyue_smile',pos:'right'}];
     if(state.courage>=3)return[{id:'linxiao',pos:'left'},{id:'xiaomeng_hopeful',pos:'right'}];
     return[{id:'linxiao_sad',pos:'center'}];
   },
@@ -1278,7 +1280,7 @@ const STORY={
 
 'ending_best':{
   scene:'schoolgate',music:'ending',
-  chars:[{id:'linxiao',pos:'left'},{id:'xiaomeng_normal',pos:'center'},{id:'zhangyue_smile',pos:'right'}],
+  chars:[{id:'linxiao_smile',pos:'left'},{id:'xiaomeng_normal',pos:'center'},{id:'zhangyue_smile',pos:'right'}],
   speaker:'旁白',speakerType:'narrator',
   dialog:[
     '在检察机关的督促下，明德中学进行了全面整改——匿名举报信箱、心理咨询室、每月法治课堂。',
