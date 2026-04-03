@@ -102,11 +102,11 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'PingFang SC','Hira
 .ending-restart:active{background:rgba(255,255,255,.08)}
 
 /* === STATS BAR (top) === */
-#stats-bar{position:absolute;top:0;left:0;right:0;z-index:15;display:none;align-items:center;justify-content:space-between;padding:.8rem 1rem .5rem;background:linear-gradient(180deg,rgba(0,0,0,.5) 0%,transparent 100%)}
+#stats-bar{position:absolute;top:0;left:0;right:0;z-index:15;display:none;align-items:center;justify-content:space-between;padding:.8rem 1rem .6rem;background:linear-gradient(180deg,rgba(0,0,0,.78) 0%,rgba(0,0,0,.45) 60%,transparent 100%)}
 #stats-bar.active{display:flex}
-.stat-item{font-size:.65rem;color:rgba(255,255,255,.45);letter-spacing:.05em}
-.stat-val{color:rgba(255,255,255,.7);font-weight:600}
-#menu-btn{width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:.5}
+.stat-item{font-size:.7rem;color:rgba(255,255,255,.75);letter-spacing:.05em;text-shadow:0 1px 3px rgba(0,0,0,.6)}
+.stat-val{color:#fff;font-weight:600}
+#menu-btn{width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:.75}
 #menu-btn svg{width:18px;height:18px}
 
 /* === MENU OVERLAY === */
@@ -154,7 +154,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'PingFang SC','Hira
 .map-branch::before{content:'';position:absolute;left:-1.05rem;top:0;bottom:0;width:2px;background:rgba(255,255,255,.04)}
 .map-branch-label{font-size:.68rem;color:rgba(150,130,200,.6);margin:.4rem 0 .2rem .3rem;letter-spacing:.06em}
 .map-chapter{margin-bottom:1.2rem}
-.map-ch-header{font-size:.78rem;letter-spacing:.1em;margin-bottom:.5rem;padding-left:.5rem;border-left:3px solid #667eea}
+.map-ch-header{font-size:.78rem;letter-spacing:.1em;margin-bottom:.5rem;padding-left:.5rem;border-left:3px solid #667eea;display:flex;align-items:center}
 .map-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;transition:all .3s}
 .map-dot.small{width:8px;height:8px}
 .map-label{font-size:.72rem;color:rgba(255,255,255,.3);letter-spacing:.05em}
@@ -190,7 +190,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'PingFang SC','Hira
 #achieve-toast .toast-text{font-size:.72rem;color:rgba(232,160,64,.9);letter-spacing:.06em;white-space:nowrap}
 
 /* === STATS BAR MAP BUTTON === */
-#map-btn{width:24px;height:24px;cursor:pointer;margin-left:6px;display:flex;align-items:center;justify-content:center;opacity:.6}
+#map-btn{width:24px;height:24px;cursor:pointer;margin-left:6px;display:flex;align-items:center;justify-content:center;opacity:.75}
 #map-btn svg{width:16px;height:16px}
 
 /* === PARTICLE CANVAS === */
@@ -216,6 +216,18 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'PingFang SC','Hira
 .title-building-mid{display:none}
 .title-building-r{display:none}
 @media(max-width:480px){.title-main{font-size:2.8rem}.title-rays{width:260px;height:260px}.title-ray{height:150px}.title-emblem{width:95px;height:95px}}
+
+/* === TITLE EXTRA BUTTONS === */
+.title-extra-btns{display:flex;gap:.8rem;margin-top:1.2rem;z-index:2}
+.title-link-btn{padding:.5rem 1.2rem;border:1px solid rgba(255,255,255,.18);border-radius:30px;color:rgba(255,255,255,.6);font-size:.75rem;letter-spacing:.12em;cursor:pointer;background:rgba(0,0,0,.2);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:all .3s}
+.title-link-btn:active{background:rgba(255,255,255,.08);color:rgba(255,255,255,.85)}
+
+/* === CHAPTER MAP PROGRESS === */
+.map-progress{font-size:.68rem;color:rgba(255,255,255,.4);margin-left:auto;padding-left:.5rem;letter-spacing:.04em}
+.map-progress .prog-num{color:rgba(80,200,168,.8);font-weight:600}
+.map-total-progress{padding:.6rem 1.2rem;font-size:.75rem;color:rgba(255,255,255,.5);letter-spacing:.08em;border-bottom:1px solid rgba(255,255,255,.06)}
+.map-total-progress .prog-bar{display:inline-block;width:100px;height:4px;background:rgba(255,255,255,.08);border-radius:2px;margin-left:.5rem;vertical-align:middle;position:relative;overflow:hidden}
+.map-total-progress .prog-fill{height:100%;background:linear-gradient(90deg,#667eea,#50c8a8);border-radius:2px;transition:width .4s}
 </style>
 </head>
 <body>
@@ -237,6 +249,10 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'PingFang SC','Hira
     <div class="title-main">沉默的代价</div>
     <div class="title-sub">反校园霸凌互动剧情</div>
     <div class="title-start-btn" id="start-btn">开始游戏</div>
+    <div class="title-extra-btns" id="title-extra-btns">
+      <div class="title-link-btn" onclick="openChapterMap()">📖 章节脉络</div>
+      <div class="title-link-btn" onclick="openAchievePanel()">🏆 <span id="title-achieve-label">成就 0/10</span></div>
+    </div>
     <div class="title-credit">向每一位勇敢发声的少年致敬 | Music by Kevin MacLeod (incompetech.com) CC BY 4.0</div>
   </div>
 
@@ -727,10 +743,21 @@ const CHAPTER_TREE=[
 ];
 function openChapterMap(){
   const panel=$('chapter-map-panel');const scroll=$('map-scroll');scroll.innerHTML='';
+  // Total progress
+  let totalNodes=0,totalVisited=0;
+  CHAPTER_TREE.forEach(ch=>{ch.nodes.forEach(nd=>{totalNodes++;if(state.visitedNodes.has(nd.id))totalVisited++;if(nd.branches)nd.branches.forEach(br=>{totalNodes++;if(state.visitedNodes.has(br.id))totalVisited++})})});
+  const totalPct=totalNodes?Math.round(totalVisited/totalNodes*100):0;
+  const totalBar=document.createElement('div');totalBar.className='map-total-progress';
+  totalBar.innerHTML=`剧情解锁 ${totalVisited}/${totalNodes} (${totalPct}%) <span class="prog-bar"><span class="prog-fill" style="width:${totalPct}%"></span></span>`;
+  scroll.appendChild(totalBar);
   CHAPTER_TREE.forEach(ch=>{
+    // Chapter progress
+    let chTotal=0,chVisited=0;
+    ch.nodes.forEach(nd=>{chTotal++;if(state.visitedNodes.has(nd.id))chVisited++;if(nd.branches)nd.branches.forEach(br=>{chTotal++;if(state.visitedNodes.has(br.id))chVisited++})});
+    const chPct=chTotal?Math.round(chVisited/chTotal*100):0;
     const sec=document.createElement('div');sec.className='map-chapter';
     const hdr=document.createElement('div');hdr.className='map-ch-header';hdr.style.borderLeftColor=ch.color;
-    hdr.innerHTML=`<span style="color:${ch.color}">${ch.chapter}</span> <span style="color:rgba(255,255,255,.5)">${ch.title}</span>`;
+    hdr.innerHTML=`<span style="color:${ch.color}">${ch.chapter}</span> <span style="color:rgba(255,255,255,.5)">${ch.title}</span><span class="map-progress"><span class="prog-num">${chVisited}</span>/${chTotal}</span>`;
     sec.appendChild(hdr);
     ch.nodes.forEach(nd=>{
       const visited=state.visitedNodes.has(nd.id);const isCurrent=state.currentNode===nd.id;
@@ -802,6 +829,8 @@ function showAchieveToast(a){
 function updateAchieveCount(){
   const btn=$('menu-achieve-btn');
   if(btn)btn.textContent='成就 '+unlockedAchievements.size+'/'+ACHIEVEMENTS.length;
+  const titleLabel=$('title-achieve-label');
+  if(titleLabel)titleLabel.textContent='成就 '+unlockedAchievements.size+'/'+ACHIEVEMENTS.length;
 }
 function openAchievePanel(){
   const grid=$('achieve-grid');grid.innerHTML='';
@@ -843,7 +872,7 @@ function advanceDialog(node){
 }
 document.addEventListener('click',e=>{
   if(state.choicesActive||$('title-screen').classList.contains('active')||$('chapter-overlay').classList.contains('active')||$('ending-screen').classList.contains('active')||$('menu-overlay').classList.contains('active')||$('legal-panel').classList.contains('active')||$('chapter-map-panel').classList.contains('active')||$('achieve-panel').classList.contains('active'))return;
-  if(e.target.closest('.choice-btn')||e.target.closest('#menu-btn')||e.target.closest('.menu-item'))return;
+  if(e.target.closest('.choice-btn')||e.target.closest('#menu-btn')||e.target.closest('#map-btn')||e.target.closest('.menu-item')||e.target.closest('.title-link-btn'))return;
   let node=STORY[state.currentNode];if(!node)return;
   let rn={...node};if(typeof rn.dialog==='function')rn.dialog=rn.dialog();if(typeof rn.next==='function')rn.next=rn.next();if(typeof rn.chars==='function')rn.chars=rn.chars();
   if(state.typing){completeText();return}
