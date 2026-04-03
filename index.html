@@ -128,6 +128,71 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'PingFang SC','Hira
 .legal-card p{font-size:.78rem;color:rgba(255,255,255,.65);line-height:1.8}
 .legal-close{margin-top:1rem;padding:.6rem 2rem;border:1px solid rgba(80,200,168,.3);border-radius:30px;color:rgba(80,200,168,.8);font-size:.8rem;cursor:pointer;background:transparent;letter-spacing:.15em}
 
+/* === CHAPTER MAP PANEL === */
+#chapter-map-panel{position:absolute;inset:0;z-index:56;display:none;flex-direction:column;background:rgba(5,5,15,.97);overflow:hidden}
+#chapter-map-panel.active{display:flex}
+.map-header{display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.2rem;border-bottom:1px solid rgba(255,255,255,.08);flex-shrink:0}
+.map-title{font-size:.95rem;color:rgba(255,255,255,.85);letter-spacing:.15em}
+.map-header-btns{display:flex;gap:.6rem;align-items:center}
+.map-achieve-btn{padding:.35rem .8rem;border:1px solid rgba(232,160,64,.3);border-radius:16px;color:rgba(232,160,64,.8);font-size:.7rem;cursor:pointer;background:rgba(232,160,64,.08);letter-spacing:.08em}
+.map-close{width:28px;height:28px;border:1px solid rgba(255,255,255,.15);border-radius:50%;color:rgba(255,255,255,.5);font-size:1rem;cursor:pointer;background:transparent;display:flex;align-items:center;justify-content:center;line-height:1}
+.map-scroll{flex:1;overflow-y:auto;padding:1rem 1.2rem 2rem;-webkit-overflow-scrolling:touch}
+.map-chapter-group{margin-bottom:1.5rem}
+.map-chapter-label{font-size:.78rem;color:rgba(232,160,64,.8);letter-spacing:.12em;margin-bottom:.6rem;padding-left:.3rem}
+.map-nodes{display:flex;flex-direction:column;gap:0;padding-left:.8rem;position:relative}
+.map-nodes::before{content:'';position:absolute;left:8px;top:8px;bottom:8px;width:2px;background:rgba(255,255,255,.06);border-radius:1px}
+.map-node{display:flex;align-items:center;gap:.6rem;padding:.35rem 0;cursor:default;position:relative}
+.map-node-dot{width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);flex-shrink:0;position:relative;z-index:1;transition:all .3s}
+.map-node.visited .map-node-dot{border-color:rgba(80,200,168,.5);background:rgba(80,200,168,.2)}
+.map-node.visited{cursor:pointer}
+.map-node.current .map-node-dot{border-color:rgba(232,160,64,.8);background:rgba(232,160,64,.3);animation:map-pulse 1.5s ease-in-out infinite}
+@keyframes map-pulse{0%,100%{box-shadow:0 0 0 0 rgba(232,160,64,.3)}50%{box-shadow:0 0 0 6px rgba(232,160,64,0)}}
+.map-node-label{font-size:.72rem;color:rgba(255,255,255,.3);letter-spacing:.05em}
+.map-node.visited .map-node-label{color:rgba(255,255,255,.7)}
+.map-node.current .map-node-label{color:rgba(232,160,64,.9);font-weight:500}
+.map-branch{margin-left:1.6rem;position:relative}
+.map-branch::before{content:'';position:absolute;left:-1.05rem;top:0;bottom:0;width:2px;background:rgba(255,255,255,.04)}
+.map-branch-label{font-size:.68rem;color:rgba(150,130,200,.6);margin:.4rem 0 .2rem .3rem;letter-spacing:.06em}
+.map-chapter{margin-bottom:1.2rem}
+.map-ch-header{font-size:.78rem;letter-spacing:.1em;margin-bottom:.5rem;padding-left:.5rem;border-left:3px solid #667eea}
+.map-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;transition:all .3s}
+.map-dot.small{width:8px;height:8px}
+.map-label{font-size:.72rem;color:rgba(255,255,255,.3);letter-spacing:.05em}
+.map-node{display:flex;align-items:center;gap:.5rem;padding:.3rem .3rem .3rem .8rem;border-radius:6px;transition:background .2s}
+.map-node.visited .map-label{color:rgba(255,255,255,.7)}
+.map-node.current .map-label{color:rgba(232,160,64,.9);font-weight:500}
+.map-node.visited:hover{background:rgba(255,255,255,.04)}
+.map-node.branch{padding-left:1.6rem}
+
+/* === ACHIEVEMENT PANEL === */
+#achieve-panel{position:absolute;inset:0;z-index:57;display:none;flex-direction:column;align-items:center;justify-content:flex-start;background:rgba(5,5,15,.97);overflow-y:auto;padding:1.5rem 1.2rem 2rem;-webkit-overflow-scrolling:touch}
+#achieve-panel.active{display:flex}
+.achieve-header{width:100%;display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem}
+.achieve-title{font-size:.95rem;color:rgba(255,255,255,.85);letter-spacing:.15em}
+.achieve-close{width:28px;height:28px;border:1px solid rgba(255,255,255,.15);border-radius:50%;color:rgba(255,255,255,.5);font-size:1rem;cursor:pointer;background:transparent;display:flex;align-items:center;justify-content:center;line-height:1}
+.achieve-grid{width:100%;max-width:380px;display:flex;flex-direction:column;gap:.6rem}
+.achieve-card{display:flex;align-items:center;gap:.8rem;padding:.7rem .9rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:10px;transition:all .3s}
+.achieve-card.unlocked{background:rgba(80,200,168,.06);border-color:rgba(80,200,168,.2)}
+.achieve-icon{font-size:1.4rem;width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:8px;background:rgba(255,255,255,.04);flex-shrink:0}
+.achieve-card.unlocked .achieve-icon{background:rgba(80,200,168,.1)}
+.achieve-card.locked .achieve-icon{filter:grayscale(1) opacity(.4)}
+.achieve-info{flex:1;min-width:0}
+.achieve-info h4{font-size:.78rem;color:rgba(255,255,255,.4);font-weight:500;margin-bottom:.15rem}
+.achieve-card.unlocked .achieve-info h4{color:rgba(255,255,255,.85)}
+.achieve-info p{font-size:.68rem;color:rgba(255,255,255,.25);line-height:1.4}
+.achieve-card.unlocked .achieve-info p{color:rgba(255,255,255,.5)}
+.achieve-card.locked .achieve-info h4::after{content:' 🔒';font-size:.65rem}
+
+/* === ACHIEVEMENT TOAST === */
+#achieve-toast{position:absolute;top:0;left:50%;transform:translateX(-50%) translateY(-100%);z-index:200;padding:.6rem 1.2rem;background:rgba(20,20,35,.92);border:1px solid rgba(232,160,64,.4);border-radius:0 0 12px 12px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);display:flex;align-items:center;gap:.5rem;transition:transform .4s cubic-bezier(.4,0,.2,1);pointer-events:none}
+#achieve-toast.show{transform:translateX(-50%) translateY(0)}
+#achieve-toast .toast-icon{font-size:1.1rem}
+#achieve-toast .toast-text{font-size:.72rem;color:rgba(232,160,64,.9);letter-spacing:.06em;white-space:nowrap}
+
+/* === STATS BAR MAP BUTTON === */
+#map-btn{width:24px;height:24px;cursor:pointer;margin-left:6px;display:flex;align-items:center;justify-content:center;opacity:.6}
+#map-btn svg{width:16px;height:16px}
+
 /* === PARTICLE CANVAS === */
 #particle-canvas{position:absolute;inset:0;z-index:3;pointer-events:none}
 
@@ -192,6 +257,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'PingFang SC','Hira
     <div class="stat-item">勇气 <span class="stat-val" id="stat-courage">0</span></div>
     <div class="stat-item">信任 <span class="stat-val" id="stat-trust">0</span></div>
     <div class="stat-item" id="chapter-display">第一章</div>
+    <div id="map-btn" onclick="openChapterMap()"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.6)" stroke-width="2"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/><line x1="6" y1="8" x2="6" y2="16"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="18" x2="16" y2="18"/></svg></div>
     <div id="menu-btn" onclick="toggleMenu()"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.6)" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></div>
   </div>
 
@@ -237,7 +303,36 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'PingFang SC','Hira
   <!-- Menu -->
   <div id="menu-overlay">
     <div class="menu-item" onclick="toggleMenu()">继续游戏</div>
+    <div class="menu-item" onclick="toggleMenu();openChapterMap()">章节脉络</div>
+    <div class="menu-item" id="menu-achieve-btn" onclick="toggleMenu();openAchievePanel()">成就 0/10</div>
     <div class="menu-item" onclick="restartGame()">重新开始</div>
+  </div>
+
+  <!-- Chapter Map -->
+  <div id="chapter-map-panel">
+    <div class="map-header">
+      <div class="map-title">章节脉络</div>
+      <div class="map-header-btns">
+        <div class="map-achieve-btn" onclick="closeChapterMap();openAchievePanel()">🏆 成就</div>
+        <button class="map-close" onclick="closeChapterMap()">✕</button>
+      </div>
+    </div>
+    <div class="map-scroll" id="map-scroll"></div>
+  </div>
+
+  <!-- Achievement Panel -->
+  <div id="achieve-panel">
+    <div class="achieve-header">
+      <div class="achieve-title">成就荣誉</div>
+      <button class="achieve-close" onclick="closeAchievePanel()">✕</button>
+    </div>
+    <div class="achieve-grid" id="achieve-grid"></div>
+  </div>
+
+  <!-- Achievement Toast -->
+  <div id="achieve-toast">
+    <span class="toast-icon"></span>
+    <span class="toast-text"></span>
   </div>
 </div>
 
@@ -431,7 +526,7 @@ const IMG={
   }
 };
 
-let state={courage:0,trust:0,hasEvidence:false,currentNode:null,textQueue:[],typing:false,textComplete:false,choicesActive:false};
+let state={courage:0,trust:0,hasEvidence:false,currentNode:null,textQueue:[],typing:false,textComplete:false,choicesActive:false,visitedNodes:new Set(JSON.parse(localStorage.getItem('silenceVisitedNodes')||'[]'))};
 const $=id=>document.getElementById(id);
 
 function preloadImages(cb){
@@ -545,10 +640,187 @@ const BGM={
   init(){/* no-op, kept for compat */}
 };
 function toggleMenu(){$('menu-overlay').classList.toggle('active')}
-function restartGame(){BGM.stop();ParticleSystem.setMood('calm');$('menu-overlay').classList.remove('active');$('ending-screen').classList.remove('active');state={courage:0,trust:0,hasEvidence:false,currentNode:null,textQueue:[],typing:false,textComplete:false,choicesActive:false};updateStats();$('stats-bar').classList.remove('active');showDialog(false);$('char-layer').innerHTML='';$('title-screen').classList.add('active');$('title-screen').classList.remove('fadeout')}
+function restartGame(){BGM.stop();ParticleSystem.setMood('calm');$('menu-overlay').classList.remove('active');$('ending-screen').classList.remove('active');const savedNodes=state.visitedNodes;state={courage:0,trust:0,hasEvidence:false,currentNode:null,textQueue:[],typing:false,textComplete:false,choicesActive:false,visitedNodes:savedNodes};updateStats();$('stats-bar').classList.remove('active');showDialog(false);$('char-layer').innerHTML='';$('title-screen').classList.add('active');$('title-screen').classList.remove('fadeout')}
+
+// =============================================
+// CHAPTER MAP SYSTEM
+// =============================================
+const CHAPTER_TREE=[
+  {chapter:'第一章',title:'暗流',color:'#667eea',nodes:[
+    {id:'ch1_start',label:'开学'},
+    {id:'ch1_02',label:'走廊'},
+    {id:'ch1_03',label:'发现小萌'},
+    {id:'ch1_04',label:'关心询问'},
+    {id:'ch1_06',label:'追问伤痕',branch:true,branches:[
+      {label:'追问',id:'ch1_06b'},
+      {label:'尊重',id:'ch1_07'}
+    ]},
+    {id:'ch1_07',label:'张悦线索'},
+    {id:'ch1_09',label:'同学议论',branch:true,branches:[
+      {label:'留心观察',id:'ch1_10'},
+      {label:'想多了',id:'ch1_09b'},
+      {label:'直接对质',id:'ch1_09c'}
+    ]},
+    {id:'ch1_12',label:'课堂沉默',branch:true,branches:[
+      {label:'举手告诉老师',id:'ch1_12b'},
+      {label:'保持沉默',id:'ch1_13'}
+    ]},
+    {id:'ch1_13',label:'目睹霸凌'},
+    {id:'ch1_18',label:'关键抉择',branch:true,branches:[
+      {label:'挺身而出',id:'ch2a_confront',color:'#e84057'},
+      {label:'冷静取证',id:'ch2b_record',color:'#50c8a8'},
+      {label:'犹豫退缩',id:'ch2c_silent',color:'#a0a0a0'}
+    ]}
+  ]},
+  {chapter:'第二章A',title:'对峙',color:'#e84057',nodes:[
+    {id:'ch2a_confront',label:'安慰小萌'},
+    {id:'ch2a_04',label:'赵凯折返'},
+    {id:'ch2a_06',label:'当面对质'},
+    {id:'ch2a_09',label:'张悦反应'},
+    {id:'ch2a_choice2',label:'下一步',branch:true,branches:[
+      {label:'找班主任',id:'ch3_teacher'},
+      {label:'和小萌深谈',id:'ch3_talk'},
+      {label:'拨打12309',id:'ch3_hotline'}
+    ]}
+  ]},
+  {chapter:'第二章B',title:'暗证',color:'#50c8a8',nodes:[
+    {id:'ch2b_record',label:'偷偷录像'},
+    {id:'ch2b_03',label:'给张悦看'},
+    {id:'ch2b_06',label:'暗中调查'},
+    {id:'ch2b_choice2',label:'交给谁',branch:true,branches:[
+      {label:'找班主任',id:'ch3_teacher'},
+      {label:'说服小萌',id:'ch3_talk'},
+      {label:'拨打12309',id:'ch3_hotline'}
+    ]}
+  ]},
+  {chapter:'第二章C',title:'沉默',color:'#a0a0a0',nodes:[
+    {id:'ch2c_silent',label:'退缩了'},
+    {id:'ch2c_04',label:'一周后'},
+    {id:'ch2c_07',label:'天台危机'},
+    {id:'ch2c_choice',label:'醒悟',branch:true,branches:[
+      {label:'陪伴小萌',id:'ch3_talk_late'},
+      {label:'拨打12309',id:'ch3_hotline'}
+    ]}
+  ]},
+  {chapter:'第三章',title:'求助',color:'#d4a056',nodes:[
+    {id:'ch3_teacher',label:'找班主任'},
+    {id:'ch3_talk',label:'和小萌深谈'},
+    {id:'ch3_talk_late',label:'迟来的勇气'},
+    {id:'ch3_hotline',label:'12309热线'},
+    {id:'ch3_storm',label:'风暴来临'}
+  ]},
+  {chapter:'第四章',title:'检察之光',color:'#50c8a8',nodes:[
+    {id:'ch4_arrive',label:'检察官到来'},
+    {id:'ch4_03',label:'什么是霸凌'},
+    {id:'ch4_legal',label:'法律知识'},
+    {id:'ch4_07',label:'审查起诉'},
+    {id:'ch4_15',label:'附条件不起诉'},
+    {id:'ch4_16',label:'检察官谈话'},
+    {id:'ch4_21',label:'检察建议'}
+  ]},
+  {chapter:'第五章',title:'结局',color:'#764ba2',nodes:[
+    {id:'ch5_branch',label:'新的一天'},
+    {id:'ending_best_final',label:'勇者之光',icon:'🌟'},
+    {id:'ending_good_final',label:'迟来的正义',icon:'⚖️'},
+    {id:'ending_normal_final',label:'沉默的代价',icon:'🌑'}
+  ]}
+];
+function openChapterMap(){
+  const panel=$('chapter-map-panel');const scroll=$('map-scroll');scroll.innerHTML='';
+  CHAPTER_TREE.forEach(ch=>{
+    const sec=document.createElement('div');sec.className='map-chapter';
+    const hdr=document.createElement('div');hdr.className='map-ch-header';hdr.style.borderLeftColor=ch.color;
+    hdr.innerHTML=`<span style="color:${ch.color}">${ch.chapter}</span> <span style="color:rgba(255,255,255,.5)">${ch.title}</span>`;
+    sec.appendChild(hdr);
+    ch.nodes.forEach(nd=>{
+      const visited=state.visitedNodes.has(nd.id);const isCurrent=state.currentNode===nd.id;
+      const row=document.createElement('div');row.className='map-node'+(visited?' visited':'')+(isCurrent?' current':'');
+      const dot=document.createElement('div');dot.className='map-dot';dot.style.background=visited?ch.color:'rgba(255,255,255,.15)';
+      if(isCurrent){dot.style.boxShadow=`0 0 8px ${ch.color}`;dot.style.animation='map-pulse 1.5s infinite'}
+      const lbl=document.createElement('div');lbl.className='map-label';
+      lbl.textContent=visited?(nd.icon?nd.icon+' ':'')+nd.label:'???';
+      row.appendChild(dot);row.appendChild(lbl);
+      if(visited){row.style.cursor='pointer';row.onclick=()=>{closeChapterMap();playNode(nd.id)}}
+      sec.appendChild(row);
+      if(nd.branch&&nd.branches){
+        nd.branches.forEach(br=>{
+          const bv=state.visitedNodes.has(br.id);const bc=state.currentNode===br.id;
+          const brow=document.createElement('div');brow.className='map-node branch'+(bv?' visited':'')+(bc?' current':'');
+          const bd=document.createElement('div');bd.className='map-dot small';
+          bd.style.background=bv?(br.color||ch.color):'rgba(255,255,255,.1)';
+          if(bc){bd.style.boxShadow=`0 0 6px ${br.color||ch.color}`;bd.style.animation='map-pulse 1.5s infinite'}
+          const bl=document.createElement('div');bl.className='map-label';bl.textContent=bv?'↳ '+br.label:'↳ ???';
+          brow.appendChild(bd);brow.appendChild(bl);
+          if(bv){brow.style.cursor='pointer';brow.onclick=()=>{closeChapterMap();playNode(br.id)}}
+          sec.appendChild(brow);
+        });
+      }
+    });
+    scroll.appendChild(sec);
+  });
+  panel.classList.add('active');
+}
+function closeChapterMap(){$('chapter-map-panel').classList.remove('active')}
+
+// =============================================
+// ACHIEVEMENT SYSTEM
+// =============================================
+const ACHIEVEMENTS=[
+  {id:'a_start',icon:'📖',title:'初入校园',desc:'开始第一章的故事',trigger:'ch1_start'},
+  {id:'a_keen',icon:'👁️',title:'敏锐之眼',desc:'发现苏小萌的伤痕并追问',trigger:'ch1_06b'},
+  {id:'a_hero',icon:'🛡️',title:'正义先锋',desc:'选择挺身而出直面赵凯',trigger:'ch2a_confront'},
+  {id:'a_stealth',icon:'📹',title:'暗中守护',desc:'选择冷静取证录下证据',trigger:'ch2b_record'},
+  {id:'a_awaken',icon:'💡',title:'迟来醒悟',desc:'从沉默路线中觉醒',trigger:'ch2c_choice'},
+  {id:'a_call',icon:'📞',title:'一通电话',desc:'拨打12309检察服务热线',trigger:'ch3_hotline'},
+  {id:'a_storm',icon:'🌊',title:'风暴中心',desc:'经历赵凯的报复风暴',trigger:'ch3_storm'},
+  {id:'a_light',icon:'⚖️',title:'法治之光',desc:'见证检察官正式介入',trigger:'ch4_arrive'},
+  {id:'a_best',icon:'🌟',title:'勇者之光',desc:'达成最佳结局',trigger:'ending_best_final'},
+  {id:'a_all',icon:'👑',title:'全线通关',desc:'解锁全部三个结局',trigger:'_special_all_endings'}
+];
+let unlockedAchievements=new Set(JSON.parse(localStorage.getItem('silenceAchievements')||'[]'));
+function saveAchievements(){localStorage.setItem('silenceAchievements',JSON.stringify([...unlockedAchievements]))}
+function checkAchievements(nodeId){
+  ACHIEVEMENTS.forEach(a=>{
+    if(unlockedAchievements.has(a.id))return;
+    let unlock=false;
+    if(a.trigger==='_special_all_endings'){
+      unlock=state.visitedNodes.has('ending_best_final')&&state.visitedNodes.has('ending_good_final')&&state.visitedNodes.has('ending_normal_final');
+    }else{
+      unlock=(nodeId===a.trigger);
+    }
+    if(unlock){unlockedAchievements.add(a.id);saveAchievements();showAchieveToast(a);updateAchieveCount()}
+  });
+}
+function showAchieveToast(a){
+  SFX.notify();
+  const toast=$('achieve-toast');
+  toast.querySelector('.toast-icon').textContent=a.icon;
+  toast.querySelector('.toast-text').textContent='成就解锁：'+a.title;
+  toast.classList.add('show');
+  setTimeout(()=>toast.classList.remove('show'),3000);
+}
+function updateAchieveCount(){
+  const btn=$('menu-achieve-btn');
+  if(btn)btn.textContent='成就 '+unlockedAchievements.size+'/'+ACHIEVEMENTS.length;
+}
+function openAchievePanel(){
+  const grid=$('achieve-grid');grid.innerHTML='';
+  ACHIEVEMENTS.forEach(a=>{
+    const unlocked=unlockedAchievements.has(a.id);
+    const card=document.createElement('div');
+    card.className='achieve-card '+(unlocked?'unlocked':'locked');
+    card.innerHTML=`<div class="achieve-icon">${unlocked?a.icon:'❓'}</div><div class="achieve-info"><h4>${unlocked?a.title:'未解锁'}</h4><p>${unlocked?a.desc:'继续探索以解锁此成就'}</p></div>`;
+    grid.appendChild(card);
+  });
+  $('achieve-panel').classList.add('active');
+}
+function closeAchievePanel(){$('achieve-panel').classList.remove('active')}
+updateAchieveCount();
 
 function playNode(nodeId){
   const node=STORY[nodeId];if(!node){console.error('Missing:',nodeId);return}state.currentNode=nodeId;
+  state.visitedNodes.add(nodeId);localStorage.setItem('silenceVisitedNodes',JSON.stringify([...state.visitedNodes]));
+  checkAchievements(nodeId);
   if(node.chapter){$('chapter-display').textContent=node.chapterLabel||'';showChapter(node.chapter,node.chapterTitle,()=>runNode(node))}else{runNode(node)}
 }
 function runNode(node){
@@ -570,7 +842,7 @@ function advanceDialog(node){
   else{if(node.choices)showChoices(node.choices);else if(node.next)playNode(node.next)}
 }
 document.addEventListener('click',e=>{
-  if(state.choicesActive||$('title-screen').classList.contains('active')||$('chapter-overlay').classList.contains('active')||$('ending-screen').classList.contains('active')||$('menu-overlay').classList.contains('active')||$('legal-panel').classList.contains('active'))return;
+  if(state.choicesActive||$('title-screen').classList.contains('active')||$('chapter-overlay').classList.contains('active')||$('ending-screen').classList.contains('active')||$('menu-overlay').classList.contains('active')||$('legal-panel').classList.contains('active')||$('chapter-map-panel').classList.contains('active')||$('achieve-panel').classList.contains('active'))return;
   if(e.target.closest('.choice-btn')||e.target.closest('#menu-btn')||e.target.closest('.menu-item'))return;
   let node=STORY[state.currentNode];if(!node)return;
   let rn={...node};if(typeof rn.dialog==='function')rn.dialog=rn.dialog();if(typeof rn.next==='function')rn.next=rn.next();if(typeof rn.chars==='function')rn.chars=rn.chars();
