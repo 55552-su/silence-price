@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover">
 <title>沉默的代价 - 反校园霸凌互动剧情</title>
 <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
 <style>
@@ -102,7 +102,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'PingFang SC','Hira
 .ending-restart:active{background:rgba(255,255,255,.08)}
 
 /* === STATS BAR (top) === */
-#stats-bar{position:absolute;top:0;left:0;right:0;z-index:15;display:none;align-items:center;justify-content:space-between;padding:.8rem 1rem .6rem;background:linear-gradient(180deg,rgba(0,0,0,.78) 0%,rgba(0,0,0,.45) 60%,transparent 100%)}
+#stats-bar{position:absolute;top:0;left:0;right:0;z-index:15;display:none;align-items:center;justify-content:space-between;padding:calc(.8rem + env(safe-area-inset-top,0px)) 1rem .6rem;background:linear-gradient(180deg,rgba(0,0,0,.78) 0%,rgba(0,0,0,.45) 60%,transparent 100%)}
 #stats-bar.active{display:flex}
 .stat-item{font-size:.7rem;color:rgba(255,255,255,.75);letter-spacing:.05em;text-shadow:0 1px 3px rgba(0,0,0,.6)}
 .stat-val{color:#fff;font-weight:600}
@@ -121,7 +121,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'PingFang SC','Hira
 .shake{animation:shake .5s}
 
 /* === LEGAL INFO PANEL === */
-#legal-panel{position:absolute;inset:0;z-index:55;display:none;flex-direction:column;align-items:center;justify-content:center;background:rgba(5,5,15,.95);padding:2rem 1.5rem;overflow-y:auto}
+#legal-panel{position:absolute;inset:0;z-index:55;display:none;flex-direction:column;align-items:center;justify-content:flex-start;background:rgba(5,5,15,.95);padding:calc(2rem + env(safe-area-inset-top,0px)) 1.5rem 2rem;overflow-y:auto}
 #legal-panel.active{display:flex}
 .legal-card{background:rgba(80,200,168,.06);border:1px solid rgba(80,200,168,.2);border-radius:14px;padding:1.2rem;max-width:340px;width:100%;margin-bottom:1rem}
 .legal-card h3{font-size:.85rem;color:#50c8a8;margin-bottom:.6rem;letter-spacing:.08em}
@@ -131,7 +131,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'PingFang SC','Hira
 /* === CHAPTER MAP PANEL === */
 #chapter-map-panel{position:absolute;inset:0;z-index:110;display:none;flex-direction:column;background:rgba(5,5,15,.97);overflow:hidden}
 #chapter-map-panel.active{display:flex}
-.map-header{display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.2rem;border-bottom:1px solid rgba(255,255,255,.08);flex-shrink:0}
+.map-header{display:flex;align-items:center;justify-content:space-between;padding:calc(.8rem + env(safe-area-inset-top,0px)) 1.2rem .8rem;border-bottom:1px solid rgba(255,255,255,.08);flex-shrink:0}
 .map-title{font-size:.95rem;color:rgba(255,255,255,.85);letter-spacing:.15em}
 .map-header-btns{display:flex;gap:.6rem;align-items:center}
 .map-achieve-btn{padding:.35rem .8rem;border:1px solid rgba(232,160,64,.3);border-radius:16px;color:rgba(232,160,64,.8);font-size:.7rem;cursor:pointer;background:rgba(232,160,64,.08);letter-spacing:.08em}
@@ -165,7 +165,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'PingFang SC','Hira
 .map-node.branch{padding-left:1.6rem}
 
 /* === ACHIEVEMENT PANEL === */
-#achieve-panel{position:absolute;inset:0;z-index:111;display:none;flex-direction:column;align-items:center;justify-content:flex-start;background:rgba(5,5,15,.97);overflow-y:auto;padding:1.5rem 1.2rem 2rem;-webkit-overflow-scrolling:touch}
+#achieve-panel{position:absolute;inset:0;z-index:111;display:none;flex-direction:column;align-items:center;justify-content:flex-start;background:rgba(5,5,15,.97);overflow-y:auto;padding:calc(1.5rem + env(safe-area-inset-top,0px)) 1.2rem 2rem;-webkit-overflow-scrolling:touch}
 #achieve-panel.active{display:flex}
 .achieve-header{width:100%;display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem}
 .achieve-title{font-size:.95rem;color:rgba(255,255,255,.85);letter-spacing:.15em}
@@ -1440,11 +1440,11 @@ const STORY={
 },
 'ch4_legal':{
   legal:[
-    {title:'《未成年人保护法》第39条',body:'学校应当建立学生欺凌防控工作制度，对教职员工、学生等开展防治欺凌的教育和培训。学校对欺凌行为应当立即制止，通知双方父母或者其他监护人参与欺凌行为的认定和处理。'},
-    {title:'《预防未成年人犯罪法》',body:'对有严重不良行为的未成年人，公安机关可以根据情况采取训诫、责令参加社会服务、接受专门教育等矫治措施。情节严重构成犯罪的，依法追究刑事责任。'},
-    {title:'校园欺凌的法律边界',body:'一般的欺凌行为（辱骂、排挤等）由学校进行纪律处分和教育矫治。但涉及敲诈勒索、故意伤害、侮辱诽谤等达到一定程度的行为，可能构成犯罪，需由公安机关立案侦查，检察机关审查起诉。'},
-    {title:'检察机关的未成年人保护职能',body:'检察院通过行使法律监督权保护未成年人权益：①督促学校等单位履行保护职责；②对侵害未成年人犯罪依法审查起诉；③对符合条件的未成年犯罪嫌疑人适用附条件不起诉；④开展法治教育和司法救助；⑤发出检察建议推动制度建设。'},
-    {title:'12309检察服务热线',body:'遭遇或发现校园欺凌、侵害未成年人权益的行为，可拨打12309检察服务热线举报求助。检察机关依法保护举报人信息安全，严禁打击报复。'}
+    {title:'《未成年人保护法》第39条',body:'学校应当建立学生欺凌防控工作制度，对教职员工、学生等开展防治学生欺凌的教育和培训。学校对学生欺凌行为应当立即制止，通知实施欺凌和被欺凌未成年学生的父母或者其他监护人参与欺凌行为的认定和处理；对相关未成年学生及时给予心理辅导、教育和引导；对相关未成年学生的父母或者其他监护人给予必要的家庭教育指导。'},
+    {title:'《预防未成年人犯罪法》第31条',body:'学校对有不良行为的未成年学生，应当加强管理教育，不得歧视；对拒不改正或者情节严重的，学校可以根据情况予以处分或者采取管理教育措施。对有严重不良行为的未成年人，情节恶劣或造成严重后果的，经评估可送入专门学校接受专门教育。'},
+    {title:'检察机关的未成年人保护职能',body:'人民检察院通过行使检察权，对涉及未成年人的诉讼活动等依法进行监督：①依法对侵害未成年人合法权益的行为提起公诉或支持起诉；②对符合条件的未成年犯罪嫌疑人依法适用附条件不起诉制度；③开展未成年人法治宣传教育；④针对未成年人保护中存在的问题发出检察建议，督促有关部门依法履职。'},
+    {title:'《中小学教育惩戒规则（试行）》',body:'学生实施属于欺凌、打架斗殴等扰乱校园秩序行为的，学校及其教师应当予以制止并进行批评教育，确有必要的可以实施教育惩戒。情节较重的，学校可以实施暂停或者限制参加相关活动、责令改正等管理措施。'},
+    {title:'12309检察服务热线',body:'遭遇或发现校园欺凌、侵害未成年人权益的行为，可拨打12309检察服务热线进行控告、申诉或举报。检察机关依法保护举报人信息安全，对打击报复举报人的行为依法追究法律责任。'}
   ],
   next:'ch4_05'
 },
