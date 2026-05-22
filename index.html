@@ -240,6 +240,59 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'PingFang SC','Hira
 .map-total-progress{padding:.6rem 1.2rem;font-size:.75rem;color:rgba(255,255,255,.5);letter-spacing:.08em;border-bottom:1px solid rgba(255,255,255,.06)}
 .map-total-progress .prog-bar{display:inline-block;width:100px;height:4px;background:rgba(255,255,255,.08);border-radius:2px;margin-left:.5rem;vertical-align:middle;position:relative;overflow:hidden}
 .map-total-progress .prog-fill{height:100%;background:linear-gradient(90deg,#667eea,#50c8a8);border-radius:2px;transition:width .4s}
+
+/* === CG LAYER === */
+#cg-layer{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.95);display:none;align-items:center;justify-content:center;cursor:pointer;opacity:0;transition:opacity .6s ease}
+#cg-layer.active{display:flex}
+#cg-layer.show{opacity:1}
+#cg-img{max-width:100%;max-height:100%;object-fit:contain;border-radius:4px;box-shadow:0 4px 40px rgba(0,0,0,.6)}
+.cg-hint{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);font-size:.72rem;color:rgba(255,255,255,.4);letter-spacing:.25em;animation:cg-hint-fade 2s ease-in-out infinite}
+@keyframes cg-hint-fade{0%,100%{opacity:.4}50%{opacity:.8}}
+
+/* === ROTATE PROMPT === */
+#rotate-prompt{position:fixed;inset:0;z-index:9999;background:rgba(5,5,15,.97);display:none;flex-direction:column;align-items:center;justify-content:center}
+.rotate-inner{text-align:center}
+.rotate-icon{width:80px;height:80px;margin-bottom:1.5rem;animation:rotate-wobble 2s ease-in-out infinite}
+@keyframes rotate-wobble{0%,100%{transform:rotate(0deg)}25%{transform:rotate(-15deg)}75%{transform:rotate(15deg)}}
+.rotate-text{font-size:1.1rem;color:rgba(255,255,255,.85);letter-spacing:.15em;margin-bottom:.5rem}
+.rotate-sub{font-size:.75rem;color:rgba(255,255,255,.4);letter-spacing:.08em}
+
+/* Portrait: show rotate prompt */
+@media (orientation:portrait){
+  #rotate-prompt{display:flex}
+}
+@media (orientation:landscape){
+  #rotate-prompt{display:none!important}
+}
+
+/* === LANDSCAPE LAYOUT ADJUSTMENTS === */
+@media (orientation:landscape){
+  .char-sprite{height:55%;max-height:480px;bottom:14%}
+  .char-sprite.multi{height:45%;max-height:380px}
+  #dialog-layer{padding:0 2rem 1rem}
+  #dialog-box{min-height:110px;padding:.8rem 1.2rem .7rem}
+  #dialog-text{font-size:.95rem;min-height:2.4em}
+  .speaker-name{font-size:.78rem}
+  #choices-layer{padding:0 2rem 1.5rem;flex-direction:row;flex-wrap:wrap;justify-content:center}
+  .choice-btn{max-width:340px;padding:.8rem 1.2rem;font-size:.9rem}
+  .choices-label{width:100%}
+  #stats-bar{padding:calc(.5rem + env(safe-area-inset-top,0px)) 1.2rem .4rem}
+  .title-emblem{width:90px;height:90px;top:12%}
+  .title-badge{font-size:.6rem;margin-top:4%}
+  .title-main{font-size:2.8rem}
+  .title-sub{font-size:.85rem;margin-bottom:2rem}
+  .title-start-btn{padding:.7rem 2.5rem;font-size:.9rem}
+  .title-extra-btns{margin-top:.8rem}
+  .title-credit{bottom:1rem;font-size:.55rem}
+  #legal-panel{padding:calc(1.2rem + env(safe-area-inset-top,0px)) 2rem 1.5rem;flex-direction:row;flex-wrap:wrap;justify-content:center;gap:1rem;align-content:flex-start}
+  .legal-card{max-width:300px}
+  #chapter-map-panel .map-scroll{padding:1rem 2rem 1.5rem}
+  #achieve-panel{padding:calc(1rem + env(safe-area-inset-top,0px)) 2rem 1.5rem}
+  .achieve-grid{max-width:500px}
+  #ending-screen{padding:1.5rem}
+  .ending-title{font-size:1.3rem;margin-bottom:1rem}
+  .ending-desc{font-size:.8rem;margin-bottom:1.5rem}
+}
 </style>
 </head>
 <body>
@@ -362,6 +415,25 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'PingFang SC','Hira
   <div id="achieve-toast">
     <span class="toast-icon"></span>
     <span class="toast-text"></span>
+  </div>
+
+  <!-- CG Layer -->
+  <div id="cg-layer">
+    <img id="cg-img" src="" alt="CG">
+    <div class="cg-hint">轻触继续</div>
+  </div>
+
+  <!-- Rotate Prompt (portrait only) -->
+  <div id="rotate-prompt">
+    <div class="rotate-inner">
+      <svg class="rotate-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="25" y="10" width="50" height="80" rx="8" stroke="rgba(255,255,255,.7)" stroke-width="3"/>
+        <path d="M78 50 C 85 50, 90 55, 90 62 L 90 70" stroke="rgba(232,160,64,.8)" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <path d="M86 66 L90 72 L94 66" stroke="rgba(232,160,64,.8)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+      <div class="rotate-text">请将手机横屏以获得最佳体验</div>
+      <div class="rotate-sub">Please rotate your device to landscape</div>
+    </div>
   </div>
 </div>
 
@@ -552,6 +624,20 @@ const IMG={
     meeting:'scene_meeting.png',
     schoolgate:'scene_schoolgate.png',
     rooftop:'scene_rooftop.png'
+  },
+  cgs:{
+    cg1:'cg1_corridor.png',
+    cg2:'cg2_stairwell.png',
+    cg3:'cg3_rooftop.png',
+    cg4:'cg4_confrontation.png',
+    cg5:'cg5_prosecutor.png',
+    cg6:'cg6_ending_best.png',
+    cg7:'cg7_recording.png',
+    cg8:'cg8_hope.png',
+    cg9:'cg9_hotline.png',
+    cg10:'cg10_interrogation.png',
+    cg11:'cg11_violence_cycle.png',
+    cg12:'cg12_ending_normal.png'
   }
 };
 
@@ -559,7 +645,7 @@ let state={courage:0,trust:0,hasEvidence:false,currentNode:null,textQueue:[],typ
 const $=id=>document.getElementById(id);
 
 function preloadImages(cb){
-  const all=[...Object.values(IMG.chars),...Object.values(IMG.scenes),'title_bg.png','title_emblem.png'];
+  const all=[...Object.values(IMG.chars),...Object.values(IMG.scenes),...Object.values(IMG.cgs),'title_bg.png','title_emblem.png'];
   const audioFiles=Object.values(BGM.files);
   const total=all.length+audioFiles.length;
   let loaded=0;let done=false;const bar=$('loading-bar');
@@ -592,6 +678,21 @@ function setChars(chars){
     img.src=IMG.chars[c.id];
     if('decode' in img){img.decode().then(showImg).catch(showImg)}else{img.onload=showImg;img.onerror=showImg}
     layer.appendChild(img)});
+}
+let _cgActive=false;
+function showCG(cgKey,cb){
+  const layer=$('cg-layer');const img=$('cg-img');
+  const src=IMG.cgs[cgKey];if(!src){if(cb)cb();return}
+  _cgActive=true;img.src=src;
+  layer.style.display='flex';
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{layer.classList.add('active','show')}));
+  const dismiss=()=>{
+    layer.removeEventListener('click',dismiss);
+    layer.classList.remove('show');
+    _cgActive=false;
+    setTimeout(()=>{layer.classList.remove('active');layer.style.display='none';if(cb)cb()},600);
+  };
+  setTimeout(()=>{layer.addEventListener('click',dismiss)},300);
 }
 function typeText(text,cb){
   const el=$('dialog-text');el.innerHTML='';state.typing=true;state.textComplete=false;$('dialog-indicator').style.display='none';
@@ -892,6 +993,11 @@ function runNode(node){
   else if(n.scene==='schoolgate')ParticleSystem.setMood('schoolgate');
   else if(n.music)ParticleSystem.setMood(n.music);
   if(n.shake)setTimeout(()=>{$('game').classList.add('shake');setTimeout(()=>$('game').classList.remove('shake'),500)},300);
+  // CG: show before dialog, then continue
+  if(n.cg){const cgKey=n.cg;const nn={...n};delete nn.cg;showCG(cgKey,()=>_runNodeContent(nn));return}
+  _runNodeContent(n);
+}
+function _runNodeContent(n){
   if(n.legal){TTS.stop();showLegal(n.legal,()=>{if(n.next)playNode(n.next)});return}
   if(n.ending){TTS.stop();BGM.fadeOut();showEnding(n.ending.badge,n.ending.title,n.ending.desc,n.ending.bg);return}
   if(n.dialog){showDialog(true);setSpeaker(n.speaker,n.speakerType);state.textQueue=Array.isArray(n.dialog)?[...n.dialog]:[n.dialog];advanceDialog(n)}
@@ -906,7 +1012,7 @@ function advanceDialog(node){
   else{if(node.choices)showChoices(node.choices);else if(node.next)playNode(node.next)}
 }
 document.addEventListener('click',e=>{
-  if(state.choicesActive||$('title-screen').classList.contains('active')||$('chapter-overlay').classList.contains('active')||$('ending-screen').classList.contains('active')||$('menu-overlay').classList.contains('active')||$('legal-panel').classList.contains('active')||$('chapter-map-panel').classList.contains('active')||$('achieve-panel').classList.contains('active'))return;
+  if(_cgActive||state.choicesActive||$('title-screen').classList.contains('active')||$('chapter-overlay').classList.contains('active')||$('ending-screen').classList.contains('active')||$('menu-overlay').classList.contains('active')||$('legal-panel').classList.contains('active')||$('chapter-map-panel').classList.contains('active')||$('achieve-panel').classList.contains('active'))return;
   if(e.target.closest('.choice-btn')||e.target.closest('#menu-btn')||e.target.closest('#map-btn')||e.target.closest('#voice-btn')||e.target.closest('.menu-item')||e.target.closest('.title-link-btn'))return;
   let node=STORY[state.currentNode];if(!node)return;
   let rn={...node};if(typeof rn.dialog==='function')rn.dialog=rn.dialog();if(typeof rn.next==='function')rn.next=rn.next();if(typeof rn.chars==='function')rn.chars=rn.chars();
@@ -1035,6 +1141,7 @@ const STORY={
   next:'ch1_03'
 },
 'ch1_03':{
+  cg:'cg1',
   scene:'corridor',chars:[{id:'xiaomeng_scared',pos:'center'}],
   speaker:'旁白',speakerType:'narrator',
   dialog:['走廊尽头，同班的苏小萌蹲在墙角，书本散了一地，书包带被扯断了。肩膀在微微发抖。'],
@@ -1145,6 +1252,7 @@ const STORY={
   next:'ch1_14'
 },
 'ch1_14':{
+  cg:'cg2',
   music:'tense',
   speaker:'赵凯',speakerType:'bully',
   dialog:['苏小萌，听说你请假在家？怎么今天又来了？','我跟你说过多少次了，嘴巴给我闭紧。','你要是敢告诉任何人——你知道后果。'],
@@ -1207,6 +1315,7 @@ const STORY={
   next:'ch2a_06'
 },
 'ch2a_06':{
+  cg:'cg4',
   speaker:'林晓',speakerType:'',
   chars:[{id:'linxiao_angry',pos:'left'},{id:'zhaokai',pos:'right'}],
   dialog:['赵凯，你欺负苏小萌的事，我都知道了。','威胁、勒索、抢钱——你以为没人会管吗？'],
@@ -1254,6 +1363,7 @@ const STORY={
 
 // ============ CHAPTER 2B: 暗证 ============
 'ch2b_record':{
+  cg:'cg7',
   chapter:'第二章',chapterTitle:'暗 证',chapterLabel:'第二章',
   scene:'corridor',music:'tense',chars:[{id:'linxiao_scared',pos:'center'}],
   speaker:'旁白',speakerType:'narrator',
@@ -1339,6 +1449,7 @@ const STORY={
   next:'ch2c_07'
 },
 'ch2c_07':{
+  cg:'cg3',
   scene:'rooftop',chars:[{id:'xiaomeng_cry',pos:'center'}],
   speaker:'旁白',speakerType:'narrator',
   dialog:['放学后，天台楼梯间——苏小萌蜷缩在角落哭泣，地上一张纸条："你为什么不去死？"'],
@@ -1438,6 +1549,7 @@ const STORY={
   next:'ch3_tk07'
 },
 'ch3_tk07':{
+  cg:'cg8',
   speaker:'旁白',speakerType:'narrator',
   chars:[{id:'linxiao_smile',pos:'left'},{id:'xiaomeng_hopeful',pos:'right'}],
   dialog:['苏小萌抬起头，泪水模糊的眼睛里第一次有了一点光。她轻轻点了点头。'],
@@ -1469,6 +1581,7 @@ const STORY={
 },
 
 'ch3_hotline':{
+  cg:'cg9',
   chapter:'第三章',chapterTitle:'一通电话',chapterLabel:'第三章',
   scene:'corridor',music:'hopeful',chars:[{id:'linxiao_phone',pos:'center'}],
   speaker:'旁白',speakerType:'narrator',
@@ -1551,6 +1664,7 @@ const STORY={
 
 // ============ CHAPTER 4: 检察之光 ============
 'ch4_arrive':{
+  cg:'cg5',
   chapter:'第四章',chapterTitle:'检察之光',chapterLabel:'第四章',
   scene:'meeting',music:'hopeful',chars:[{id:'prosecutor',pos:'center'}],
   speaker:'旁白',speakerType:'narrator',
@@ -1608,6 +1722,7 @@ const STORY={
   next:'ch4_07'
 },
 'ch4_07':{
+  cg:'cg10',
   scene:'meeting',
   chars:[{id:'prosecutor_serious',pos:'left'},{id:'zhaokai_scared',pos:'right'}],
   speaker:'旁白',speakerType:'narrator',
@@ -1636,6 +1751,7 @@ const STORY={
   next:'ch4_12'
 },
 'ch4_12':{
+  cg:'cg11',
   speaker:'陈检察官',speakerType:'prosecutor',
   dialog:['赵凯，我还想问你一个问题。','你为什么要这样做？你从什么时候开始觉得欺负别人是理所当然的？'],
   next:'ch4_13'
@@ -1719,6 +1835,7 @@ const STORY={
 },
 
 'ending_best':{
+  cg:'cg6',
   scene:'schoolgate',music:'ending',
   chars:[{id:'linxiao_smile',pos:'left'},{id:'xiaomeng_normal',pos:'center'},{id:'zhangyue_smile',pos:'right'}],
   speaker:'旁白',speakerType:'narrator',
@@ -1753,6 +1870,7 @@ const STORY={
 },
 
 'ending_normal':{
+  cg:'cg12',
   scene:'rooftop',music:'emotional',
   chars:[{id:'linxiao_sad',pos:'center'}],
   speaker:'旁白',speakerType:'narrator',
