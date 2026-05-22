@@ -257,13 +257,9 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'PingFang SC','Hira
 .rotate-text{font-size:1.1rem;color:rgba(255,255,255,.85);letter-spacing:.15em;margin-bottom:.5rem}
 .rotate-sub{font-size:.75rem;color:rgba(255,255,255,.4);letter-spacing:.08em}
 
-/* Portrait: show rotate prompt */
-@media (orientation:portrait){
-  #rotate-prompt{display:flex}
-}
-@media (orientation:landscape){
-  #rotate-prompt{display:none!important}
-}
+/* Rotate prompt: hidden by default, shown by JS for 2s */
+#rotate-prompt.show{display:flex}
+#rotate-prompt.fadeout{opacity:0;transition:opacity .6s}
 
 /* === LANDSCAPE LAYOUT ADJUSTMENTS === */
 @media (orientation:landscape){
@@ -1910,6 +1906,12 @@ preloadImages(()=>{
   ParticleSystem.init();
   ParticleSystem.setMood('calm');
   ParticleSystem.start();
+  // Show rotate prompt for 2s if portrait on mobile
+  const rp=$('rotate-prompt');
+  if(window.innerHeight>window.innerWidth&&'ontouchstart' in window){
+    rp.classList.add('show');
+    setTimeout(()=>{rp.classList.add('fadeout');setTimeout(()=>{rp.classList.remove('show','fadeout')},600)},2000);
+  }
   setTimeout(()=>{
     $('title-screen').classList.add('active');
     $('start-btn').addEventListener('click',()=>{
