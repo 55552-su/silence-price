@@ -106,9 +106,6 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'PingFang SC','Hira
 .stat-val{color:#fff;font-weight:600}
 #menu-btn{width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:.75}
 #menu-btn svg{width:18px;height:18px}
-#voice-btn{width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:.75;position:relative}
-#voice-btn svg{width:18px;height:18px}
-#voice-btn.muted::after{content:'';position:absolute;width:2px;height:22px;background:rgba(255,100,100,.8);transform:rotate(45deg);border-radius:1px}
 
 /* === MENU OVERLAY === */
 #menu-overlay{position:absolute;inset:0;z-index:70;display:none;flex-direction:column;align-items:center;justify-content:center;background:rgba(5,5,15,.93);backdrop-filter:blur(8px);gap:1rem}
@@ -384,7 +381,6 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'PingFang SC','Hira
     <div class="stat-item">信任 <span class="stat-val" id="stat-trust">0</span></div>
     <div class="stat-item" id="chapter-display">第一章</div>
     <div id="map-btn" onclick="openChapterMap()"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.6)" stroke-width="2"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/><line x1="6" y1="8" x2="6" y2="16"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="18" x2="16" y2="18"/></svg></div>
-    <div id="voice-btn" onclick="TTS.toggle()"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.6)" stroke-width="2"><path d="M12 3v18M8 8l-4 3v2l4 3M16 8a5 5 0 010 8"/></svg></div>
     <div id="menu-btn" onclick="toggleMenu()"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.6)" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></div>
   </div>
 
@@ -1089,127 +1085,28 @@ function runNode(node){
   _runNodeContent(n);
 }
 function _runNodeContent(n){
-  if(n.legal){TTS.stop();showLegal(n.legal,()=>{if(n.next)playNode(n.next)});return}
-  if(n.ending){TTS.stop();BGM.fadeOut();showEnding(n.ending.badge,n.ending.title,n.ending.desc,n.ending.bg);return}
+  if(n.legal){showLegal(n.legal,()=>{if(n.next)playNode(n.next)});return}
+  if(n.ending){BGM.fadeOut();showEnding(n.ending.badge,n.ending.title,n.ending.desc,n.ending.bg);return}
   if(n.dialog){showDialog(true);setSpeaker(n.speaker,n.speakerType);state.textQueue=Array.isArray(n.dialog)?[...n.dialog]:[n.dialog];advanceDialog(n)}
   else if(n.choices){showChoices(n.choices)}else if(n.next){playNode(n.next)}
 }
 function advanceDialog(node){
   if(state.textQueue.length>0){
     const line=state.textQueue.shift();
-    if(typeof line==='object'){setSpeaker(line.speaker,line.speakerType);state._speaker=line.speaker;state._speakerType=line.speakerType;typeText(line.text);TTS.speak(line.text,line.speaker,line.speakerType)}
-    else{typeText(line);TTS.speak(line,state._speaker,state._speakerType)}
+    if(typeof line==='object'){setSpeaker(line.speaker,line.speakerType);state._speaker=line.speaker;state._speakerType=line.speakerType;typeText(line.text)}
+    else{typeText(line)}
   }
   else{if(node.choices)showChoices(node.choices);else if(node.next)playNode(node.next)}
 }
 document.addEventListener('click',e=>{
   if(_cgActive||state.choicesActive||$('title-screen').classList.contains('active')||$('chapter-overlay').classList.contains('active')||$('ending-screen').classList.contains('active')||$('menu-overlay').classList.contains('active')||$('legal-panel').classList.contains('active')||$('chapter-map-panel').classList.contains('active')||$('achieve-panel').classList.contains('active'))return;
-  if(e.target.closest('.choice-btn')||e.target.closest('#menu-btn')||e.target.closest('#map-btn')||e.target.closest('#voice-btn')||e.target.closest('.menu-item')||e.target.closest('.title-link-btn'))return;
+  if(e.target.closest('.choice-btn')||e.target.closest('#menu-btn')||e.target.closest('#map-btn')||e.target.closest('.menu-item')||e.target.closest('.title-link-btn'))return;
   let node=STORY[state.currentNode];if(!node)return;
   let rn={...node};if(typeof rn.dialog==='function')rn.dialog=rn.dialog();if(typeof rn.next==='function')rn.next=rn.next();if(typeof rn.chars==='function')rn.chars=rn.chars();
-  if(state.typing){completeText();TTS.stop();return}
-  if(state.textComplete){SFX.click();TTS.stop();state.textComplete=false;if(state.textQueue.length>0)advanceDialog(rn);else if(rn.choices)showChoices(rn.choices);else if(rn.next)playNode(rn.next)}
+  if(state.typing){completeText();return}
+  if(state.textComplete){SFX.click();state.textComplete=false;if(state.textQueue.length>0)advanceDialog(rn);else if(rn.choices)showChoices(rn.choices);else if(rn.next)playNode(rn.next)}
 });
 
-// === TTS VOICE SYSTEM ===
-const TTS={
-  enabled:true,
-  synth:window.speechSynthesis||null,
-  voices:[],
-  voiceZh:null,
-  ready:false,
-  unlocked:false,
-  _loadVoices(){
-    if(!this.synth)return;
-    this.voices=this.synth.getVoices();
-    // Prefer Chinese voices: try zh-CN first, then any zh, then cmn
-    this.voiceZh=this.voices.find(v=>v.lang==='zh-CN')
-      ||this.voices.find(v=>v.lang==='zh_CN')
-      ||this.voices.find(v=>v.lang.startsWith('zh'))
-      ||this.voices.find(v=>v.lang==='cmn')
-      ||null;
-    if(this.voices.length>0)this.ready=true;
-  },
-  init(){
-    if(!this.synth)return;
-    this._loadVoices();
-    // Voices may load async on some browsers
-    if(this.synth.onvoiceschanged!==undefined){this.synth.onvoiceschanged=()=>this._loadVoices()}
-    // Also retry loading after a delay (WeChat sometimes delays voice list)
-    setTimeout(()=>this._loadVoices(),500);
-    setTimeout(()=>this._loadVoices(),2000);
-    // Restore preference
-    const saved=localStorage.getItem('silenceTTSEnabled');
-    if(saved!==null)this.enabled=saved==='true';
-    this._updateBtn();
-  },
-  // Must be called from a user gesture (click/tap) to unlock TTS on mobile
-  unlock(){
-    if(this.unlocked||!this.synth)return;
-    this._loadVoices();
-    // Speak a silent/empty utterance to unlock the audio pipeline
-    const warmup=new SpeechSynthesisUtterance('');
-    warmup.volume=0;
-    warmup.lang='zh-CN';
-    if(this.voiceZh)warmup.voice=this.voiceZh;
-    try{this.synth.speak(warmup)}catch(e){}
-    this.unlocked=true;
-  },
-  toggle(){
-    this.enabled=!this.enabled;
-    localStorage.setItem('silenceTTSEnabled',this.enabled);
-    this._updateBtn();
-    if(!this.enabled)this.stop();
-    else this.unlock(); // re-unlock when user enables
-  },
-  _updateBtn(){
-    const btn=$('voice-btn');
-    if(btn){if(this.enabled)btn.classList.remove('muted');else btn.classList.add('muted')}
-  },
-  _getVoiceParams(speaker,speakerType){
-    const base={rate:1.0,pitch:1.0};
-    if(!speaker||speakerType==='narrator')return{...base,rate:0.95,pitch:1.0};
-    if(speaker==='林晓')return{...base,rate:1.05,pitch:1.1};
-    if(speaker==='苏小萌')return{...base,rate:0.95,pitch:1.3};
-    if(speaker==='赵凯')return{...base,rate:1.1,pitch:0.85};
-    if(speaker==='张悦')return{...base,rate:1.0,pitch:1.2};
-    if(speaker==='陈检察官'||speakerType==='prosecutor')return{...base,rate:0.9,pitch:1.05};
-    if(speaker==='王老师'||speakerType==='teacher')return{...base,rate:0.9,pitch:1.1};
-    if(speakerType==='bully')return{...base,rate:1.1,pitch:0.85};
-    if(speaker==='热线工作人员')return{...base,rate:0.92,pitch:1.05};
-    return base;
-  },
-  speak(text,speaker,speakerType){
-    if(!this.enabled||!this.synth)return;
-    this.stop();
-    // Re-check voices (WeChat may load them late)
-    if(!this.voiceZh)this._loadVoices();
-    // Clean text
-    let cleanText=text.replace(/[（(][^）)]*[）)]/g,'').replace(/[「」]/g,'').trim();
-    if(!cleanText)return;
-    // On some engines, long paused synth needs a kick
-    if(this.synth.paused){try{this.synth.resume()}catch(e){}}
-    const utter=new SpeechSynthesisUtterance(cleanText);
-    utter.lang='zh-CN';
-    if(this.voiceZh)utter.voice=this.voiceZh;
-    const params=this._getVoiceParams(speaker,speakerType);
-    utter.rate=params.rate;
-    utter.pitch=params.pitch;
-    utter.volume=0.8;
-    try{this.synth.speak(utter)}catch(e){}
-    // Chrome/WeChat bug: synth sometimes pauses after 15s. Keep it alive.
-    if(this._keepAlive)clearInterval(this._keepAlive);
-    this._keepAlive=setInterval(()=>{
-      if(this.synth.speaking&&!this.synth.paused)return;
-      if(this.synth.paused){try{this.synth.resume()}catch(e){}}
-      else clearInterval(this._keepAlive);
-    },5000);
-  },
-  stop(){
-    if(this._keepAlive){clearInterval(this._keepAlive);this._keepAlive=null}
-    if(this.synth){try{this.synth.cancel()}catch(e){}}
-  }
-};
 
 // ========================================
 // STORY DATA
@@ -2057,7 +1954,6 @@ if(!_useWebP){
 
 preloadImages(()=>{
   $('loading-screen').classList.add('hidden');
-  TTS.init();
   ParticleSystem.init();
   ParticleSystem.setMood('calm');
   ParticleSystem.start();
@@ -2070,7 +1966,7 @@ preloadImages(()=>{
   setTimeout(()=>{
     $('title-screen').classList.add('active');
     $('start-btn').addEventListener('click',()=>{
-      BGM.init();TTS.unlock();SFX.select();
+      BGM.init();SFX.select();
       $('title-screen').classList.add('fadeout');
       setTimeout(()=>{$('title-screen').classList.remove('active','fadeout');playNode('ch1_start')},800);
     });
