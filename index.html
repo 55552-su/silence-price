@@ -269,16 +269,16 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'PingFang SC','Hira
 .choices-label{width:100%;text-align:center}
 #stats-bar{padding:calc(.4rem + env(safe-area-inset-top,0px)) 1.2rem .3rem}
 .stat-item{font-size:.65rem}
-.title-emblem{width:72px;height:72px;top:8%}
-.title-badge{font-size:.58rem;margin-top:2%;margin-bottom:.8rem}
-.title-main{font-size:2.4rem;margin-bottom:.4rem}
-.title-sub{font-size:.8rem;margin-bottom:1.5rem;letter-spacing:.25em}
-.title-start-btn{padding:.6rem 2rem;font-size:.85rem}
-.title-extra-btns{margin-top:.6rem}
-.title-link-btn{padding:.35rem .9rem;font-size:.68rem}
-.title-credit{bottom:.8rem;font-size:.5rem}
-.title-rays{width:200px;height:200px;top:8%}
-.title-ray{height:110px;width:3px}
+.title-emblem{width:72px;height:72px;top:22%}
+.title-badge{font-size:.58rem;margin-top:2%;margin-bottom:.6rem}
+.title-main{font-size:2.2rem;margin-bottom:.3rem}
+.title-sub{font-size:.75rem;margin-bottom:1.2rem;letter-spacing:.25em}
+.title-start-btn{padding:.5rem 1.8rem;font-size:.82rem}
+.title-extra-btns{margin-top:.5rem}
+.title-link-btn{padding:.3rem .8rem;font-size:.65rem}
+.title-credit{bottom:.6rem;font-size:.48rem}
+.title-rays{width:180px;height:180px;top:22%}
+.title-ray{height:100px;width:3px}
 #legal-panel{padding:calc(1rem + env(safe-area-inset-top,0px)) 3rem 1.5rem;flex-direction:row;flex-wrap:wrap;justify-content:center;gap:.8rem;align-content:flex-start}
 .legal-card{max-width:280px}
 .legal-card h3{font-size:.78rem}
@@ -682,7 +682,14 @@ const IMG={
     cg9:'cg9_hotline.png',
     cg10:'cg10_interrogation.png',
     cg11:'cg11_violence_cycle.png',
-    cg12:'cg12_ending_normal.png'
+    cg12:'cg12_ending_normal.png',
+    cg13:'cg13_schoolgate.png',
+    cg14:'cg14_choice.png',
+    cg15:'cg15_silent.png',
+    cg16:'cg16_teacher.png',
+    cg17:'cg17_storm.png',
+    cg18:'cg18_verdict.png',
+    cg19:'cg19_good_ending.png'
   }
 };
 
@@ -1171,6 +1178,7 @@ const STORY={
 
 // ============ CHAPTER 1: 暗流 ============
 'ch1_start':{
+  cg:'cg13',
   chapter:'第一章',chapterTitle:'暗 流',chapterLabel:'第一章',
   scene:'schoolgate',statsBar:true,music:'calm',
   chars:[{id:'linxiao',pos:'center'}],
@@ -1318,6 +1326,7 @@ const STORY={
   next:'ch1_18'
 },
 'ch1_18':{
+  cg:'cg14',
   chars:[{id:'linxiao_shocked',pos:'center'}],
   speaker:'旁白',speakerType:'narrator',
   dialog:['赵凯走远了。苏小萌还呆呆地站着。林晓握紧了拳头——他需要做一个选择。'],
@@ -1459,6 +1468,7 @@ const STORY={
 
 // ============ CHAPTER 2C: 沉默 ============
 'ch2c_silent':{
+  cg:'cg15',
   chapter:'第二章',chapterTitle:'沉 默',chapterLabel:'第二章',
   scene:'classroom',music:'emotional',chars:[{id:'linxiao_sad',pos:'center'}],
   speaker:'旁白',speakerType:'narrator',
@@ -1523,6 +1533,7 @@ const STORY={
 
 // ============ CHAPTER 3: 求助路线 ============
 'ch3_teacher':{
+  cg:'cg16',
   chapter:'第三章',chapterTitle:'求 助',chapterLabel:'第三章',
   scene:'classroom',music:'emotional',chars:[{id:'linxiao',pos:'left'},{id:'teacher',pos:'right'}],
   speaker:'旁白',speakerType:'narrator',
@@ -1656,6 +1667,7 @@ const STORY={
 
 // ============ CHAPTER 3.5: 风暴 ============
 'ch3_storm':{
+  cg:'cg17',
   chapter:'第三章',chapterTitle:'风 暴',chapterLabel:'第三章',
   scene:'classroom',shake:true,music:'dark',
   chars:[{id:'zhaokai_angry',pos:'center'}],
@@ -1811,6 +1823,7 @@ const STORY={
   next:'ch4_15'
 },
 'ch4_15':{
+  cg:'cg18',
   chars:[{id:'prosecutor_serious',pos:'center'}],
   speaker:'陈检察官',speakerType:'prosecutor',
   dialog:['你的家庭情况我们会关注，但不能成为伤害别人的借口。你的行为构成敲诈勒索罪。','考虑到你是未成年人、初次犯罪且有悔罪表现，检察院决定对你适用附条件不起诉。','条件是：向苏小萌真诚道歉并赔偿损失；接受六个月心理辅导和行为矫正。','考验期内再犯，将撤销不起诉决定，依法提起公诉。'],
@@ -1886,6 +1899,7 @@ const STORY={
 },
 
 'ending_good':{
+  cg:'cg19',
   scene:'schoolgate',music:'ending',
   chars:[{id:'linxiao',pos:'left'},{id:'xiaomeng_hopeful',pos:'right'}],
   speaker:'旁白',speakerType:'narrator',
