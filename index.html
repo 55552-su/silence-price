@@ -16,7 +16,8 @@
 /* === RESET & BASE === */
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{width:100%;height:100%;overflow:hidden;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans SC',sans-serif;background:#000;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;-webkit-text-size-adjust:100%;touch-action:manipulation}
-#game{position:relative;width:100%;height:100%;overflow:hidden}
+#game{position:relative;width:100%;height:100%;overflow:hidden;opacity:0}
+#game.ready{opacity:1;transition:opacity .3s}
 
 /* === LOADING SCREEN === */
 #loading-screen{position:absolute;inset:0;z-index:1000;background:#0a0a12;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .6s}
@@ -905,8 +906,7 @@ const CHAPTER_TREE=[
     {id:'ch4_legal',label:'法律知识'},
     {id:'ch4_07',label:'审查起诉'},
     {id:'ch4_15',label:'附条件不起诉'},
-    {id:'ch4_16',label:'检察官谈话'},
-    {id:'ch4_21',label:'检察建议'}
+    {id:'ch4_16',label:'检察官谈话'}
   ]},
   {chapter:'第五章',title:'结局',color:'#764ba2',nodes:[
     {id:'ch5_branch',label:'新的一天'},
@@ -1836,17 +1836,6 @@ const STORY={
 'ch4_19':{
   speaker:'陈检察官',speakerType:'prosecutor',
   dialog:['害怕是正常的。勇敢不是不害怕——是害怕了依然选择做对的事。记住，法律永远站在正义这边。'],
-  next:'ch4_20'
-},
-'ch4_20':{
-  chars:[{id:'prosecutor_serious',pos:'left'},{id:'teacher_serious',pos:'right'}],
-  speaker:'旁白',speakerType:'narrator',
-  dialog:['最后，陈检察官向学校发出了《检察建议书》——'],
-  next:'ch4_21'
-},
-'ch4_21':{
-  speaker:'陈检察官',speakerType:'prosecutor',
-  dialog:['检察建议要求明德中学：建立欺凌防控制度和匿名举报渠道；设立心理咨询室；','定期开展反欺凌法治教育；对管理漏洞进行整改。学校须在两个月内书面回复。'],
   next:'ch5_branch'
 },
 
@@ -1964,10 +1953,16 @@ function applyForceLandscape(){
     game.style.height='100%';
     game.style.transform='none';
   }
+  if(!game.classList.contains('ready')){
+    requestAnimationFrame(()=>game.classList.add('ready'));
+  }
 }
 applyForceLandscape();
-window.addEventListener('resize',applyForceLandscape);
-window.addEventListener('orientationchange',()=>setTimeout(applyForceLandscape,150));
+// Debounced resize to prevent flicker during orientation change
+let _resizeTimer=null;
+function _debouncedLandscape(){clearTimeout(_resizeTimer);_resizeTimer=setTimeout(applyForceLandscape,80)}
+window.addEventListener('resize',_debouncedLandscape);
+window.addEventListener('orientationchange',()=>setTimeout(applyForceLandscape,200));
 
 preloadImages(()=>{
   $('loading-screen').classList.add('hidden');
