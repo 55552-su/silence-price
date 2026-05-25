@@ -44,17 +44,17 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'PingFang SC','Hira
 .scene-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(0,0,0,.55) 70%,rgba(0,0,0,.85) 100%)}
 
 /* === CHARACTER LAYER === */
-#char-layer{position:absolute;inset:0;z-index:2;pointer-events:none}
-.char-sprite{position:absolute;bottom:-80%;height:190%;max-height:none;max-width:55%;object-fit:contain;transition:all .6s cubic-bezier(.25,.46,.45,.94);opacity:0;transform:translateY(20px);filter:drop-shadow(0 4px 20px rgba(0,0,0,.5))}
+#char-layer{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden}
+.char-sprite{position:absolute;bottom:-45%;height:140%;max-height:none;max-width:50%;object-fit:contain;transition:all .6s cubic-bezier(.25,.46,.45,.94);opacity:0;transform:translateY(20px);filter:drop-shadow(0 4px 20px rgba(0,0,0,.5))}
 .char-sprite.active{opacity:1;transform:translateY(0)}
 .char-sprite.left{left:-2%}
 .char-sprite.center{left:50%;transform:translateX(-50%)}
 .char-sprite.center.active{transform:translateX(-50%) translateY(0)}
 .char-sprite.right{right:-2%}
 .char-sprite.dim{filter:brightness(.5) drop-shadow(0 4px 20px rgba(0,0,0,.5))}
-.char-sprite.multi{max-width:42%;height:170%;bottom:-68%}
-.char-sprite.multi.left{left:-2%}
-.char-sprite.multi.right{right:-2%}
+.char-sprite.multi{max-width:38%;height:125%;bottom:-35%}
+.char-sprite.multi.left{left:-1%}
+.char-sprite.multi.right{right:-1%}
 
 /* === DIALOG BOX === */
 #dialog-layer{position:absolute;bottom:0;left:0;right:0;z-index:10;padding:0 .8rem 1.2rem}
@@ -254,12 +254,12 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'PingFang SC','Hira
 }
 
 /* === LANDSCAPE LAYOUT (mobile-optimized, always active) === */
-.char-sprite{height:200%;max-height:none;bottom:-85%}
-.char-sprite.left{left:-5%}
-.char-sprite.right{right:-5%}
-.char-sprite.multi{height:180%;max-height:none;max-width:42%;bottom:-72%}
-.char-sprite.multi.left{left:-3%}
-.char-sprite.multi.right{right:-3%}
+.char-sprite{height:150%;max-height:none;bottom:-50%}
+.char-sprite.left{left:-3%}
+.char-sprite.right{right:-3%}
+.char-sprite.multi{height:135%;max-height:none;max-width:36%;bottom:-40%}
+.char-sprite.multi.left{left:-2%}
+.char-sprite.multi.right{right:-2%}
 #dialog-layer{padding:0 8% 1rem}
 #dialog-box{min-height:100px;padding:.7rem 1.2rem .6rem}
 #dialog-text{font-size:.92rem;min-height:2.2em;line-height:1.7}
@@ -299,10 +299,10 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'PingFang SC','Hira
 
 /* === DESKTOP / LARGE SCREENS: restore bigger sizes === */
 @media (min-height:600px) and (min-width:900px){
-  .char-sprite{height:190%;max-height:none;bottom:-78%}
+  .char-sprite{height:140%;max-height:none;bottom:-45%}
   .char-sprite.left{left:-2%}
   .char-sprite.right{right:-2%}
-  .char-sprite.multi{height:170%;max-height:none;max-width:42%;bottom:-65%}
+  .char-sprite.multi{height:125%;max-height:none;max-width:38%;bottom:-35%}
   #dialog-layer{padding:0 .8rem 1.2rem}
   #dialog-box{min-height:140px;padding:1rem 1.2rem .9rem}
   #dialog-text{font-size:1.05rem;min-height:3.2em;line-height:1.8}
