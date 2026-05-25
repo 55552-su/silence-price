@@ -780,7 +780,8 @@ function showCG(cgKey,cb){
     _cgActive=false;
     setTimeout(()=>{layer.classList.remove('active');layer.style.display='none';if(cb)cb()},600);
   };
-  setTimeout(()=>{layer.addEventListener('click',dismiss)},300);
+  // Allow dismiss after 1.5s so player can appreciate the CG
+  setTimeout(()=>{layer.addEventListener('click',dismiss)},1500);
 }
 function typeText(text,cb){
   const el=$('dialog-text');el.innerHTML='';state.typing=true;state.textComplete=false;$('dialog-indicator').style.display='none';
@@ -806,7 +807,8 @@ function showLegal(cards,cb){const panel=$('legal-panel');panel.innerHTML='';car
 function closeLegal(){$('legal-panel').classList.remove('active')}
 // === BGM SYSTEM (real audio files with crossfade) ===
 const BGM={
-  currentMood:null,currentAudio:null,nextAudio:null,fadingOut:null,vol:0.45,
+  currentMood:null,currentAudio:null,vol:0.45,_fadeTimer:null,_fadeInTimer:null,
+  _pool:{},// reuse Audio objects to prevent iOS overlap
   files:{
     calm:'bgm_calm.mp3',
     tense:'bgm_tense.mp3',
@@ -815,61 +817,68 @@ const BGM={
     hopeful:'bgm_hopeful.mp3',
     ending:'bgm_ending.mp3'
   },
-  _create(mood){
-    const a=new Audio(this.files[mood]);
-    a.loop=true;a.volume=0;a.preload='auto';
-    return a;
+  _get(mood){
+    if(!this._pool[mood]){
+      const a=new Audio(this.files[mood]);
+      a.loop=true;a.volume=0;a.preload='auto';
+      this._pool[mood]=a;
+    }
+    return this._pool[mood];
+  },
+  _stopAll(){
+    // Force-stop ALL audio in pool to prevent any overlap
+    if(this._fadeTimer){clearInterval(this._fadeTimer);this._fadeTimer=null}
+    if(this._fadeInTimer){clearInterval(this._fadeInTimer);this._fadeInTimer=null}
+    for(const k in this._pool){
+      try{this._pool[k].pause();this._pool[k].currentTime=0;this._pool[k].volume=0}catch(e){}
+    }
   },
   play(mood){
     if(!mood||mood===this.currentMood)return;
     if(!this.files[mood])return;
     const targetVol=this.vol;
+    // Stop any ongoing fades
+    if(this._fadeTimer){clearInterval(this._fadeTimer);this._fadeTimer=null}
+    if(this._fadeInTimer){clearInterval(this._fadeInTimer);this._fadeInTimer=null}
+    // Fade out current audio
     if(this.currentAudio){
       const old=this.currentAudio;
-      this.fadingOut=old;
-      const fadeOut=setInterval(()=>{
-        if(old.volume>0.02){old.volume=Math.max(0,old.volume-0.02)}
-        else{clearInterval(fadeOut);old.pause();old.currentTime=0;if(this.fadingOut===old)this.fadingOut=null}
-      },50);
-    }
-    this.currentMood=mood;
-    const audio=this._create(mood);
-    this.currentAudio=audio;
-    const startPlay=()=>{
-      audio.play().then(()=>{
-        let v=0;
-        const fadeIn=setInterval(()=>{
-          v+=0.015;
-          if(v>=targetVol){audio.volume=targetVol;clearInterval(fadeIn)}
-          else{audio.volume=v}
-        },50);
-      }).catch(e=>{
-        console.log('BGM blocked:',e);
-        const unlock=()=>{audio.play().catch(()=>{});document.removeEventListener('touchstart',unlock);document.removeEventListener('click',unlock)};
-        document.addEventListener('touchstart',unlock,{once:true});
-        document.addEventListener('click',unlock,{once:true});
-      });
-    };
-    startPlay();
-  },
-  stop(){
-    if(this.currentAudio){
-      const old=this.currentAudio;
-      const fadeOut=setInterval(()=>{
-        if(old.volume>0.02){old.volume=Math.max(0,old.volume-0.02)}
-        else{clearInterval(fadeOut);old.pause();old.currentTime=0}
+      this._fadeTimer=setInterval(()=>{
+        if(old.volume>0.02){old.volume=Math.max(0,old.volume-0.03)}
+        else{clearInterval(this._fadeTimer);this._fadeTimer=null;old.pause();old.currentTime=0;old.volume=0}
       },40);
     }
+    this.currentMood=mood;
+    const audio=this._get(mood);
+    audio.currentTime=0;audio.volume=0;
+    this.currentAudio=audio;
+    audio.play().then(()=>{
+      let v=0;
+      this._fadeInTimer=setInterval(()=>{
+        v+=0.015;
+        if(v>=targetVol){audio.volume=targetVol;clearInterval(this._fadeInTimer);this._fadeInTimer=null}
+        else{audio.volume=v}
+      },50);
+    }).catch(()=>{
+      const unlock=()=>{audio.play().catch(()=>{});document.removeEventListener('touchstart',unlock);document.removeEventListener('click',unlock)};
+      document.addEventListener('touchstart',unlock,{once:true});
+      document.addEventListener('click',unlock,{once:true});
+    });
+  },
+  stop(){
+    this._stopAll();
     this.currentAudio=null;this.currentMood=null;
   },
   fadeOut(){
     if(!this.currentAudio)return;
+    if(this._fadeInTimer){clearInterval(this._fadeInTimer);this._fadeInTimer=null}
     const audio=this.currentAudio;
-    const fade=setInterval(()=>{
-      if(audio.volume>0.01){audio.volume=Math.max(0,audio.volume-0.008)}
-      else{clearInterval(fade);audio.pause();audio.currentTime=0}
-    },50);
     this.currentAudio=null;this.currentMood=null;
+    if(this._fadeTimer)clearInterval(this._fadeTimer);
+    this._fadeTimer=setInterval(()=>{
+      if(audio.volume>0.01){audio.volume=Math.max(0,audio.volume-0.008)}
+      else{clearInterval(this._fadeTimer);this._fadeTimer=null;audio.pause();audio.currentTime=0;audio.volume=0}
+    },50);
   },
   init(){/* no-op, kept for compat */}
 };
