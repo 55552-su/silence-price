@@ -346,7 +346,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'PingFang SC','Hira
   <div id="loading-screen">
     <div class="loading-title">LOADING</div>
     <div class="loading-bar-wrap"><div class="loading-bar" id="loading-bar"></div></div>
-    <div class="loading-tip">正在加载资源...</div>
+    <div class="loading-tip" id="loading-tip">正在加载资源...</div>
   </div>
 
   <!-- Title -->
@@ -696,49 +696,62 @@ const IMG={
   }
 };
 
+// WebP support detection and fallback
+let _useWebP=true;
+(function(){
+  const c=document.createElement('canvas');
+  if(c.toDataURL&&c.toDataURL('image/webp').indexOf('data:image/webp')===0){_useWebP=true;return}
+  _useWebP=false;
+  // Fallback: rewrite all .webp to .png
+  function rewrite(obj){for(const k in obj){if(typeof obj[k]==='string')obj[k]=obj[k].replace('.webp','.png')}}
+  rewrite(IMG.chars);rewrite(IMG.scenes);rewrite(IMG.cgs);
+})();
+
 let state={courage:0,trust:0,hasEvidence:false,currentNode:null,textQueue:[],typing:false,textComplete:false,choicesActive:false,visitedNodes:new Set(JSON.parse(localStorage.getItem('silenceVisitedNodes')||'[]'))};
 const $=id=>document.getElementById(id);
 
 function preloadImages(cb){
-  // Phase 1: Load only essential assets (title + scenes + key characters)
-  const essential=[
-    'title_bg.webp','title_emblem.webp',
+  // Load ALL assets upfront (total ~7.4MB WebP, acceptable for full preload)
+  const ext=_useWebP?'.webp':'.png';
+  const allImages=[
+    'title_bg'+ext,'title_emblem'+ext,
+    ...Object.values(IMG.chars),
     ...Object.values(IMG.scenes),
-    IMG.chars.linxiao,IMG.chars.xiaomeng_scared,IMG.chars.zhaokai
+    ...Object.values(IMG.cgs)
   ];
   const audioFiles=Object.values(BGM.files);
-  const total=essential.length+audioFiles.length;
-  let loaded=0;let done=false;const bar=$('loading-bar');
-  const finish=()=>{if(done)return;done=true;cb();_preloadRemaining()};
-  const tick=()=>{loaded++;bar.style.width=Math.round(loaded/total*100)+'%';if(loaded>=total)finish()};
-  essential.forEach(src=>{
+  const total=allImages.length+audioFiles.length;
+  let loaded=0;let done=false;
+  const bar=$('loading-bar');const tip=$('loading-tip');
+  const finish=()=>{if(done)return;done=true;cb()};
+  const tick=()=>{
+    loaded++;
+    const pct=Math.round(loaded/total*100);
+    bar.style.width=pct+'%';
+    tip.textContent='正在加载资源 '+pct+'%';
+    if(loaded>=total)finish();
+  };
+  // Load images with retry on failure
+  function loadImg(src,retries){
     const img=new Image();
-    img.onload=img.onerror=tick;
-    img.src=src;
+    img.onload=tick;
+    img.onerror=()=>{
+      if(retries>0){setTimeout(()=>loadImg(src,retries-1),800)}
+      else{tick()}// give up after retries, count as loaded to not block
+    };
+    img.src=src+(retries<2?'?r='+Date.now():'');// cache-bust on retry
     img.decoding='async';
-    if('decode' in img){img.decode().catch(()=>{});}
-  });
-  audioFiles.forEach(src=>{const a=new Audio();a.preload='auto';a.oncanplaythrough=a.onerror=tick;a.src=src;setTimeout(()=>{if(!done){tick()}},3000)});
-  setTimeout(finish,8000);
-}
-// Phase 2: Background-load remaining assets after game starts
-function _preloadRemaining(){
-  const loaded=new Set();
-  const allChars=Object.values(IMG.chars);
-  const allCGs=Object.values(IMG.cgs);
-  const remaining=[...allChars,...allCGs];
-  let i=0;
-  function next(){
-    if(i>=remaining.length)return;
-    const src=remaining[i++];
-    if(loaded.has(src)){next();return}
-    loaded.add(src);
-    const img=new Image();img.src=src;
-    img.onload=img.onerror=()=>setTimeout(next,50);
-    setTimeout(()=>next(),2000);// fallback if stuck
   }
-  // Stagger loading: 3 parallel streams
-  next();setTimeout(next,200);setTimeout(next,400);
+  allImages.forEach(src=>loadImg(src,2));
+  // Load audio with generous timeout
+  audioFiles.forEach(src=>{
+    const a=new Audio();a.preload='auto';
+    a.oncanplaythrough=a.onerror=tick;
+    a.src=src;
+    setTimeout(()=>{if(!done){tick()}},5000);
+  });
+  // Safety timeout: 30s for slow networks (7.4MB should load within this)
+  setTimeout(finish,30000);
 }
 function setScene(key){
   const bg=$('scene-bg');const url=IMG.scenes[key];
@@ -2034,6 +2047,12 @@ if(window.matchMedia){
   const mql=window.matchMedia('(orientation: portrait)');
   if(mql.addEventListener)mql.addEventListener('change',()=>setTimeout(applyForceLandscape,100));
   else if(mql.addListener)mql.addListener(()=>setTimeout(applyForceLandscape,100));
+}
+
+// Apply correct image format for CSS backgrounds
+if(!_useWebP){
+  document.querySelector('.title-bg-img').style.backgroundImage="url('title_bg.png')";
+  document.querySelector('.title-emblem').style.backgroundImage="url('title_emblem.png')";
 }
 
 preloadImages(()=>{
