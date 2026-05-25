@@ -252,7 +252,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'PingFang SC','Hira
   position:absolute;top:0;left:0;overflow:hidden;
 }
 
-/* === LANDSCAPE LAYOUT (always active when game is landscape) === */
+/* === LANDSCAPE LAYOUT (mobile-optimized, always active) === */
 .char-sprite{height:55%;max-height:480px;bottom:16%}
 .char-sprite.left{left:5%}
 .char-sprite.right{right:5%}
@@ -295,6 +295,48 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'PingFang SC','Hira
 #chapter-overlay .chapter-title{font-size:1.3rem}
 .scene-overlay{background:linear-gradient(180deg,transparent 20%,rgba(0,0,0,.45) 65%,rgba(0,0,0,.8) 100%)}
 #menu-overlay .menu-item{font-size:.82rem;padding:.5rem 1.5rem}
+
+/* === DESKTOP / LARGE SCREENS: restore bigger sizes === */
+@media (min-height:600px) and (min-width:900px){
+  .char-sprite{height:65%;max-height:520px;bottom:12%}
+  .char-sprite.left{left:3%}
+  .char-sprite.right{right:3%}
+  .char-sprite.multi{height:52%;max-height:420px;max-width:28%}
+  #dialog-layer{padding:0 .8rem 1.2rem}
+  #dialog-box{min-height:140px;padding:1rem 1.2rem .9rem}
+  #dialog-text{font-size:1.05rem;min-height:3.2em;line-height:1.8}
+  .speaker-name{font-size:.85rem}
+  #choices-layer{padding:0 1.2rem 2rem;flex-direction:column;align-items:center;gap:.7rem}
+  .choice-btn{max-width:380px;width:100%;padding:1rem 1.4rem;font-size:1rem;line-height:1.5}
+  #stats-bar{padding:calc(.8rem + env(safe-area-inset-top,0px)) 1rem .6rem}
+  .stat-item{font-size:.7rem}
+  .title-emblem{width:120px;height:120px;top:18%}
+  .title-badge{font-size:.65rem;margin-top:6%;margin-bottom:1.2rem}
+  .title-main{font-size:3.6rem;margin-bottom:.6rem}
+  .title-sub{font-size:1rem;margin-bottom:3rem}
+  .title-start-btn{padding:.9rem 3.5rem;font-size:1rem}
+  .title-extra-btns{margin-top:1.2rem}
+  .title-link-btn{padding:.5rem 1.2rem;font-size:.75rem}
+  .title-credit{bottom:2rem;font-size:.6rem}
+  .title-rays{width:340px;height:340px;top:18%}
+  .title-ray{height:180px;width:4px}
+  #legal-panel{padding:calc(2rem + env(safe-area-inset-top,0px)) 1.5rem 2rem;flex-direction:column;align-items:center}
+  .legal-card{max-width:340px}
+  .legal-card h3{font-size:.85rem}
+  .legal-card p{font-size:.78rem}
+  .legal-close{font-size:.8rem;padding:.6rem 2rem}
+  #achieve-panel{padding:calc(1.5rem + env(safe-area-inset-top,0px)) 1.2rem 2rem}
+  .achieve-grid{max-width:380px}
+  #ending-screen{padding:2rem}
+  .ending-badge{font-size:.7rem;margin-bottom:1rem}
+  .ending-title{font-size:1.5rem;margin-bottom:1.5rem}
+  .ending-desc{font-size:.85rem;max-width:320px;margin-bottom:2.5rem;line-height:1.9}
+  .ending-restart{padding:.7rem 2.5rem;font-size:.82rem}
+  #chapter-overlay .chapter-num{font-size:.75rem}
+  #chapter-overlay .chapter-title{font-size:1.6rem}
+  .scene-overlay{background:linear-gradient(180deg,transparent 30%,rgba(0,0,0,.55) 70%,rgba(0,0,0,.85) 100%)}
+  #menu-overlay .menu-item{font-size:.9rem;padding:.7rem 2rem}
+}
 </style>
 </head>
 <body>
