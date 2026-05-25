@@ -45,16 +45,16 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'PingFang SC','Hira
 
 /* === CHARACTER LAYER === */
 #char-layer{position:absolute;inset:0;z-index:2;pointer-events:none}
-.char-sprite{position:absolute;bottom:12%;height:65%;max-height:520px;max-width:36%;object-fit:contain;transition:all .6s cubic-bezier(.25,.46,.45,.94);opacity:0;transform:translateY(20px);filter:drop-shadow(0 4px 20px rgba(0,0,0,.5))}
+.char-sprite{position:absolute;bottom:-80%;height:190%;max-height:none;max-width:55%;object-fit:contain;transition:all .6s cubic-bezier(.25,.46,.45,.94);opacity:0;transform:translateY(20px);filter:drop-shadow(0 4px 20px rgba(0,0,0,.5))}
 .char-sprite.active{opacity:1;transform:translateY(0)}
-.char-sprite.left{left:3%}
+.char-sprite.left{left:-2%}
 .char-sprite.center{left:50%;transform:translateX(-50%)}
 .char-sprite.center.active{transform:translateX(-50%) translateY(0)}
-.char-sprite.right{right:3%}
+.char-sprite.right{right:-2%}
 .char-sprite.dim{filter:brightness(.5) drop-shadow(0 4px 20px rgba(0,0,0,.5))}
-.char-sprite.multi{max-width:24%;height:48%;max-height:400px}
-.char-sprite.multi.left{left:1%}
-.char-sprite.multi.right{right:1%}
+.char-sprite.multi{max-width:42%;height:170%;bottom:-68%}
+.char-sprite.multi.left{left:-2%}
+.char-sprite.multi.right{right:-2%}
 
 /* === DIALOG BOX === */
 #dialog-layer{position:absolute;bottom:0;left:0;right:0;z-index:10;padding:0 .8rem 1.2rem}
@@ -254,12 +254,12 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'PingFang SC','Hira
 }
 
 /* === LANDSCAPE LAYOUT (mobile-optimized, always active) === */
-.char-sprite{height:55%;max-height:480px;bottom:16%}
-.char-sprite.left{left:5%}
-.char-sprite.right{right:5%}
-.char-sprite.multi{height:48%;max-height:400px;max-width:24%}
-.char-sprite.multi.left{left:1%}
-.char-sprite.multi.right{right:1%}
+.char-sprite{height:200%;max-height:none;bottom:-85%}
+.char-sprite.left{left:-5%}
+.char-sprite.right{right:-5%}
+.char-sprite.multi{height:180%;max-height:none;max-width:42%;bottom:-72%}
+.char-sprite.multi.left{left:-3%}
+.char-sprite.multi.right{right:-3%}
 #dialog-layer{padding:0 8% 1rem}
 #dialog-box{min-height:100px;padding:.7rem 1.2rem .6rem}
 #dialog-text{font-size:.92rem;min-height:2.2em;line-height:1.7}
@@ -299,10 +299,10 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'PingFang SC','Hira
 
 /* === DESKTOP / LARGE SCREENS: restore bigger sizes === */
 @media (min-height:600px) and (min-width:900px){
-  .char-sprite{height:65%;max-height:520px;bottom:12%}
-  .char-sprite.left{left:3%}
-  .char-sprite.right{right:3%}
-  .char-sprite.multi{height:52%;max-height:420px;max-width:28%}
+  .char-sprite{height:190%;max-height:none;bottom:-78%}
+  .char-sprite.left{left:-2%}
+  .char-sprite.right{right:-2%}
+  .char-sprite.multi{height:170%;max-height:none;max-width:42%;bottom:-65%}
   #dialog-layer{padding:0 .8rem 1.2rem}
   #dialog-box{min-height:140px;padding:1rem 1.2rem .9rem}
   #dialog-text{font-size:1.05rem;min-height:3.2em;line-height:1.8}
@@ -1186,7 +1186,7 @@ const STORY={
   scene:'schoolgate',statsBar:true,music:'calm',
   chars:[{id:'linxiao',pos:'center'}],
   speaker:'旁白',speakerType:'narrator',
-  dialog:['九月，明德中学，新学期第三周。今天将是一切改变的起点。'],
+  dialog:['九月，阳光中学，新学期第三周。今天将是一切改变的起点。'],
   next:'ch1_02'
 },
 'ch1_02':{
@@ -1874,7 +1874,7 @@ const STORY={
   },
   speaker:'旁白',speakerType:'narrator',
   dialog:function(){
-    if(state.courage>=5&&state.trust>=4)return['阳光洒进校园。今天的明德中学，和一个月前不一样了。'];
+    if(state.courage>=5&&state.trust>=4)return['阳光洒进校园。今天的阳光中学，和一个月前不一样了。'];
     if(state.courage>=3)return['校园恢复了平静。改变在发生，但一切都需要时间。'];
     return['时间过去了。有些事情改变了，有些伤痕却很难消退。'];
   },
@@ -1891,7 +1891,7 @@ const STORY={
   chars:[{id:'linxiao_smile',pos:'left'},{id:'xiaomeng_normal',pos:'center'},{id:'zhangyue_smile',pos:'right'}],
   speaker:'旁白',speakerType:'narrator',
   dialog:[
-    '在检察机关督促下，明德中学全面整改——匿名信箱、心理咨询室、法治课堂。',
+    '在检察机关督促下，阳光中学全面整改——匿名信箱、心理咨询室、法治课堂。',
     '苏小萌走出了阴影，加入了"法治小卫士"社团。赵凯写了长长的道歉信，改变已经开始。',
     '林晓站在校门口看着阳光下的同学们——因为有人选择了不沉默，这个世界好了一点点。'
   ],
