@@ -688,8 +688,11 @@ const IMG={
     cg15:'cg15_silent.png',
     cg16:'cg16_teacher.png',
     cg17:'cg17_storm.png',
-    cg18:'cg18_verdict.png',
-    cg19:'cg19_good_ending.png'
+    cg19:'cg19_good_ending.png',
+    cg20:'cg20_comfort.png',
+    cg21:'cg21_ally.png',
+    cg22:'cg22_justice.png',
+    cg23:'cg23_newday.png'
   }
 };
 
@@ -1327,7 +1330,7 @@ const STORY={
 },
 'ch1_18':{
   cg:'cg14',
-  chars:[{id:'linxiao_shocked',pos:'center'}],
+  chars:[{id:'linxiao_serious',pos:'center'}],
   speaker:'旁白',speakerType:'narrator',
   dialog:['赵凯走远了。苏小萌还呆呆地站着。林晓握紧了拳头——他需要做一个选择。'],
   choices:[
@@ -1339,6 +1342,7 @@ const STORY={
 
 // ============ CHAPTER 2A: 对峙 ============
 'ch2a_confront':{
+  cg:'cg20',
   chapter:'第二章',chapterTitle:'对 峙',chapterLabel:'第二章',
   scene:'corridor',music:'tense',chars:[{id:'linxiao_determined',pos:'left'},{id:'xiaomeng_scared',pos:'right'}],
   speaker:'林晓',speakerType:'',
@@ -1700,6 +1704,7 @@ const STORY={
   next:'ch3_s06'
 },
 'ch3_s06':{
+  cg:'cg21',
   speaker:'旁白',speakerType:'narrator',
   dialog:['赵凯推了林晓一下。路过的同学假装没看见，只有张悦冲了过来。'],
   chars:[{id:'linxiao_fistpump',pos:'left'},{id:'zhangyue_determined',pos:'right'}],
@@ -1823,7 +1828,6 @@ const STORY={
   next:'ch4_15'
 },
 'ch4_15':{
-  cg:'cg18',
   chars:[{id:'prosecutor_serious',pos:'center'}],
   speaker:'陈检察官',speakerType:'prosecutor',
   dialog:['你的家庭情况我们会关注，但不能成为伤害别人的借口。你的行为构成敲诈勒索罪。','考虑到你是未成年人、初次犯罪且有悔罪表现，检察院决定对你适用附条件不起诉。','条件是：向苏小萌真诚道歉并赔偿损失；接受六个月心理辅导和行为矫正。','考验期内再犯，将撤销不起诉决定，依法提起公诉。'],
@@ -1847,6 +1851,7 @@ const STORY={
   next:'ch4_19'
 },
 'ch4_19':{
+  cg:'cg22',
   speaker:'陈检察官',speakerType:'prosecutor',
   dialog:['害怕是正常的。勇敢不是不害怕——是害怕了依然选择做对的事。记住，法律永远站在正义这边。'],
   next:'ch5_branch'
@@ -1854,6 +1859,7 @@ const STORY={
 
 // ============ CHAPTER 5: 结局 ============
 'ch5_branch':{
+  cg:'cg23',
   chapter:'第五章',chapterTitle:'新的一天',chapterLabel:'第五章',
   scene:'schoolgate',music:'calm',chars:[],
   speaker:'旁白',speakerType:'narrator',
@@ -1952,13 +1958,29 @@ const STORY={
 })();
 
 // === FORCE LANDSCAPE ON MOBILE ===
+// Use screen dimensions + matchMedia for stable orientation detection (no address bar flicker)
+function _isPortrait(){
+  // Prefer screen.orientation API
+  if(screen.orientation&&screen.orientation.type){
+    return screen.orientation.type.startsWith('portrait');
+  }
+  // Fallback: matchMedia
+  if(window.matchMedia){
+    return window.matchMedia('(orientation: portrait)').matches;
+  }
+  // Last resort: screen dimensions (stable, not affected by browser chrome)
+  return (screen.height||window.innerHeight)>(screen.width||window.innerWidth);
+}
 function applyForceLandscape(){
   const game=$('game');
-  const isPortrait=window.innerHeight>window.innerWidth;
-  if(isPortrait){
+  const portrait=_isPortrait();
+  if(portrait){
+    // Use screen dimensions for stable sizing
+    const w=Math.max(screen.width,screen.height);
+    const h=Math.min(screen.width,screen.height);
     game.classList.add('force-landscape');
-    game.style.width=window.innerHeight+'px';
-    game.style.height=window.innerWidth+'px';
+    game.style.width=w+'px';
+    game.style.height=h+'px';
     game.style.transformOrigin='top left';
     game.style.transform='rotate(90deg) translateY(-100%)';
   }else{
@@ -1972,11 +1994,18 @@ function applyForceLandscape(){
   }
 }
 applyForceLandscape();
-// Debounced resize to prevent flicker during orientation change
-let _resizeTimer=null;
-function _debouncedLandscape(){clearTimeout(_resizeTimer);_resizeTimer=setTimeout(applyForceLandscape,80)}
-window.addEventListener('resize',_debouncedLandscape);
-window.addEventListener('orientationchange',()=>setTimeout(applyForceLandscape,200));
+// Listen to stable orientation events only
+if(screen.orientation){
+  screen.orientation.addEventListener('change',()=>setTimeout(applyForceLandscape,100));
+}else{
+  window.addEventListener('orientationchange',()=>setTimeout(applyForceLandscape,200));
+}
+// matchMedia listener as backup
+if(window.matchMedia){
+  const mql=window.matchMedia('(orientation: portrait)');
+  if(mql.addEventListener)mql.addEventListener('change',()=>setTimeout(applyForceLandscape,100));
+  else if(mql.addListener)mql.addListener(()=>setTimeout(applyForceLandscape,100));
+}
 
 preloadImages(()=>{
   $('loading-screen').classList.add('hidden');
