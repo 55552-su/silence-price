@@ -51,20 +51,9 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'PingFang SC','Hira
 .char-sprite.center.active{transform:translateX(-50%) translateY(0)}
 .char-sprite.right{right:3%}
 .char-sprite.dim{filter:brightness(.5) drop-shadow(0 4px 20px rgba(0,0,0,.5))}
-/* Mobile */
-@media(max-width:480px){
-  .char-sprite{height:60%;max-height:460px;max-width:40%;bottom:13%}
-  .char-sprite.left{left:-5%}
-  .char-sprite.right{right:-5%}
-  .char-sprite.center{max-width:44%}
-}
-@media(max-width:375px){
-  .char-sprite{height:56%;max-height:420px;max-width:38%}
-  .char-sprite.center{max-width:42%}
-}
-.char-sprite.multi{max-width:28%;height:52%;max-height:420px}
-@media(max-width:480px){.char-sprite.multi{height:48%;max-height:360px;max-width:32%}
-.char-sprite.multi.left{left:-6%}.char-sprite.multi.right{right:-6%}}
+.char-sprite.multi{max-width:24%;height:48%;max-height:400px}
+.char-sprite.multi.left{left:1%}
+.char-sprite.multi.right{right:1%}
 
 /* === DIALOG BOX === */
 #dialog-layer{position:absolute;bottom:0;left:0;right:0;z-index:10;padding:0 .8rem 1.2rem}
@@ -227,7 +216,6 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'PingFang SC','Hira
 .title-silhouette{display:none}
 .title-building-mid{display:none}
 .title-building-r{display:none}
-@media(max-width:480px){.title-main{font-size:2.8rem}.title-rays{width:260px;height:260px}.title-ray{height:150px}.title-emblem{width:95px;height:95px}}
 
 /* === TITLE EXTRA BUTTONS === */
 .title-extra-btns{display:flex;gap:.8rem;margin-top:1.2rem;z-index:2}
@@ -242,7 +230,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'PingFang SC','Hira
 .map-total-progress .prog-fill{height:100%;background:linear-gradient(90deg,#667eea,#50c8a8);border-radius:2px;transition:width .4s}
 
 /* === CG LAYER === */
-#cg-layer{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.95);display:none;align-items:center;justify-content:center;cursor:pointer;opacity:0;transition:opacity .6s ease}
+#cg-layer{position:absolute;inset:0;z-index:300;background:rgba(0,0,0,.95);display:none;align-items:center;justify-content:center;cursor:pointer;opacity:0;transition:opacity .6s ease}
 #cg-layer.active{display:flex}
 #cg-layer.show{opacity:1}
 #cg-img{max-width:100%;max-height:100%;object-fit:contain;border-radius:4px;box-shadow:0 4px 40px rgba(0,0,0,.6)}
@@ -250,45 +238,63 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'PingFang SC','Hira
 @keyframes cg-hint-fade{0%,100%{opacity:.4}50%{opacity:.8}}
 
 /* === ROTATE PROMPT === */
-#rotate-prompt{position:fixed;inset:0;z-index:9999;background:rgba(5,5,15,.97);display:none;flex-direction:column;align-items:center;justify-content:center}
+#rotate-prompt{position:absolute;inset:0;z-index:9999;background:rgba(5,5,15,.97);display:none;flex-direction:column;align-items:center;justify-content:center}
 .rotate-inner{text-align:center}
 .rotate-icon{width:80px;height:80px;margin-bottom:1.5rem;animation:rotate-wobble 2s ease-in-out infinite}
 @keyframes rotate-wobble{0%,100%{transform:rotate(0deg)}25%{transform:rotate(-15deg)}75%{transform:rotate(15deg)}}
 .rotate-text{font-size:1.1rem;color:rgba(255,255,255,.85);letter-spacing:.15em;margin-bottom:.5rem}
 .rotate-sub{font-size:.75rem;color:rgba(255,255,255,.4);letter-spacing:.08em}
-
-/* Rotate prompt: hidden by default, shown by JS for 2s */
 #rotate-prompt.show{display:flex}
 #rotate-prompt.fadeout{opacity:0;transition:opacity .6s}
 
-/* === LANDSCAPE LAYOUT ADJUSTMENTS === */
-@media (orientation:landscape){
-  .char-sprite{height:55%;max-height:480px;bottom:14%}
-  .char-sprite.multi{height:45%;max-height:380px}
-  #dialog-layer{padding:0 2rem 1rem}
-  #dialog-box{min-height:110px;padding:.8rem 1.2rem .7rem}
-  #dialog-text{font-size:.95rem;min-height:2.4em}
-  .speaker-name{font-size:.78rem}
-  #choices-layer{padding:0 2rem 1.5rem;flex-direction:row;flex-wrap:wrap;justify-content:center}
-  .choice-btn{max-width:340px;padding:.8rem 1.2rem;font-size:.9rem}
-  .choices-label{width:100%}
-  #stats-bar{padding:calc(.5rem + env(safe-area-inset-top,0px)) 1.2rem .4rem}
-  .title-emblem{width:90px;height:90px;top:12%}
-  .title-badge{font-size:.6rem;margin-top:4%}
-  .title-main{font-size:2.8rem}
-  .title-sub{font-size:.85rem;margin-bottom:2rem}
-  .title-start-btn{padding:.7rem 2.5rem;font-size:.9rem}
-  .title-extra-btns{margin-top:.8rem}
-  .title-credit{bottom:1rem;font-size:.55rem}
-  #legal-panel{padding:calc(1.2rem + env(safe-area-inset-top,0px)) 2rem 1.5rem;flex-direction:row;flex-wrap:wrap;justify-content:center;gap:1rem;align-content:flex-start}
-  .legal-card{max-width:300px}
-  #chapter-map-panel .map-scroll{padding:1rem 2rem 1.5rem}
-  #achieve-panel{padding:calc(1rem + env(safe-area-inset-top,0px)) 2rem 1.5rem}
-  .achieve-grid{max-width:500px}
-  #ending-screen{padding:1.5rem}
-  .ending-title{font-size:1.3rem;margin-bottom:1rem}
-  .ending-desc{font-size:.8rem;margin-bottom:1.5rem}
+/* === FORCE LANDSCAPE: JS sets transform + dimensions on #game === */
+#game.force-landscape{
+  position:absolute;top:0;left:0;overflow:hidden;
 }
+
+/* === LANDSCAPE LAYOUT (always active when game is landscape) === */
+.char-sprite{height:55%;max-height:480px;bottom:16%}
+.char-sprite.left{left:5%}
+.char-sprite.right{right:5%}
+.char-sprite.multi{height:48%;max-height:400px;max-width:24%}
+.char-sprite.multi.left{left:1%}
+.char-sprite.multi.right{right:1%}
+#dialog-layer{padding:0 8% 1rem}
+#dialog-box{min-height:100px;padding:.7rem 1.2rem .6rem}
+#dialog-text{font-size:.92rem;min-height:2.2em;line-height:1.7}
+.speaker-name{font-size:.78rem}
+#choices-layer{padding:0 8% 1.5rem;flex-direction:row;flex-wrap:wrap;justify-content:center;gap:.6rem}
+.choice-btn{max-width:44%;padding:.7rem 1rem;font-size:.88rem;line-height:1.4}
+.choices-label{width:100%;text-align:center}
+#stats-bar{padding:calc(.4rem + env(safe-area-inset-top,0px)) 1.2rem .3rem}
+.stat-item{font-size:.65rem}
+.title-emblem{width:72px;height:72px;top:8%}
+.title-badge{font-size:.58rem;margin-top:2%;margin-bottom:.8rem}
+.title-main{font-size:2.4rem;margin-bottom:.4rem}
+.title-sub{font-size:.8rem;margin-bottom:1.5rem;letter-spacing:.25em}
+.title-start-btn{padding:.6rem 2rem;font-size:.85rem}
+.title-extra-btns{margin-top:.6rem}
+.title-link-btn{padding:.35rem .9rem;font-size:.68rem}
+.title-credit{bottom:.8rem;font-size:.5rem}
+.title-rays{width:200px;height:200px;top:8%}
+.title-ray{height:110px;width:3px}
+#legal-panel{padding:calc(1rem + env(safe-area-inset-top,0px)) 3rem 1.5rem;flex-direction:row;flex-wrap:wrap;justify-content:center;gap:.8rem;align-content:flex-start}
+.legal-card{max-width:280px}
+.legal-card h3{font-size:.78rem}
+.legal-card p{font-size:.72rem}
+.legal-close{font-size:.75rem;padding:.5rem 1.5rem}
+#chapter-map-panel .map-scroll{padding:.8rem 2rem 1.2rem}
+#achieve-panel{padding:calc(.8rem + env(safe-area-inset-top,0px)) 2rem 1.5rem}
+.achieve-grid{max-width:520px}
+#ending-screen{padding:1.2rem 3rem}
+.ending-badge{font-size:.65rem;margin-bottom:.6rem}
+.ending-title{font-size:1.2rem;margin-bottom:.8rem}
+.ending-desc{font-size:.78rem;max-width:420px;margin-bottom:1.5rem;line-height:1.7}
+.ending-restart{padding:.5rem 2rem;font-size:.78rem}
+#chapter-overlay .chapter-num{font-size:.7rem}
+#chapter-overlay .chapter-title{font-size:1.3rem}
+.scene-overlay{background:linear-gradient(180deg,transparent 20%,rgba(0,0,0,.45) 65%,rgba(0,0,0,.8) 100%)}
+#menu-overlay .menu-item{font-size:.82rem;padding:.5rem 1.5rem}
 </style>
 </head>
 <body>
@@ -1899,6 +1905,27 @@ const STORY={
     raysEl.appendChild(ray);
   }
 })();
+
+// === FORCE LANDSCAPE ON MOBILE ===
+function applyForceLandscape(){
+  const game=$('game');
+  const isPortrait=window.innerHeight>window.innerWidth;
+  if(isPortrait){
+    game.classList.add('force-landscape');
+    game.style.width=window.innerHeight+'px';
+    game.style.height=window.innerWidth+'px';
+    game.style.transformOrigin='top left';
+    game.style.transform='rotate(90deg) translateY(-100%)';
+  }else{
+    game.classList.remove('force-landscape');
+    game.style.width='100%';
+    game.style.height='100%';
+    game.style.transform='none';
+  }
+}
+applyForceLandscape();
+window.addEventListener('resize',applyForceLandscape);
+window.addEventListener('orientationchange',()=>setTimeout(applyForceLandscape,150));
 
 preloadImages(()=>{
   $('loading-screen').classList.add('hidden');
