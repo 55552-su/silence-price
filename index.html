@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover">
 <title>沉默的代价 - 反校园霸凌互动剧情</title>
 <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
-<link rel="preload" href="title_bg.png" as="image">
-<link rel="preload" href="title_emblem.png" as="image">
-<link rel="preload" href="scene_schoolgate.png" as="image">
-<link rel="preload" href="scene_corridor.png" as="image">
-<link rel="preload" href="v2_linxiao_normal.png" as="image">
-<link rel="preload" href="v2_xiaomeng_scared.png" as="image">
-<link rel="preload" href="v2_zhaokai_bully.png" as="image">
+<link rel="preload" href="title_bg.webp" as="image">
+<link rel="preload" href="title_emblem.webp" as="image">
+<link rel="preload" href="scene_schoolgate.webp" as="image">
+<link rel="preload" href="scene_corridor.webp" as="image">
+<link rel="preload" href="v2_linxiao_normal.webp" as="image">
+<link rel="preload" href="v2_xiaomeng_scared.webp" as="image">
+<link rel="preload" href="v2_zhaokai_bully.webp" as="image">
 <style>
 /* === RESET & BASE === */
 *{margin:0;padding:0;box-sizing:border-box}
@@ -200,9 +200,9 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'PingFang SC','Hira
 
 /* === TITLE SCREEN ENHANCEMENTS === */
 #title-screen{background:#0a1628;overflow:hidden}
-.title-bg-img{position:absolute;inset:0;z-index:0;background:url('title_bg.png') center/cover no-repeat;opacity:.85}
+.title-bg-img{position:absolute;inset:0;z-index:0;background:url('title_bg.webp') center/cover no-repeat;opacity:.85}
 .title-bg-overlay{position:absolute;inset:0;z-index:0;background:linear-gradient(180deg,rgba(10,22,40,.3) 0%,rgba(10,22,40,.1) 30%,rgba(200,96,42,.1) 60%,rgba(232,160,64,.25) 100%)}
-.title-emblem{position:absolute;top:18%;left:50%;transform:translate(-50%,-50%);width:120px;height:120px;z-index:2;background:url('title_emblem.png') center/contain no-repeat;opacity:.9;filter:drop-shadow(0 2px 16px rgba(232,160,64,.5))}
+.title-emblem{position:absolute;top:18%;left:50%;transform:translate(-50%,-50%);width:120px;height:120px;z-index:2;background:url('title_emblem.webp') center/contain no-repeat;opacity:.9;filter:drop-shadow(0 2px 16px rgba(232,160,64,.5))}
 .title-badge{font-size:.65rem;color:rgba(255,255,255,.85);letter-spacing:.2em;padding:5px 18px;border:1px solid rgba(255,255,255,.3);border-radius:20px;margin-bottom:1.2rem;margin-top:6%;background:rgba(0,0,0,.25);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:2}
 .title-main{font-family:'Ma Shan Zheng',cursive;font-size:3.6rem;font-weight:400;color:#fff;letter-spacing:.18em;text-shadow:0 0 60px rgba(232,160,64,.6),0 0 120px rgba(232,160,64,.3),0 2px 8px rgba(0,0,0,.5),0 4px 0 rgba(160,100,20,.25);margin-bottom:.6rem;z-index:2;animation:title-glow 3s ease-in-out infinite}
 @keyframes title-glow{0%,100%{text-shadow:0 0 60px rgba(232,160,64,.6),0 0 120px rgba(232,160,64,.3),0 2px 8px rgba(0,0,0,.5)}50%{text-shadow:0 0 80px rgba(232,160,64,.8),0 0 160px rgba(232,160,64,.5),0 2px 8px rgba(0,0,0,.5)}}
@@ -628,71 +628,71 @@ const ParticleSystem={
 // =============================================
 const IMG={
   chars:{
-    linxiao:'v2_linxiao_normal.png',
-    linxiao_determined:'v2_linxiao_determined.png',
-    linxiao_sad:'v2_linxiao_sad.png',
-    linxiao_angry:'v2_linxiao_angry.png',
-    linxiao_think:'v2_linxiao_think.png',
-    linxiao_shocked:'v2_linxiao_shocked.png',
-    linxiao_worried:'v2_linxiao_worried.png',
-    linxiao_smile:'v2_linxiao_smile.png',
-    linxiao_scared:'v2_linxiao_scared.png',
-    linxiao_confident:'v2_linxiao_confident.png',
-    linxiao_phone:'v2_linxiao_phone.png',
-    linxiao_serious:'v2_linxiao_serious.png',
-    linxiao_helpless:'v2_linxiao_helpless.png',
-    linxiao_fistpump:'v2_linxiao_fistpump.png',
-    xiaomeng_scared:'v2_xiaomeng_scared.png',
-    xiaomeng_cry:'v2_xiaomeng_cry.png',
-    xiaomeng_smile:'v2_xiaomeng_smile.png',
-    xiaomeng_hopeful:'v2_xiaomeng_hopeful.png',
-    xiaomeng_normal:'v2_xiaomeng_normal.png',
-    zhaokai:'v2_zhaokai_bully.png',
-    zhaokai_remorse:'v2_zhaokai_remorse.png',
-    zhaokai_angry:'v2_zhaokai_angry.png',
-    zhaokai_scared:'v2_zhaokai_scared.png',
-    prosecutor:'v2_prosecutor_normal.png',
-    prosecutor_serious:'v2_prosecutor_serious.png',
-    prosecutor_warm:'v2_prosecutor_warm.png',
-    prosecutor_explain:'v2_prosecutor_explain.png',
-    zhangyue:'v2_zhangyue_normal.png',
-    zhangyue_worried:'v2_zhangyue_worried.png',
-    zhangyue_determined:'v2_zhangyue_determined.png',
-    zhangyue_smile:'v2_zhangyue_smile.png',
-    teacher:'v2_teacher_normal.png',
-    teacher_serious:'v2_teacher_serious.png',
-    teacher_worried:'v2_teacher_worried.png'
+    linxiao:'v2_linxiao_normal.webp',
+    linxiao_determined:'v2_linxiao_determined.webp',
+    linxiao_sad:'v2_linxiao_sad.webp',
+    linxiao_angry:'v2_linxiao_angry.webp',
+    linxiao_think:'v2_linxiao_think.webp',
+    linxiao_shocked:'v2_linxiao_shocked.webp',
+    linxiao_worried:'v2_linxiao_worried.webp',
+    linxiao_smile:'v2_linxiao_smile.webp',
+    linxiao_scared:'v2_linxiao_scared.webp',
+    linxiao_confident:'v2_linxiao_confident.webp',
+    linxiao_phone:'v2_linxiao_phone.webp',
+    linxiao_serious:'v2_linxiao_serious.webp',
+    linxiao_helpless:'v2_linxiao_helpless.webp',
+    linxiao_fistpump:'v2_linxiao_fistpump.webp',
+    xiaomeng_scared:'v2_xiaomeng_scared.webp',
+    xiaomeng_cry:'v2_xiaomeng_cry.webp',
+    xiaomeng_smile:'v2_xiaomeng_smile.webp',
+    xiaomeng_hopeful:'v2_xiaomeng_hopeful.webp',
+    xiaomeng_normal:'v2_xiaomeng_normal.webp',
+    zhaokai:'v2_zhaokai_bully.webp',
+    zhaokai_remorse:'v2_zhaokai_remorse.webp',
+    zhaokai_angry:'v2_zhaokai_angry.webp',
+    zhaokai_scared:'v2_zhaokai_scared.webp',
+    prosecutor:'v2_prosecutor_normal.webp',
+    prosecutor_serious:'v2_prosecutor_serious.webp',
+    prosecutor_warm:'v2_prosecutor_warm.webp',
+    prosecutor_explain:'v2_prosecutor_explain.webp',
+    zhangyue:'v2_zhangyue_normal.webp',
+    zhangyue_worried:'v2_zhangyue_worried.webp',
+    zhangyue_determined:'v2_zhangyue_determined.webp',
+    zhangyue_smile:'v2_zhangyue_smile.webp',
+    teacher:'v2_teacher_normal.webp',
+    teacher_serious:'v2_teacher_serious.webp',
+    teacher_worried:'v2_teacher_worried.webp'
   },
   scenes:{
-    corridor:'scene_corridor.png',
-    classroom:'scene_classroom.png',
-    meeting:'scene_meeting.png',
-    schoolgate:'scene_schoolgate.png',
-    rooftop:'scene_rooftop.png'
+    corridor:'scene_corridor.webp',
+    classroom:'scene_classroom.webp',
+    meeting:'scene_meeting.webp',
+    schoolgate:'scene_schoolgate.webp',
+    rooftop:'scene_rooftop.webp'
   },
   cgs:{
-    cg1:'cg1_corridor.png',
-    cg2:'cg2_stairwell.png',
-    cg3:'cg3_rooftop.png',
-    cg4:'cg4_confrontation.png',
-    cg5:'cg5_prosecutor.png',
-    cg6:'cg6_ending_best.png',
-    cg7:'cg7_recording.png',
-    cg8:'cg8_hope.png',
-    cg9:'cg9_hotline.png',
-    cg10:'cg10_interrogation.png',
-    cg11:'cg11_violence_cycle.png',
-    cg12:'cg12_ending_normal.png',
-    cg13:'cg13_schoolgate.png',
-    cg14:'cg14_choice.png',
-    cg15:'cg15_silent.png',
-    cg16:'cg16_teacher.png',
-    cg17:'cg17_storm.png',
-    cg19:'cg19_good_ending.png',
-    cg20:'cg20_comfort.png',
-    cg21:'cg21_ally.png',
-    cg22:'cg22_justice.png',
-    cg23:'cg23_newday.png'
+    cg1:'cg1_corridor.webp',
+    cg2:'cg2_stairwell.webp',
+    cg3:'cg3_rooftop.webp',
+    cg4:'cg4_confrontation.webp',
+    cg5:'cg5_prosecutor.webp',
+    cg6:'cg6_ending_best.webp',
+    cg7:'cg7_recording.webp',
+    cg8:'cg8_hope.webp',
+    cg9:'cg9_hotline.webp',
+    cg10:'cg10_interrogation.webp',
+    cg11:'cg11_violence_cycle.webp',
+    cg12:'cg12_ending_normal.webp',
+    cg13:'cg13_schoolgate.webp',
+    cg14:'cg14_choice.webp',
+    cg15:'cg15_silent.webp',
+    cg16:'cg16_teacher.webp',
+    cg17:'cg17_storm.webp',
+    cg19:'cg19_good_ending.webp',
+    cg20:'cg20_comfort.webp',
+    cg21:'cg21_ally.webp',
+    cg22:'cg22_justice.webp',
+    cg23:'cg23_newday.webp'
   }
 };
 
@@ -700,13 +700,18 @@ let state={courage:0,trust:0,hasEvidence:false,currentNode:null,textQueue:[],typ
 const $=id=>document.getElementById(id);
 
 function preloadImages(cb){
-  const all=[...Object.values(IMG.chars),...Object.values(IMG.scenes),...Object.values(IMG.cgs),'title_bg.png','title_emblem.png'];
+  // Phase 1: Load only essential assets (title + scenes + key characters)
+  const essential=[
+    'title_bg.webp','title_emblem.webp',
+    ...Object.values(IMG.scenes),
+    IMG.chars.linxiao,IMG.chars.xiaomeng_scared,IMG.chars.zhaokai
+  ];
   const audioFiles=Object.values(BGM.files);
-  const total=all.length+audioFiles.length;
+  const total=essential.length+audioFiles.length;
   let loaded=0;let done=false;const bar=$('loading-bar');
-  const finish=()=>{if(done)return;done=true;cb()};
+  const finish=()=>{if(done)return;done=true;cb();_preloadRemaining()};
   const tick=()=>{loaded++;bar.style.width=Math.round(loaded/total*100)+'%';if(loaded>=total)finish()};
-  all.forEach(src=>{
+  essential.forEach(src=>{
     const img=new Image();
     img.onload=img.onerror=tick;
     img.src=src;
@@ -714,7 +719,26 @@ function preloadImages(cb){
     if('decode' in img){img.decode().catch(()=>{});}
   });
   audioFiles.forEach(src=>{const a=new Audio();a.preload='auto';a.oncanplaythrough=a.onerror=tick;a.src=src;setTimeout(()=>{if(!done){tick()}},3000)});
-  setTimeout(finish,12000);
+  setTimeout(finish,8000);
+}
+// Phase 2: Background-load remaining assets after game starts
+function _preloadRemaining(){
+  const loaded=new Set();
+  const allChars=Object.values(IMG.chars);
+  const allCGs=Object.values(IMG.cgs);
+  const remaining=[...allChars,...allCGs];
+  let i=0;
+  function next(){
+    if(i>=remaining.length)return;
+    const src=remaining[i++];
+    if(loaded.has(src)){next();return}
+    loaded.add(src);
+    const img=new Image();img.src=src;
+    img.onload=img.onerror=()=>setTimeout(next,50);
+    setTimeout(()=>next(),2000);// fallback if stuck
+  }
+  // Stagger loading: 3 parallel streams
+  next();setTimeout(next,200);setTimeout(next,400);
 }
 function setScene(key){
   const bg=$('scene-bg');const url=IMG.scenes[key];
