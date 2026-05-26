@@ -803,7 +803,7 @@ function updateStats(){$('stat-courage').textContent=state.courage;$('stat-trust
 function showNotify(text){SFX.notify();const el=$('notify');el.textContent=text;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2200)}
 function showChapter(num,title,cb){SFX.chapter();const o=$('chapter-overlay');$('ch-num').textContent=num;$('ch-title').textContent=title;o.classList.add('active');o.classList.remove('fadeout');setTimeout(()=>{o.classList.add('fadeout');setTimeout(()=>{o.classList.remove('active','fadeout');if(cb)cb()},800)},2200)}
 function showEnding(badge,title,desc,bg){SFX.ending();const es=$('ending-screen');es.style.background=bg||'linear-gradient(180deg,#0d0d1a,#1a1025,#2d1b3d)';$('ending-badge').textContent=badge;$('ending-title').textContent=title;$('ending-desc').textContent=desc;showDialog(false);$('choices-layer').classList.remove('active');$('stats-bar').classList.remove('active');es.classList.add('active');ParticleSystem.setMood('ending')}
-function showLegal(cards,cb){const panel=$('legal-panel');panel.innerHTML='';cards.forEach(c=>{const d=document.createElement('div');d.className='legal-card';d.innerHTML=`<h3>${c.title}</h3><p>${c.body}</p>`;panel.appendChild(d)});const closeBtn=document.createElement('div');closeBtn.className='legal-close';closeBtn.textContent='了解';closeBtn.onclick=()=>{panel.classList.remove('active');if(cb)cb()};panel.appendChild(closeBtn);panel.classList.add('active')}
+function showLegal(cards,cb){const panel=$('legal-panel');panel.innerHTML='';cards.forEach(c=>{const d=document.createElement('div');d.className='legal-card';d.innerHTML=`<h3>${c.title}</h3><p>${c.body.replace(/\n/g,'<br>')}</p>`;panel.appendChild(d)});const closeBtn=document.createElement('div');closeBtn.className='legal-close';closeBtn.textContent='了解';closeBtn.onclick=()=>{panel.classList.remove('active');if(cb)cb()};panel.appendChild(closeBtn);panel.classList.add('active')}
 function closeLegal(){$('legal-panel').classList.remove('active')}
 // === BGM SYSTEM (real audio files with crossfade) ===
 const BGM={
@@ -1683,7 +1683,7 @@ const STORY={
 'ch4_03':{
   chars:[{id:'prosecutor_explain',pos:'center'}],
   speaker:'陈检察官',speakerType:'prosecutor',
-  dialog:['什么是校园欺凌？当一个人反复地、蓄意地被伤害，而且无力反抗——这就是欺凌。','推搡、辱骂、孤立排挤、网上散布谣言、索要钱财——这些全部都是欺凌行为，有些已经触犯了法律。'],
+  dialog:['什么是学生欺凌？学生欺凌是指学生之间蓄意或恶意通过肢体、语言及网络等手段实施欺压、侮辱，造成伤害的行为。','推搡、辱骂、孤立排挤、网上散布谣言、索要钱财——这些全部都是欺凌行为，有些已经触犯了法律。'],
   next:'ch4_04'
 },
 'ch4_04':{
@@ -1693,10 +1693,10 @@ const STORY={
 },
 'ch4_legal':{
   legal:[
-    {title:'《未成年人保护法》第39条',body:'学校应当建立学生欺凌防控工作制度，对教职员工、学生等开展防治学生欺凌的教育和培训。学校对学生欺凌行为应当立即制止，通知实施欺凌和被欺凌未成年学生的父母或者其他监护人参与欺凌行为的认定和处理；对相关未成年学生及时给予心理辅导、教育和引导；对相关未成年学生的父母或者其他监护人给予必要的家庭教育指导。'},
-    {title:'《预防未成年人犯罪法》第31条',body:'学校对有不良行为的未成年学生，应当加强管理教育，不得歧视；对拒不改正或者情节严重的，学校可以根据情况予以处分或者采取管理教育措施。对有严重不良行为的未成年人，情节恶劣或造成严重后果的，经评估可送入专门学校接受专门教育。'},
+    {title:'《中华人民共和国未成年人保护法》第三十九条',body:'学校应当建立学生欺凌防控工作制度，对教职员工、学生等开展防治学生欺凌的教育和培训。\n学校对学生欺凌行为应当立即制止，通知实施欺凌和被欺凌未成年学生的父母或者其他监护人参与欺凌行为的认定和处理；对相关未成年学生及时给予心理辅导、教育和引导；对相关未成年学生的父母或者其他监护人给予必要的家庭教育指导。\n对实施欺凌的未成年学生，学校应当根据欺凌行为的性质和程度，依法加强管教。对严重的欺凌行为，学校不得隐瞒，应当及时向公安机关、教育行政部门报告，并配合相关部门依法处理。'},
+    {title:'《中华人民共和国预防未成年人犯罪法》第四十一条',body:'对有严重不良行为的未成年人，公安机关可以根据具体情况，采取以下矫治教育措施：（一）予以训诫；（二）责令赔礼道歉、赔偿损失；（三）责令具结悔过；（四）责令定期报告活动情况；（五）责令遵守特定的行为规范，不得实施特定行为、接触特定人员或者进入特定场所；（六）责令接受心理辅导、行为矫治；（七）责令参加社会服务活动；（八）责令接受社会观护，由社会组织、有关机构在适当场所对未成年人进行教育、监督和管束；（九）其他适当的矫治教育措施。'},
+    {title:'《中华人民共和国预防未成年人犯罪法》第四十三条',body:'对有严重不良行为的未成年人，未成年人的父母或者其他监护人、所在学校无力管教或者管教无效的，可以向教育行政部门提出申请，经专门教育指导委员会评估同意后，由教育行政部门决定送入专门学校接受专门教育。'},
     {title:'检察机关的未成年人保护职能',body:'人民检察院通过行使检察权，对涉及未成年人的诉讼活动等依法进行监督：①依法对侵害未成年人合法权益的行为提起公诉或支持起诉；②对符合条件的未成年犯罪嫌疑人依法适用附条件不起诉制度；③开展未成年人法治宣传教育；④针对未成年人保护中存在的问题发出检察建议，督促有关部门依法履职。'},
-    {title:'《中小学教育惩戒规则（试行）》',body:'学生实施属于欺凌、打架斗殴等扰乱校园秩序行为的，学校及其教师应当予以制止并进行批评教育，确有必要的可以实施教育惩戒。情节较重的，学校可以实施暂停或者限制参加相关活动、责令改正等管理措施。'},
     {title:'12309检察服务热线',body:'遭遇或发现校园欺凌、侵害未成年人权益的行为，可拨打12309检察服务热线进行控告、申诉或举报。检察机关依法保护举报人信息安全，对打击报复举报人的行为依法追究法律责任。'}
   ],
   next:'ch4_05'
