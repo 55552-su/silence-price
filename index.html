@@ -919,7 +919,7 @@ const CHAPTER_TREE=[
   ]},
   {chapter:'第二章A',title:'对峙',color:'#e84057',nodes:[
     {id:'ch2a_confront',label:'安慰小萌'},
-    {id:'ch2a_04',label:'赵凯折返'},
+    {id:'ch2a_04',label:'张凯折返'},
     {id:'ch2a_06',label:'当面对质'},
     {id:'ch2a_09',label:'张悦反应'},
     {id:'ch2a_choice2',label:'下一步',branch:true,branches:[
@@ -1023,11 +1023,11 @@ function closeChapterMap(){$('chapter-map-panel').classList.remove('active')}
 const ACHIEVEMENTS=[
   {id:'a_start',icon:'📖',title:'初入校园',desc:'开始第一章的故事',trigger:'ch1_start'},
   {id:'a_keen',icon:'👁️',title:'敏锐之眼',desc:'发现苏小萌的伤痕并追问',trigger:'ch1_06b'},
-  {id:'a_hero',icon:'🛡️',title:'正义先锋',desc:'选择挺身而出直面赵凯',trigger:'ch2a_confront'},
+  {id:'a_hero',icon:'🛡️',title:'正义先锋',desc:'选择挺身而出直面张凯',trigger:'ch2a_confront'},
   {id:'a_stealth',icon:'📹',title:'暗中守护',desc:'选择冷静取证录下证据',trigger:'ch2b_record'},
   {id:'a_awaken',icon:'💡',title:'迟来醒悟',desc:'从沉默路线中觉醒',trigger:'ch2c_choice'},
   {id:'a_call',icon:'📞',title:'一通电话',desc:'拨打12309检察服务热线',trigger:'ch3_hotline'},
-  {id:'a_storm',icon:'🌊',title:'风暴中心',desc:'经历赵凯的报复风暴',trigger:'ch3_storm'},
+  {id:'a_storm',icon:'🌊',title:'风暴中心',desc:'经历张凯的报复风暴',trigger:'ch3_storm'},
   {id:'a_light',icon:'⚖️',title:'法治之光',desc:'见证检察官正式介入',trigger:'ch4_arrive'},
   {id:'a_best',icon:'🌟',title:'勇者之光',desc:'达成最佳结局',trigger:'ending_best_final'},
   {id:'a_all',icon:'👑',title:'全线通关',desc:'解锁全部三个结局',trigger:'_special_all_endings'}
@@ -1175,7 +1175,7 @@ const STORY={
 'ch1_07':{
   scene:'classroom',chars:[{id:'linxiao_serious',pos:'left'},{id:'zhangyue_worried',pos:'right'}],
   speaker:'张悦',speakerType:'',
-  dialog:['林晓！苏小萌最近特别不对劲。上周她在厕所偷偷哭，赵凯那帮人一下课就围着她。'],
+  dialog:['林晓！苏小萌最近特别不对劲。上周她在厕所偷偷哭，张凯那帮人一下课就围着她。'],
   next:'ch1_08'
 },
 'ch1_08':{
@@ -1185,11 +1185,11 @@ const STORY={
 },
 'ch1_09':{
   speaker:'张悦',speakerType:'',
-  dialog:['书包带哪有那么容易断……上周赵凯还故意拿球砸她头上，当着全班笑她。我觉得不是开玩笑。'],
+  dialog:['书包带哪有那么容易断……上周张凯还故意拿球砸她头上，当着全班笑她。我觉得不是开玩笑。'],
   choices:[
-    {text:'留心观察——"你说得对，我们先注意看看赵凯到底在做什么"',next:'ch1_10',courage:1,notify:'勇气+1'},
+    {text:'留心观察——"你说得对，我们先注意看看张凯到底在做什么"',next:'ch1_10',courage:1,notify:'勇气+1'},
     {text:'会不会想多了——"也许只是同学之间闹着玩？"',next:'ch1_09b'},
-    {text:'直接去问赵凯——"我现在就去找赵凯当面对质"',next:'ch1_09c',courage:2,notify:'勇气+2'}
+    {text:'直接去问张凯——"我现在就去找张凯当面对质"',next:'ch1_09c',courage:2,notify:'勇气+2'}
   ]
 },
 'ch1_09b':{
@@ -1217,7 +1217,7 @@ const STORY={
 },
 'ch1_12':{
   speaker:'旁白',speakerType:'narrator',
-  dialog:['教室里一阵沉默。几个同学偷偷看了赵凯一眼，又迅速移开。赵凯靠在椅背上，嘴角微微上扬。'],
+  dialog:['教室里一阵沉默。几个同学偷偷看了张凯一眼，又迅速移开。张凯靠在椅背上，嘴角微微上扬。'],
   choices:[
     {text:'举手告诉老师——"王老师，我有些情况想反映"',next:'ch1_12b',courage:2,trust:1,notify:'勇气+2 信任+1'},
     {text:'保持沉默——在这么多人面前说不太合适，下课再找老师',next:'ch1_13'}
@@ -1241,7 +1241,7 @@ const STORY={
 },
 'ch1_12e':{
   speaker:'旁白',speakerType:'narrator',
-  dialog:['林晓注意到，赵凯的目光扫了他一眼——带着一丝冰冷的警告。'],
+  dialog:['林晓注意到，张凯的目光扫了他一眼——带着一丝冰冷的警告。'],
   next:'ch1_13'
 },
 'ch1_13':{
@@ -1254,7 +1254,7 @@ const STORY={
 'ch1_14':{
   cg:'cg2',
   music:'tense',
-  speaker:'赵凯',speakerType:'bully',
+  speaker:'张凯',speakerType:'bully',
   dialog:['苏小萌，听说你请假在家？怎么今天又来了？','我跟你说过多少次了，嘴巴给我闭紧。','你要是敢告诉任何人——你知道后果。'],
   next:'ch1_15'
 },
@@ -1264,7 +1264,7 @@ const STORY={
   next:'ch1_16'
 },
 'ch1_16':{
-  speaker:'赵凯',speakerType:'bully',
+  speaker:'张凯',speakerType:'bully',
   dialog:['放过你？那得看你表现了。','今天的作业——数学和英语，下午放学前交到我桌上。','对了，这周的零花钱也该给了吧？'],
   next:'ch1_17'
 },
@@ -1277,10 +1277,10 @@ const STORY={
   cg:'cg14',
   chars:[{id:'linxiao_serious',pos:'center'}],
   speaker:'旁白',speakerType:'narrator',
-  dialog:['赵凯走远了。苏小萌还呆呆地站着。林晓握紧了拳头——他需要做一个选择。'],
+  dialog:['张凯走远了。苏小萌还呆呆地站着。林晓握紧了拳头——他需要做一个选择。'],
   choices:[
     {text:'挺身而出——走过去安慰小萌，告诉她不要怕',next:'ch2a_confront',courage:3,trust:2,notify:'勇气+3 信任+2'},
-    {text:'冷静取证——掏出手机录下赵凯离开的背影和现场',next:'ch2b_record',courage:2,trust:2,notify:'勇气+2 信任+2'},
+    {text:'冷静取证——掏出手机录下张凯离开的背影和现场',next:'ch2b_record',courage:2,trust:2,notify:'勇气+2 信任+2'},
     {text:'犹豫退缩——也许……我不该管这件事',next:'ch2c_silent',courage:-1,notify:'勇气-1'}
   ]
 },
@@ -1291,7 +1291,7 @@ const STORY={
   chapter:'第二章',chapterTitle:'对 峙',chapterLabel:'第二章',
   scene:'corridor',music:'tense',chars:[{id:'linxiao_determined',pos:'left'},{id:'xiaomeng_scared',pos:'right'}],
   speaker:'林晓',speakerType:'',
-  dialog:['小萌！你还好吗？','我刚才……都听到了。赵凯他——'],
+  dialog:['小萌！你还好吗？','我刚才……都听到了。张凯他——'],
   next:'ch2a_02'
 },
 'ch2a_02':{
@@ -1301,18 +1301,18 @@ const STORY={
 },
 'ch2a_03':{
   speaker:'林晓',speakerType:'',
-  dialog:['小萌，这不是你的错。赵凯做的是违法的——勒索、威胁，你不能一个人扛着。'],
+  dialog:['小萌，这不是你的错。张凯做的是违法的——勒索、威胁，你不能一个人扛着。'],
   next:'ch2a_04'
 },
 'ch2a_04':{
   scene:'corridor',shake:true,
   chars:[{id:'linxiao_shocked',pos:'left'},{id:'zhaokai',pos:'right'}],
   speaker:'旁白',speakerType:'narrator',
-  dialog:['这时，赵凯折返了回来——他忘了拿手机。'],
+  dialog:['这时，张凯折返了回来——他忘了拿手机。'],
   next:'ch2a_05'
 },
 'ch2a_05':{
-  speaker:'赵凯',speakerType:'bully',
+  speaker:'张凯',speakerType:'bully',
   dialog:['哟？林晓？你在这儿干嘛？','跟苏小萌聊天呢？聊什么呢？'],
   next:'ch2a_06'
 },
@@ -1320,25 +1320,25 @@ const STORY={
   cg:'cg4',
   speaker:'林晓',speakerType:'',
   chars:[{id:'linxiao_angry',pos:'left'},{id:'zhaokai',pos:'right'}],
-  dialog:['赵凯，你欺负苏小萌的事，我都知道了。','威胁、勒索、抢钱——你以为没人会管吗？'],
+  dialog:['张凯，你欺负苏小萌的事，我都知道了。','威胁、勒索、抢钱——你以为没人会管吗？'],
   next:'ch2a_07'
 },
 'ch2a_07':{
-  speaker:'赵凯',speakerType:'bully',
+  speaker:'张凯',speakerType:'bully',
   dialog:['（眼神阴冷）你管得还挺宽。有证据吗？谁信你？','我劝你别多管闲事——不然下一个就是你。'],
   shake:true,
   next:'ch2a_08'
 },
 'ch2a_08':{
   speaker:'旁白',speakerType:'narrator',
-  dialog:['赵凯推了林晓一把，转身走了——"记住了，别让我知道你告状。"'],
+  dialog:['张凯推了林晓一把，转身走了——"记住了，别让我知道你告状。"'],
   next:'ch2a_09'
 },
 'ch2a_09':{
   scene:'classroom',
   chars:[{id:'linxiao_helpless',pos:'left'},{id:'zhangyue_determined',pos:'right'}],
   speaker:'张悦',speakerType:'',
-  dialog:['你真的当面说了？赵凯多记仇啊，上学期李明阳顶了他一句，被堵了三天。'],
+  dialog:['你真的当面说了？张凯多记仇啊，上学期李明阳顶了他一句，被堵了三天。'],
   next:'ch2a_10'
 },
 'ch2a_10':{
@@ -1349,7 +1349,7 @@ const STORY={
 },
 'ch2a_11':{
   speaker:'旁白',speakerType:'narrator',
-  dialog:['下午，赵凯的跟班们不时朝林晓看，班级群里匿名消息：「林晓爱打小报告，大家小心他。」'],
+  dialog:['下午，张凯的跟班们不时朝林晓看，班级群里匿名消息：「林晓爱打小报告，大家小心他。」'],
   next:'ch2a_choice2'
 },
 'ch2a_choice2':{
@@ -1369,12 +1369,12 @@ const STORY={
   chapter:'第二章',chapterTitle:'暗 证',chapterLabel:'第二章',
   scene:'corridor',music:'tense',chars:[{id:'linxiao_scared',pos:'center'}],
   speaker:'旁白',speakerType:'narrator',
-  dialog:function(){state.hasEvidence=true;return['林晓按下了录像键，手在微微发抖，但他稳住了手机。','赵凯威胁的声音、小萌哭泣的画面——全部记录了下来。']},
+  dialog:function(){state.hasEvidence=true;return['林晓按下了录像键，手在微微发抖，但他稳住了手机。','张凯威胁的声音、小萌哭泣的画面——全部记录了下来。']},
   next:'ch2b_02'
 },
 'ch2b_02':{
   speaker:'旁白',speakerType:'narrator',
-  dialog:['赵凯走后，林晓没有立刻上前。晚自习前，他找到了张悦。'],
+  dialog:['张凯走后，林晓没有立刻上前。晚自习前，他找到了张悦。'],
   next:'ch2b_03'
 },
 'ch2b_03':{
@@ -1396,7 +1396,7 @@ const STORY={
 'ch2b_06':{
   chars:[{id:'linxiao_worried',pos:'left'},{id:'zhangyue_worried',pos:'right'}],
   speaker:'旁白',speakerType:'narrator',
-  dialog:['接下来几天暗中调查——小萌课桌被刻了「废物」，班级群里有人匿名嘲笑她，赵凯已经拿了她好几百块。'],
+  dialog:['接下来几天暗中调查——小萌课桌被刻了「废物」，班级群里有人匿名嘲笑她，张凯已经拿了她好几百块。'],
   next:'ch2b_07'
 },
 'ch2b_07':{
@@ -1448,7 +1448,7 @@ const STORY={
 },
 'ch2c_06':{
   speaker:'旁白',speakerType:'narrator',
-  dialog:['王老师的话轻描淡写，她并不了解全貌。赵凯在底下偷笑，苏小萌从头到尾没有抬头。'],
+  dialog:['王老师的话轻描淡写，她并不了解全貌。张凯在底下偷笑，苏小萌从头到尾没有抬头。'],
   next:'ch2c_07'
 },
 'ch2c_07':{
@@ -1492,8 +1492,8 @@ const STORY={
 'ch3_t02':{
   speaker:'林晓',speakerType:'',
   dialog:function(){
-    if(state.hasEvidence) return['王老师，我有件事必须说，而且有证据。赵凯一直在欺负苏小萌——威胁、抢钱、让全班孤立她。我拍到了视频。'];
-    return['王老师，我有件事必须说。赵凯一直在欺负苏小萌——威胁、抢钱、让全班孤立她。'];
+    if(state.hasEvidence) return['王老师，我有件事必须说，而且有证据。张凯一直在欺负苏小萌——威胁、抢钱、让全班孤立她。我拍到了视频。'];
+    return['王老师，我有件事必须说。张凯一直在欺负苏小萌——威胁、抢钱、让全班孤立她。'];
   },
   next:'ch3_t03'
 },
@@ -1508,7 +1508,7 @@ const STORY={
 },
 'ch3_t04':{
   speaker:'林晓',speakerType:'',
-  dialog:['我亲眼看到赵凯在楼梯间威胁她。他要她交钱，还要替他写作业。','小萌的桌子被人刻了字，班级群里有人匿名攻击她。'],
+  dialog:['我亲眼看到张凯在楼梯间威胁她。他要她交钱，还要替他写作业。','小萌的桌子被人刻了字，班级群里有人匿名攻击她。'],
   next:'ch3_t05'
 },
 'ch3_t05':{
@@ -1529,12 +1529,12 @@ const STORY={
 },
 'ch3_tk02':{
   speaker:'林晓',speakerType:'',
-  dialog:['小萌，赵凯对你做的那些事——我知道了。你不是一个人，我和张悦都站在你这边。'],
+  dialog:['小萌，张凯对你做的那些事——我知道了。你不是一个人，我和张悦都站在你这边。'],
   next:'ch3_tk03'
 },
 'ch3_tk03':{
   speaker:'苏小萌',speakerType:'',
-  dialog:['（沉默了很久）……你不懂的。上次我跟老师说了，赵凯第二天就知道了，从那以后全班都不敢跟我说话。'],
+  dialog:['（沉默了很久）……你不懂的。上次我跟老师说了，张凯第二天就知道了，从那以后全班都不敢跟我说话。'],
   next:'ch3_tk04'
 },
 'ch3_tk04':{
@@ -1549,7 +1549,7 @@ const STORY={
 },
 'ch3_tk06':{
   speaker:'林晓',speakerType:'',
-  dialog:['所以我们需要找真正能保护你的人——不只是口头批评，是让赵凯真正受到约束。你愿意相信我一次吗？'],
+  dialog:['所以我们需要找真正能保护你的人——不只是口头批评，是让张凯真正受到约束。你愿意相信我一次吗？'],
   next:'ch3_tk07'
 },
 'ch3_tk07':{
@@ -1564,7 +1564,7 @@ const STORY={
   chapter:'第三章',chapterTitle:'迟来的勇气',chapterLabel:'第三章',
   scene:'rooftop',music:'emotional',chars:[{id:'linxiao_sad',pos:'left'},{id:'xiaomeng_cry',pos:'right'}],
   speaker:'林晓',speakerType:'',
-  dialog:['小萌……对不起。我之前看到了赵凯欺负你，但我没有站出来。是我太懦弱了。'],
+  dialog:['小萌……对不起。我之前看到了张凯欺负你，但我没有站出来。是我太懦弱了。'],
   next:'ch3_tl02'
 },
 'ch3_tl02':{
@@ -1623,7 +1623,7 @@ const STORY={
   scene:'classroom',music:'tense',
   chars:[{id:'linxiao_worried',pos:'center'}],
   speaker:'旁白',speakerType:'narrator',
-  dialog:['但检察官还没来，赵凯的欺凌却没有停止。这天一到学校，林晓就感觉气氛不对。'],
+  dialog:['但检察官还没来，张凯的欺凌却没有停止。这天一到学校，林晓就感觉气氛不对。'],
   next:'ch3_storm'
 },
 
@@ -1634,11 +1634,11 @@ const STORY={
   scene:'classroom',shake:true,music:'dark',
   chars:[{id:'zhaokai_angry',pos:'center'}],
   speaker:'旁白',speakerType:'narrator',
-  dialog:['风暴来得比想象中更快——赵凯发现有人在针对他。'],
+  dialog:['风暴来得比想象中更快——张凯发现有人在针对他。'],
   next:'ch3_s02'
 },
 'ch3_s02':{
-  speaker:'赵凯',speakerType:'bully',
+  speaker:'张凯',speakerType:'bully',
   dialog:['（在班级群里）谁在背后搞小动作？跟我作对的人，一个都别想好过！'],
   next:'ch3_s03'
 },
@@ -1646,11 +1646,11 @@ const STORY={
   scene:'corridor',
   chars:[{id:'linxiao_worried',pos:'left'},{id:'zhaokai',pos:'right'}],
   speaker:'旁白',speakerType:'narrator',
-  dialog:['课间，赵凯带着两个跟班堵住了林晓。'],
+  dialog:['课间，张凯带着两个跟班堵住了林晓。'],
   next:'ch3_s04'
 },
 'ch3_s04':{
-  speaker:'赵凯',speakerType:'bully',
+  speaker:'张凯',speakerType:'bully',
   dialog:['林晓，是你对吧？我早就警告过你了。从今天起别想安生了。'],
   shake:true,
   next:'ch3_s05'
@@ -1658,13 +1658,13 @@ const STORY={
 'ch3_s05':{
   chars:[{id:'linxiao_confident',pos:'left'},{id:'zhaokai',pos:'right'}],
   speaker:'林晓',speakerType:'',
-  dialog:['赵凯，该害怕的人不是我，是你。','你做的那些事，迟早会有人来找你算账。'],
+  dialog:['张凯，该害怕的人不是我，是你。','你做的那些事，迟早会有人来找你算账。'],
   next:'ch3_s06'
 },
 'ch3_s06':{
   cg:'cg21',
   speaker:'旁白',speakerType:'narrator',
-  dialog:['赵凯推了林晓一下。路过的同学假装没看见，只有张悦冲了过来。'],
+  dialog:['张凯推了林晓一下。路过的同学假装没看见，只有张悦冲了过来。'],
   chars:[{id:'linxiao_determined',pos:'left'},{id:'zhangyue_determined',pos:'right'}],
   next:'ch3_s07'
 },
@@ -1677,7 +1677,7 @@ const STORY={
 },
 'ch3_s08':{
   speaker:'王老师',speakerType:'teacher',
-  dialog:['赵凯！你在做什么！所有人回教室！','（对林晓低声说）我已经联系了法治副校长。赵凯的行为可能涉嫌违法，你做得对。'],
+  dialog:['张凯！你在做什么！所有人回教室！','（对林晓低声说）我已经联系了法治副校长。张凯的行为可能涉嫌违法，你做得对。'],
   next:'ch4_arrive'
 },
 
@@ -1732,12 +1732,12 @@ const STORY={
   scene:'meeting',
   chars:[{id:'prosecutor_serious',pos:'center'}],
   speaker:'陈检察官',speakerType:'prosecutor',
-  dialog:['根据了解到的情况，赵凯的行为已经涉嫌敲诈勒索，不是普通的校园纠纷了。','我会将线索移交公安机关进行立案侦查。','同时，检察院会依法对案件进行法律监督。'],
+  dialog:['根据了解到的情况，张凯的行为已经涉嫌敲诈勒索，不是普通的校园纠纷了。','我会将线索移交公安机关进行立案侦查。','同时，检察院会依法对案件进行法律监督。'],
   next:'ch4_06c'
 },
 'ch4_06c':{
   speaker:'旁白',speakerType:'narrator',
-  dialog:['公安机关迅速介入调查。证实赵凯两个月内索要超过八百元，多次暴力威胁并组织网络攻击。案件移送检察院。'],
+  dialog:['公安机关迅速介入调查。证实张凯两个月内索要超过八百元，多次暴力威胁并组织网络攻击。案件移送检察院。'],
   next:'ch4_07'
 },
 'ch4_07':{
@@ -1745,16 +1745,16 @@ const STORY={
   scene:'meeting',
   chars:[{id:'prosecutor_serious',pos:'left'},{id:'zhaokai_scared',pos:'right'}],
   speaker:'旁白',speakerType:'narrator',
-  dialog:['审查起诉阶段，陈检察官依法讯问了赵凯。面对确凿的证据，赵凯的嚣张收敛了不少。'],
+  dialog:['审查起诉阶段，陈检察官依法讯问了张凯。面对确凿的证据，张凯的嚣张收敛了不少。'],
   next:'ch4_08'
 },
 'ch4_08':{
   speaker:'陈检察官',speakerType:'prosecutor',
-  dialog:['赵凯同学，我是检察官。公安机关已完成侦查，你对苏小萌多次索要钱财、言语威胁，涉嫌敲诈勒索罪。你明白这意味着什么吗？'],
+  dialog:['张凯同学，我是检察官。公安机关已完成侦查，你对苏小萌多次索要钱财、言语威胁，涉嫌敲诈勒索罪。你明白这意味着什么吗？'],
   next:'ch4_09'
 },
 'ch4_09':{
-  speaker:'赵凯',speakerType:'bully',
+  speaker:'张凯',speakerType:'bully',
   dialog:['我……我只是跟她开玩笑……'],
   next:'ch4_10'
 },
@@ -1766,17 +1766,17 @@ const STORY={
 'ch4_11':{
   chars:[{id:'zhaokai_remorse',pos:'center'}],
   speaker:'旁白',speakerType:'narrator',
-  dialog:['赵凯低下了头，第一次真正意识到事情的严重性。'],
+  dialog:['张凯低下了头，第一次真正意识到事情的严重性。'],
   next:'ch4_12'
 },
 'ch4_12':{
   cg:'cg11',
   speaker:'陈检察官',speakerType:'prosecutor',
-  dialog:['赵凯，我还想问你一个问题。','你为什么要这样做？你从什么时候开始觉得欺负别人是理所当然的？'],
+  dialog:['张凯，我还想问你一个问题。','你为什么要这样做？你从什么时候开始觉得欺负别人是理所当然的？'],
   next:'ch4_13'
 },
 'ch4_13':{
-  speaker:'赵凯',speakerType:'bully',
+  speaker:'张凯',speakerType:'bully',
   dialog:['（沉默了很久）……我爸平时就是这样对我的。考不好就打，不听话就骂。他说在外面不能让别人欺负你。'],
   next:'ch4_14'
 },
@@ -1795,7 +1795,7 @@ const STORY={
   scene:'meeting',
   chars:[{id:'prosecutor_warm',pos:'left'},{id:'linxiao_confident',pos:'right'}],
   speaker:'旁白',speakerType:'narrator',
-  dialog:['处理完赵凯的事情后，陈检察官专门找到了林晓。'],
+  dialog:['处理完张凯的事情后，陈检察官专门找到了林晓。'],
   next:'ch4_17'
 },
 'ch4_17':{
@@ -1805,7 +1805,7 @@ const STORY={
 },
 'ch4_18':{
   speaker:'林晓',speakerType:'',
-  dialog:['说实话，赵凯威胁我的时候我真的犹豫了。但想到小萌一个人承受这些……我做不到假装看不见。'],
+  dialog:['说实话，张凯威胁我的时候我真的犹豫了。但想到小萌一个人承受这些……我做不到假装看不见。'],
   next:'ch4_19'
 },
 'ch4_19':{
@@ -1850,7 +1850,7 @@ const STORY={
   speaker:'旁白',speakerType:'narrator',
   dialog:[
     '在检察机关督促下，阳光中学全面整改——匿名信箱、心理咨询室、法治课堂。',
-    '苏小萌走出了阴影，加入了"法治小卫士"社团。赵凯写了长长的道歉信，改变已经开始。',
+    '苏小萌走出了阴影，加入了"法治小卫士"社团。张凯写了长长的道歉信，改变已经开始。',
     '林晓站在校门口看着阳光下的同学们——因为有人选择了不沉默，这个世界好了一点点。'
   ],
   next:'ending_best_final'
@@ -1867,7 +1867,7 @@ const STORY={
   chars:[{id:'linxiao',pos:'left'},{id:'xiaomeng_hopeful',pos:'right'}],
   speaker:'旁白',speakerType:'narrator',
   dialog:[
-    '在公安和检察机关共同介入下，赵凯受到了法律处理。学校开始整改。',
+    '在公安和检察机关共同介入下，张凯受到了法律处理。学校开始整改。',
     '苏小萌在慢慢恢复，虽然还有些沉默，但至少不再害怕来学校。',
     '他偶尔会想——如果当时更勇敢一些……但至少，他最终没有选择沉默。'
   ],
@@ -1885,7 +1885,7 @@ const STORY={
   chars:[{id:'linxiao_sad',pos:'center'}],
   speaker:'旁白',speakerType:'narrator',
   dialog:[
-    '事情最终在各方努力下得到了处理。赵凯受到法律约束，学校开始整改。',
+    '事情最终在各方努力下得到了处理。张凯受到法律约束，学校开始整改。',
     '但苏小萌选择了转学。那些日子在她心里留下了太深的伤痕。离开那天，她没有告别。',
     '林晓站在天台上——"如果我一开始就站出来……"',
     '沉默的代价，是由最无辜的人来承担的。'
