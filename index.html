@@ -691,11 +691,13 @@ const IMG={
     cg15:'cg15_silent.webp',
     cg16:'cg16_teacher.webp',
     cg17:'cg17_storm.webp',
+    cg18:'cg18_verdict.webp',
     cg19:'cg19_good_ending.webp',
     cg20:'cg20_comfort.webp',
     cg21:'cg21_ally.webp',
     cg22:'cg22_justice.webp',
-    cg23:'cg23_newday.webp'
+    cg23:'cg23_newday.webp',
+    cg24:'cg24_despair.webp'
   }
 };
 
@@ -1153,12 +1155,13 @@ const STORY={
   next:'ch1_04'
 },
 'ch1_04':{
-  chars:[{id:'xiaomeng_shy',pos:'right'},{id:'linxiao_worried',pos:'left'}],
+  chars:[{id:'xiaomeng_scared',pos:'right'},{id:'linxiao_worried',pos:'left'}],
   speaker:'林晓',speakerType:'',
   dialog:['小萌？你怎么了？需要帮忙吗？'],
   next:'ch1_05'
 },
 'ch1_05':{
+  chars:[{id:'xiaomeng_sad',pos:'right'},{id:'linxiao_worried',pos:'left'}],
   speaker:'苏小萌',speakerType:'',
   dialog:['……没事。自己不小心弄的。你先走吧。'],
   next:'ch1_06'
@@ -1280,7 +1283,7 @@ const STORY={
 },
 'ch1_18':{
   cg:'cg14',
-  chars:[{id:'linxiao_serious',pos:'center'}],
+  chars:[{id:'linxiao_determined',pos:'center'}],
   speaker:'旁白',speakerType:'narrator',
   dialog:['张凯走远了。苏小萌还呆呆地站着。林晓握紧了拳头——他需要做一个选择。'],
   choices:[
@@ -1292,9 +1295,8 @@ const STORY={
 
 // ============ CHAPTER 2A: 对峙 ============
 'ch2a_confront':{
-  cg:'cg20',
   chapter:'第二章',chapterTitle:'对 峙',chapterLabel:'第二章',
-  scene:'corridor',music:'tense',chars:[{id:'linxiao_determined',pos:'left'},{id:'xiaomeng_sad',pos:'right'}],
+  scene:'corridor',music:'tense',chars:[{id:'linxiao_determined',pos:'left'},{id:'xiaomeng_scared',pos:'right'}],
   speaker:'林晓',speakerType:'',
   dialog:['小萌！你还好吗？','我刚才……都听到了。张凯他——'],
   next:'ch2a_02'
@@ -1341,13 +1343,13 @@ const STORY={
 },
 'ch2a_09':{
   scene:'classroom',
-  chars:[{id:'linxiao_helpless',pos:'left'},{id:'zhangyue_determined',pos:'right'}],
+  chars:[{id:'linxiao_worried',pos:'left'},{id:'zhangyue_determined',pos:'right'}],
   speaker:'张悦',speakerType:'',
   dialog:['你真的当面说了？张凯多记仇啊，上学期李明阳顶了他一句，被堵了三天。'],
   next:'ch2a_10'
 },
 'ch2a_10':{
-  chars:[{id:'linxiao_fistpump',pos:'left'},{id:'zhangyue_determined',pos:'right'}],
+  chars:[{id:'linxiao_determined',pos:'left'},{id:'zhangyue_determined',pos:'right'}],
   speaker:'林晓',speakerType:'',
   dialog:['我知道有风险。但看着小萌被这样对待，我做不到当没看见。问题是接下来怎么办。'],
   next:'ch2a_11'
@@ -1430,7 +1432,7 @@ const STORY={
   next:'ch2c_02'
 },
 'ch2c_02':{
-  scene:'classroom',chars:[{id:'zhangyue',pos:'right'},{id:'linxiao_sad',pos:'left'}],
+  scene:'classroom',chars:[{id:'zhangyue_worried',pos:'right'},{id:'linxiao_sad',pos:'left'}],
   speaker:'张悦',speakerType:'',
   dialog:['林晓，你今天怎么了？一整天魂不守舍的。'],
   next:'ch2c_03'
@@ -1457,7 +1459,7 @@ const STORY={
   next:'ch2c_07'
 },
 'ch2c_07':{
-  cg:'cg3',
+  cg:'cg24',
   scene:'rooftop',chars:[{id:'xiaomeng_cry',pos:'center'}],
   speaker:'旁白',speakerType:'narrator',
   dialog:['放学后，天台楼梯间——苏小萌蜷缩在角落哭泣，地上一张纸条："你为什么不去死？"'],
@@ -1526,6 +1528,7 @@ const STORY={
 },
 
 'ch3_talk':{
+  cg:'cg3',
   chapter:'第三章',chapterTitle:'心 声',chapterLabel:'第三章',
   scene:'rooftop',music:'emotional',chars:[{id:'linxiao',pos:'left'},{id:'xiaomeng_sad',pos:'right'}],
   speaker:'旁白',speakerType:'narrator',
@@ -1649,7 +1652,7 @@ const STORY={
 },
 'ch3_s03':{
   scene:'corridor',
-  chars:[{id:'linxiao_worried',pos:'left'},{id:'zhaokai',pos:'right'}],
+  chars:[{id:'linxiao_worried',pos:'left'},{id:'zhaokai_angry',pos:'right'}],
   speaker:'旁白',speakerType:'narrator',
   dialog:['课间，张凯带着两个跟班堵住了林晓。'],
   next:'ch3_s04'
@@ -1661,7 +1664,7 @@ const STORY={
   next:'ch3_s05'
 },
 'ch3_s05':{
-  chars:[{id:'linxiao_confident',pos:'left'},{id:'zhaokai',pos:'right'}],
+  chars:[{id:'linxiao_confident',pos:'left'},{id:'zhaokai_angry',pos:'right'}],
   speaker:'林晓',speakerType:'',
   dialog:['张凯，该害怕的人不是我，是你。','你做的那些事，迟早会有人来找你算账。'],
   next:'ch3_s06'
@@ -1791,6 +1794,7 @@ const STORY={
   next:'ch4_15'
 },
 'ch4_15':{
+  cg:'cg18',
   chars:[{id:'prosecutor_serious',pos:'center'}],
   speaker:'陈检察官',speakerType:'prosecutor',
   dialog:['你的家庭情况我们会关注，但不能成为伤害别人的借口。你的行为构成敲诈勒索罪。','考虑到你是未成年人、初次犯罪且有悔罪表现，检察院决定对你适用附条件不起诉。','条件是：向苏小萌真诚道歉并赔偿损失；接受六个月心理辅导和行为矫正。','考验期内再犯，将撤销不起诉决定，依法提起公诉。'],
@@ -1849,7 +1853,7 @@ const STORY={
 },
 
 'ending_best':{
-  cg:'cg23',
+  cg:'cg6',
   scene:'schoolgate',music:'ending',
   chars:[{id:'linxiao_smile',pos:'left'},{id:'xiaomeng_determined',pos:'center'},{id:'zhangyue_smile',pos:'right'}],
   speaker:'旁白',speakerType:'narrator',
