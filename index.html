@@ -645,6 +645,11 @@ const IMG={
     xiaomeng_smile:'v2_xiaomeng_smile.webp',
     xiaomeng_hopeful:'v2_xiaomeng_hopeful.webp',
     xiaomeng_normal:'v2_xiaomeng_normal.webp',
+    xiaomeng_shy:'v2_xiaomeng_shy.webp',
+    xiaomeng_sad:'v2_xiaomeng_sad.webp',
+    xiaomeng_grateful:'v2_xiaomeng_grateful.webp',
+    xiaomeng_relieved:'v2_xiaomeng_relieved.webp',
+    xiaomeng_determined:'v2_xiaomeng_determined.webp',
     zhaokai:'v2_zhaokai_bully.webp',
     zhaokai_remorse:'v2_zhaokai_remorse.webp',
     zhaokai_angry:'v2_zhaokai_angry.webp',
@@ -1148,7 +1153,7 @@ const STORY={
   next:'ch1_04'
 },
 'ch1_04':{
-  chars:[{id:'xiaomeng_scared',pos:'right'},{id:'linxiao_worried',pos:'left'}],
+  chars:[{id:'xiaomeng_shy',pos:'right'},{id:'linxiao_worried',pos:'left'}],
   speaker:'林晓',speakerType:'',
   dialog:['小萌？你怎么了？需要帮忙吗？'],
   next:'ch1_05'
@@ -1167,7 +1172,7 @@ const STORY={
   ]
 },
 'ch1_06b':{
-  chars:[{id:'xiaomeng_scared',pos:'right'},{id:'linxiao',pos:'left'}],
+  chars:[{id:'xiaomeng_shy',pos:'right'},{id:'linxiao',pos:'left'}],
   speaker:'苏小萌',speakerType:'',
   dialog:['（慌张地）真的没事……我自己磕的。','你别问了好不好？求你了。'],
   next:'ch1_07'
@@ -1289,7 +1294,7 @@ const STORY={
 'ch2a_confront':{
   cg:'cg20',
   chapter:'第二章',chapterTitle:'对 峙',chapterLabel:'第二章',
-  scene:'corridor',music:'tense',chars:[{id:'linxiao_determined',pos:'left'},{id:'xiaomeng_scared',pos:'right'}],
+  scene:'corridor',music:'tense',chars:[{id:'linxiao_determined',pos:'left'},{id:'xiaomeng_sad',pos:'right'}],
   speaker:'林晓',speakerType:'',
   dialog:['小萌！你还好吗？','我刚才……都听到了。张凯他——'],
   next:'ch2a_02'
@@ -1522,7 +1527,7 @@ const STORY={
 
 'ch3_talk':{
   chapter:'第三章',chapterTitle:'心 声',chapterLabel:'第三章',
-  scene:'rooftop',music:'emotional',chars:[{id:'linxiao',pos:'left'},{id:'xiaomeng_cry',pos:'right'}],
+  scene:'rooftop',music:'emotional',chars:[{id:'linxiao',pos:'left'},{id:'xiaomeng_sad',pos:'right'}],
   speaker:'旁白',speakerType:'narrator',
   dialog:['傍晚的天台，只有风声和远处的放学铃。'],
   next:'ch3_tk02'
@@ -1718,7 +1723,7 @@ const STORY={
 },
 'ch4_05':{
   scene:'meeting',
-  chars:[{id:'prosecutor_warm',pos:'left'},{id:'xiaomeng_scared',pos:'right'}],
+  chars:[{id:'prosecutor_warm',pos:'left'},{id:'xiaomeng_relieved',pos:'right'}],
   speaker:'旁白',speakerType:'narrator',
   dialog:['在心理辅导老师陪同下，苏小萌终于说出了一切——从开学第一周到现在，整整两个月。'],
   next:'ch4_06'
@@ -1826,7 +1831,7 @@ const STORY={
 'ch5_check':{
   scene:'schoolgate',
   chars:function(){
-    if(state.courage>=5&&state.trust>=4)return[{id:'linxiao_smile',pos:'left'},{id:'xiaomeng_smile',pos:'center'},{id:'zhangyue_smile',pos:'right'}];
+    if(state.courage>=5&&state.trust>=4)return[{id:'linxiao_smile',pos:'left'},{id:'xiaomeng_grateful',pos:'center'},{id:'zhangyue_determined',pos:'right'}];
     if(state.courage>=3)return[{id:'linxiao',pos:'left'},{id:'xiaomeng_hopeful',pos:'right'}];
     return[{id:'linxiao_sad',pos:'center'}];
   },
@@ -1846,7 +1851,7 @@ const STORY={
 'ending_best':{
   cg:'cg23',
   scene:'schoolgate',music:'ending',
-  chars:[{id:'linxiao_smile',pos:'left'},{id:'xiaomeng_normal',pos:'center'},{id:'zhangyue_smile',pos:'right'}],
+  chars:[{id:'linxiao_smile',pos:'left'},{id:'xiaomeng_determined',pos:'center'},{id:'zhangyue_smile',pos:'right'}],
   speaker:'旁白',speakerType:'narrator',
   dialog:[
     '在检察机关督促下，阳光中学全面整改——匿名信箱、心理咨询室、法治课堂。',
