@@ -1629,9 +1629,19 @@ const STORY={
   next:'ch4_02'
 },
 'ch4_02':{
+  speaker:'陈检察官',speakerType:'prosecutor',
+  dialog:['同学们好。我是陈检察官，也是学校的法治副校长。我们收到了涉及校园欺凌的线索。'],
+  next:'ch4_03'
+},
+'ch4_03':{
   chars:[{id:'prosecutor_explain',pos:'center'}],
   speaker:'陈检察官',speakerType:'prosecutor',
-  dialog:['同学们好，我是陈检察官，也是学校的法治副校长。','学生欺凌是指通过肢体、语言及网络等手段实施欺压、侮辱的行为。推搡、辱骂、孤立、索要钱财——都是欺凌，有些已触犯法律。'],
+  dialog:['什么是学生欺凌？学生欺凌是指学生之间蓄意或恶意通过肢体、语言及网络等手段实施欺压、侮辱，造成伤害的行为。','推搡、辱骂、孤立排挤、网上散布谣言、索要钱财——这些全部都是欺凌行为，有些已经触犯了法律。'],
+  next:'ch4_04'
+},
+'ch4_04':{
+  speaker:'陈检察官',speakerType:'prosecutor',
+  dialog:['不是所有校园欺凌都构成犯罪。偶尔的口角推搡，学校和家长教育为主。','但反复殴打、威胁恐吓、敲诈勒索——就可能触犯刑法，需要公安机关和检察机关依法处理。'],
   next:'ch4_legal'
 },
 'ch4_legal':{
@@ -1648,19 +1658,24 @@ const STORY={
   scene:'meeting',
   chars:[{id:'prosecutor_warm',pos:'left'},{id:'xiaomeng_relieved',pos:'right'}],
   speaker:'旁白',speakerType:'narrator',
-  dialog:['在心理辅导老师陪同下，苏小萌说出了一切——整整两个月的遭遇。'],
+  dialog:['在心理辅导老师陪同下，苏小萌终于说出了一切——从开学第一周到现在，整整两个月。'],
+  next:'ch4_06'
+},
+'ch4_06':{
+  speaker:'旁白',speakerType:'narrator',
+  dialog:['评估案件性质——多次索要钱财、言语威胁，长期敲诈勒索涉嫌犯罪，且苏小萌不是唯一受害者。'],
   next:'ch4_06b'
 },
 'ch4_06b':{
   scene:'meeting',
   chars:[{id:'prosecutor_serious',pos:'center'}],
   speaker:'陈检察官',speakerType:'prosecutor',
-  dialog:['张凯的行为已涉嫌敲诈勒索，我会将线索移交公安机关立案侦查。'],
+  dialog:['根据了解到的情况，张凯的行为已经涉嫌敲诈勒索，不是普通的校园纠纷了。','我会将线索移交公安机关进行立案侦查。','同时，检察院会依法对案件进行法律监督。'],
   next:'ch4_06c'
 },
 'ch4_06c':{
   speaker:'旁白',speakerType:'narrator',
-  dialog:['公安机关迅速介入。证实张凯两个月内索要超过八百元，多次暴力威胁。案件移送检察院。'],
+  dialog:['公安机关迅速介入调查。证实张凯两个月内索要超过八百元，多次暴力威胁并组织网络攻击。案件移送检察院。'],
   next:'ch4_07'
 },
 'ch4_07':{
@@ -1673,17 +1688,17 @@ const STORY={
 },
 'ch4_08':{
   speaker:'陈检察官',speakerType:'prosecutor',
-  dialog:['张凯，你对苏小萌多次索要钱财、言语威胁，涉嫌敲诈勒索罪。你知道这意味着什么吗？'],
+  dialog:['张凯同学，我是检察官。公安机关已完成侦查，你对苏小萌多次索要钱财、言语威胁，涉嫌敲诈勒索罪。你明白这意味着什么吗？'],
   next:'ch4_09'
 },
 'ch4_09':{
   speaker:'张凯',speakerType:'bully',
-  dialog:['我……只是跟她开玩笑……'],
+  dialog:['我……我只是跟她开玩笑……'],
   next:'ch4_10'
 },
 'ch4_10':{
   speaker:'陈检察官',speakerType:'prosecutor',
-  dialog:['开玩笑的前提是双方都觉得好笑。她笑了吗？她因此出现了严重心理问题。'],
+  dialog:['开玩笑？每周拿她的钱，在群里组织孤立嘲笑她——她因此出现了严重心理问题。','开玩笑的前提是双方都觉得好笑。她有笑吗？'],
   next:'ch4_11'
 },
 'ch4_11':{
@@ -1711,15 +1726,30 @@ const STORY={
 'ch4_15':{
   chars:[{id:'prosecutor_serious',pos:'center'}],
   speaker:'陈检察官',speakerType:'prosecutor',
-  dialog:['你的家庭情况我们会关注，但不能成为伤害别人的借口。','考虑到你是未成年人、初次犯罪且有悔罪表现，检察院决定适用附条件不起诉：真诚道歉并赔偿，接受六个月心理辅导和行为矫正。考验期内再犯，依法提起公诉。'],
+  dialog:['你的家庭情况我们会关注，但不能成为伤害别人的借口。你的行为构成敲诈勒索罪。','考虑到你是未成年人、初次犯罪且有悔罪表现，检察院决定对你适用附条件不起诉。','条件是：向苏小萌真诚道歉并赔偿损失；接受六个月心理辅导和行为矫正。','考验期内再犯，将撤销不起诉决定，依法提起公诉。'],
   next:'ch4_16'
 },
 'ch4_16':{
-  cg:'cg22',
   scene:'meeting',
   chars:[{id:'prosecutor_warm',pos:'left'},{id:'linxiao_confident',pos:'right'}],
+  speaker:'旁白',speakerType:'narrator',
+  dialog:['处理完张凯的事情后，陈检察官专门找到了林晓。'],
+  next:'ch4_17'
+},
+'ch4_17':{
   speaker:'陈检察官',speakerType:'prosecutor',
-  dialog:['林晓，你的勇气是关键。旁观者的沉默就是给施暴者许可。','记住，勇敢不是不害怕——是害怕了依然选择做对的事。法律永远站在正义这边。'],
+  dialog:['林晓，这次能及时处理，你的勇气是关键。很多人知道霸凌却不愿站出来，旁观者的沉默就是给施暴者许可。'],
+  next:'ch4_18'
+},
+'ch4_18':{
+  speaker:'林晓',speakerType:'',
+  dialog:['说实话，张凯威胁我的时候我真的犹豫了。但想到小萌一个人承受这些……我做不到假装看不见。'],
+  next:'ch4_19'
+},
+'ch4_19':{
+  cg:'cg22',
+  speaker:'陈检察官',speakerType:'prosecutor',
+  dialog:['害怕是正常的。勇敢不是不害怕——是害怕了依然选择做对的事。记住，法律永远站在正义这边。'],
   next:'ch5_branch'
 },
 
