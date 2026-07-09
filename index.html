@@ -796,7 +796,7 @@ function typeText(text,cb){
   const el=$('dialog-text');el.innerHTML='';state.typing=true;state.textComplete=false;$('dialog-indicator').style.display='none';
   let i=0;text.split('').forEach(ch=>{const span=document.createElement('span');span.className='char';span.textContent=ch;el.appendChild(span)});
   const spans=el.querySelectorAll('.char');
-  (function next(){if(i>=spans.length){state.typing=false;state.textComplete=true;$('dialog-indicator').style.display='block';if(cb)cb();return}spans[i++].classList.add('show');setTimeout(next,35)})();
+  (function next(){if(i>=spans.length){state.typing=false;state.textComplete=true;$('dialog-indicator').style.display='block';if(cb)cb();return}spans[i++].classList.add('show');setTimeout(next,20)})();
 }
 function completeText(){$('dialog-text').querySelectorAll('.char').forEach(s=>s.classList.add('show'));state.typing=false;state.textComplete=true;$('dialog-indicator').style.display='block'}
 function setSpeaker(name,type){const el=$('speaker-name');el.textContent=name||'';el.className='speaker-name';if(type)el.classList.add(type);el.style.display=name?'inline-block':'none'}
@@ -1149,26 +1149,26 @@ const STORY={
 },
 'ch1_03':{
   cg:'cg1',
-  scene:'corridor',chars:[{id:'xiaomeng_scared',pos:'center'}],
+  scene:'corridor',chars:[{id:'xiaomeng_scared',pos:'right'},{id:'linxiao_worried',pos:'left'}],
   speaker:'旁白',speakerType:'narrator',
-  dialog:['走廊尽头，同班的苏小萌蹲在墙角，书本散了一地，书包带被扯断了。肩膀在微微发抖。'],
+  dialog:['走廊尽头，同班的苏小萌蹲在墙角，书本散了一地，书包带被扯断了。'],
   next:'ch1_04'
 },
 'ch1_04':{
-  chars:[{id:'xiaomeng_scared',pos:'right'},{id:'linxiao_worried',pos:'left'}],
+  chars:[{id:'xiaomeng_sad',pos:'right'},{id:'linxiao_worried',pos:'left'}],
   speaker:'林晓',speakerType:'',
-  dialog:['小萌？你怎么了？需要帮忙吗？'],
+  dialog:['小萌？你怎么了？'],
   next:'ch1_05'
 },
 'ch1_05':{
   chars:[{id:'xiaomeng_sad',pos:'right'},{id:'linxiao_worried',pos:'left'}],
   speaker:'苏小萌',speakerType:'',
-  dialog:['……没事。自己不小心弄的。你先走吧。'],
+  dialog:['……没事。你先走吧。'],
   next:'ch1_06'
 },
 'ch1_06':{
   speaker:'旁白',speakerType:'narrator',
-  dialog:['林晓帮她捡起书本，注意到她手背上有几道红痕。她飞快地把手缩了回去。'],
+  dialog:['林晓帮她捡书，注意到她手背上有几道红痕。她飞快地把手缩了回去。'],
   choices:[
     {text:'追问——"小萌，这些伤是怎么来的？你可以告诉我。"',next:'ch1_06b',courage:1,trust:1,notify:'勇气+1 信任+1'},
     {text:'不再多问——也许她不想说，先尊重她的意愿',next:'ch1_07',courage:0}
@@ -1183,17 +1183,17 @@ const STORY={
 'ch1_07':{
   scene:'classroom',chars:[{id:'linxiao_serious',pos:'left'},{id:'zhangyue_worried',pos:'right'}],
   speaker:'张悦',speakerType:'',
-  dialog:['林晓！苏小萌最近特别不对劲。上周她在厕所偷偷哭，张凯那帮人一下课就围着她。'],
+  dialog:['林晓！苏小萌最近特别不对劲。张凯那帮人一下课就围着她。'],
   next:'ch1_08'
 },
 'ch1_08':{
   speaker:'林晓',speakerType:'',
-  dialog:['我刚才看到她书包带断了，书撒一地……而且她手上有伤。'],
+  dialog:['我刚看到她书包带断了，手上还有伤。'],
   next:'ch1_09'
 },
 'ch1_09':{
   speaker:'张悦',speakerType:'',
-  dialog:['书包带哪有那么容易断……上周张凯还故意拿球砸她头上，当着全班笑她。我觉得不是开玩笑。'],
+  dialog:['上周张凯还故意拿球砸她头上，当着全班笑她。这不是开玩笑。'],
   choices:[
     {text:'留心观察——"你说得对，我们先注意看看张凯到底在做什么"',next:'ch1_10',courage:1,notify:'勇气+1'},
     {text:'会不会想多了——"也许只是同学之间闹着玩？"',next:'ch1_09b'},
@@ -1203,7 +1203,7 @@ const STORY={
 'ch1_09b':{
   scene:'classroom',chars:[{id:'zhangyue_worried',pos:'center'}],
   speaker:'张悦',speakerType:'',
-  dialog:['闹着玩？你没看到小萌的眼神吗？那是害怕。','闹着玩的前提是两个人都觉得好笑。她笑了吗？'],
+  dialog:['闹着玩？闹着玩的前提是两个人都觉得好笑。她笑了吗？'],
   next:'ch1_10'
 },
 'ch1_09c':{
@@ -1214,18 +1214,13 @@ const STORY={
 },
 'ch1_10':{
   scene:'classroom',chars:[{id:'teacher',pos:'center'}],
-  speaker:'旁白',speakerType:'narrator',
-  dialog:['第二节课，班主任王老师走进教室，点名时停了一下。'],
-  next:'ch1_11'
-},
-'ch1_11':{
   speaker:'王老师',speakerType:'teacher',
-  dialog:['苏小萌……又没来吗？这周已经第二次请假了。','有谁知道她什么情况吗？'],
+  dialog:['苏小萌……又没来？这周第二次请假了。有谁知道她什么情况吗？'],
   next:'ch1_12'
 },
 'ch1_12':{
   speaker:'旁白',speakerType:'narrator',
-  dialog:['教室里一阵沉默。几个同学偷偷看了张凯一眼，又迅速移开。张凯靠在椅背上，嘴角微微上扬。'],
+  dialog:['教室一阵沉默。几个同学偷偷看了张凯一眼。张凯靠在椅背上，嘴角微微上扬。'],
   choices:[
     {text:'举手告诉老师——"王老师，我有些情况想反映"',next:'ch1_12b',courage:2,trust:1,notify:'勇气+2 信任+1'},
     {text:'保持沉默——在这么多人面前说不太合适，下课再找老师',next:'ch1_13'}
@@ -1233,18 +1228,13 @@ const STORY={
 },
 'ch1_12b':{
   scene:'classroom',chars:[{id:'linxiao',pos:'left'},{id:'teacher',pos:'right'}],
-  speaker:'王老师',speakerType:'teacher',
-  dialog:['林晓，你说。'],
-  next:'ch1_12c'
-},
-'ch1_12c':{
   speaker:'林晓',speakerType:'',
-  dialog:['我今天早上看到苏小萌在走廊……她的状况不太好。','我觉得可能不是简单的请假。'],
+  dialog:['王老师，我今天早上看到苏小萌在走廊，她状况不太好。可能不是简单的请假。'],
   next:'ch1_12d'
 },
 'ch1_12d':{
   speaker:'王老师',speakerType:'teacher',
-  dialog:['谢谢你，林晓。我会关注的。','（转向全班）同学们之间要互相关心，有什么问题可以找老师谈。'],
+  dialog:['谢谢你。我会关注的。同学们之间要互相关心。'],
   next:'ch1_12e'
 },
 'ch1_12e':{
@@ -1263,22 +1253,22 @@ const STORY={
   cg:'cg2',
   music:'tense',
   speaker:'张凯',speakerType:'bully',
-  dialog:['苏小萌，听说你请假在家？怎么今天又来了？','我跟你说过多少次了，嘴巴给我闭紧。','你要是敢告诉任何人——你知道后果。'],
+  dialog:['苏小萌，我跟你说过多少次了，嘴巴给我闭紧。你要是敢告诉任何人——你知道后果。'],
   next:'ch1_15'
 },
 'ch1_15':{
   speaker:'苏小萌',speakerType:'',
-  dialog:['我没有……我什么都没说……','求求你，放过我好不好……'],
+  dialog:['我什么都没说……求求你放过我……'],
   next:'ch1_16'
 },
 'ch1_16':{
   speaker:'张凯',speakerType:'bully',
-  dialog:['放过你？那得看你表现了。','今天的作业——数学和英语，下午放学前交到我桌上。','对了，这周的零花钱也该给了吧？'],
+  dialog:['放过你？今天的作业，数学和英语，下午放学前交到我桌上。对了，这周的零花钱也该给了吧？'],
   next:'ch1_17'
 },
 'ch1_17':{
   speaker:'旁白',speakerType:'narrator',
-  dialog:['林晓站在拐角，屏住呼吸——这不是打闹，是赤裸裸的霸凌和勒索。'],
+  dialog:['林晓站在拐角，屏住呼吸——这不是打闹，是霸凌和勒索。'],
   next:'ch1_18'
 },
 'ch1_18':{
@@ -1298,17 +1288,17 @@ const STORY={
   chapter:'第二章',chapterTitle:'对 峙',chapterLabel:'第二章',
   scene:'corridor',music:'tense',chars:[{id:'linxiao_determined',pos:'left'},{id:'xiaomeng_scared',pos:'right'}],
   speaker:'林晓',speakerType:'',
-  dialog:['小萌！你还好吗？','我刚才……都听到了。张凯他——'],
+  dialog:['小萌！我刚才都听到了。张凯他——'],
   next:'ch2a_02'
 },
 'ch2a_02':{
   speaker:'苏小萌',speakerType:'',
-  dialog:['你听到了？！不、你什么都没听到——求你不要说出去，他会报复的……','（她的眼泪终于掉了下来）'],
+  dialog:['你听到了？！求你不要说出去，他会报复的……'],
   next:'ch2a_03'
 },
 'ch2a_03':{
   speaker:'林晓',speakerType:'',
-  dialog:['小萌，这不是你的错。张凯做的是违法的——勒索、威胁，你不能一个人扛着。'],
+  dialog:['小萌，这不是你的错。勒索、威胁——这是违法的，你不能一个人扛着。'],
   next:'ch2a_04'
 },
 'ch2a_04':{
@@ -1343,20 +1333,14 @@ const STORY={
 },
 'ch2a_09':{
   scene:'classroom',
-  chars:[{id:'linxiao_worried',pos:'left'},{id:'zhangyue_determined',pos:'right'}],
-  speaker:'张悦',speakerType:'',
-  dialog:['你真的当面说了？张凯多记仇啊，上学期李明阳顶了他一句，被堵了三天。'],
-  next:'ch2a_10'
-},
-'ch2a_10':{
   chars:[{id:'linxiao_determined',pos:'left'},{id:'zhangyue_determined',pos:'right'}],
-  speaker:'林晓',speakerType:'',
-  dialog:['我知道有风险。但看着小萌被这样对待，我做不到当没看见。问题是接下来怎么办。'],
+  speaker:'张悦',speakerType:'',
+  dialog:['你真的当面说了？张凯多记仇啊。'],
   next:'ch2a_11'
 },
 'ch2a_11':{
   speaker:'旁白',speakerType:'narrator',
-  dialog:['下午，张凯的跟班们不时朝林晓看，班级群里匿名消息：「林晓爱打小报告，大家小心他。」'],
+  dialog:['下午，班级群里出现匿名消息：「林晓爱打小报告，大家小心他。」'],
   next:'ch2a_choice2'
 },
 'ch2a_choice2':{
@@ -1380,35 +1364,20 @@ const STORY={
   next:'ch2b_02'
 },
 'ch2b_02':{
-  speaker:'旁白',speakerType:'narrator',
-  dialog:['张凯走后，林晓没有立刻上前。晚自习前，他找到了张悦。'],
-  next:'ch2b_03'
-},
-'ch2b_03':{
   scene:'classroom',chars:[{id:'linxiao_serious',pos:'left'},{id:'zhangyue_worried',pos:'right'}],
-  speaker:'林晓',speakerType:'',
-  dialog:['张悦，你看这个视频。'],
+  speaker:'旁白',speakerType:'narrator',
+  dialog:['晚自习前，林晓把视频给张悦看。'],
   next:'ch2b_04'
 },
 'ch2b_04':{
   speaker:'张悦',speakerType:'',
-  dialog:['……天哪。他要钱？这是敲诈勒索！','这已经不是"同学矛盾"了，我们必须做点什么。'],
-  next:'ch2b_05'
-},
-'ch2b_05':{
-  speaker:'林晓',speakerType:'',
-  dialog:['光有视频还不够，我们需要了解这件事到底持续了多久。'],
+  dialog:['他要钱？这是敲诈勒索！我们必须做点什么。'],
   next:'ch2b_06'
 },
 'ch2b_06':{
   chars:[{id:'linxiao_worried',pos:'left'},{id:'zhangyue_worried',pos:'right'}],
   speaker:'旁白',speakerType:'narrator',
-  dialog:['接下来几天暗中调查——小萌课桌被刻了「废物」，班级群里有人匿名嘲笑她，张凯已经拿了她好几百块。'],
-  next:'ch2b_07'
-},
-'ch2b_07':{
-  speaker:'张悦',speakerType:'',
-  dialog:['不止一次，不止一个方面。这是长期的、系统性的欺凌。','林晓，我们不能再等了。'],
+  dialog:['接下来几天暗中调查——小萌课桌被刻了字，班级群有人匿名嘲笑她，张凯已经拿了她好几百块。'],
   next:'ch2b_choice2'
 },
 'ch2b_choice2':{
@@ -1433,29 +1402,19 @@ const STORY={
 },
 'ch2c_02':{
   scene:'classroom',chars:[{id:'zhangyue_worried',pos:'right'},{id:'linxiao_sad',pos:'left'}],
-  speaker:'张悦',speakerType:'',
-  dialog:['林晓，你今天怎么了？一整天魂不守舍的。'],
-  next:'ch2c_03'
-},
-'ch2c_03':{
-  speaker:'林晓',speakerType:'',
-  dialog:['……没什么。','（也许真的不关我的事。）'],
-  next:'ch2c_04'
-},
-'ch2c_04':{
   speaker:'旁白',speakerType:'narrator',
-  dialog:['一周过去了。苏小萌又请了两天假，回来后眼神空洞，桌面被人刻了难听的字，班级群里流传着恶意谣言。'],
+  dialog:['一周过去了。苏小萌又请了两天假，回来后眼神空洞，桌面被人刻了难听的字。'],
   next:'ch2c_05'
 },
 'ch2c_05':{
   scene:'classroom',chars:[{id:'teacher_serious',pos:'center'}],
   speaker:'王老师',speakerType:'teacher',
-  dialog:['同学们，苏小萌同学最近情绪不太好。','大家要互相关心，不要孤立同学。','如果有什么情况，可以来找我谈。'],
+  dialog:['同学们，苏小萌最近情绪不太好。大家要互相关心。'],
   next:'ch2c_06'
 },
 'ch2c_06':{
   speaker:'旁白',speakerType:'narrator',
-  dialog:['王老师的话轻描淡写，她并不了解全貌。张凯在底下偷笑，苏小萌从头到尾没有抬头。'],
+  dialog:['王老师并不了解全貌。张凯在底下偷笑，苏小萌从头到尾没有抬头。'],
   next:'ch2c_07'
 },
 'ch2c_07':{
@@ -1537,27 +1496,27 @@ const STORY={
 },
 'ch3_tk02':{
   speaker:'林晓',speakerType:'',
-  dialog:['小萌，张凯对你做的那些事——我知道了。你不是一个人，我和张悦都站在你这边。'],
+  dialog:['小萌，张凯对你做的事我知道了。你不是一个人。'],
   next:'ch3_tk03'
 },
 'ch3_tk03':{
   speaker:'苏小萌',speakerType:'',
-  dialog:['（沉默了很久）……你不懂的。上次我跟老师说了，张凯第二天就知道了，从那以后全班都不敢跟我说话。'],
+  dialog:['……上次我跟老师说了，张凯第二天就知道了。从那以后没人敢跟我说话。'],
   next:'ch3_tk04'
 },
 'ch3_tk04':{
   speaker:'林晓',speakerType:'',
-  dialog:['所以你一直忍着。但忍下去的结果是什么？他变本加厉。','小萌，这不是你的错。施暴的人才应该害怕，而不是受害者。'],
+  dialog:['所以你一直忍着。但忍下去他只会变本加厉。这不是你的错。'],
   next:'ch3_tk05'
 },
 'ch3_tk05':{
   speaker:'苏小萌',speakerType:'',
-  dialog:['可是……谁能帮我呢？','老师说了没用，家长……我不敢告诉他们，他们会担心的。'],
+  dialog:['可是……谁能帮我呢？'],
   next:'ch3_tk06'
 },
 'ch3_tk06':{
   speaker:'林晓',speakerType:'',
-  dialog:['所以我们需要找真正能保护你的人——不只是口头批评，是让张凯真正受到约束。你愿意相信我一次吗？'],
+  dialog:['我们需要找真正能保护你的人。你愿意相信我一次吗？'],
   next:'ch3_tk07'
 },
 'ch3_tk07':{
@@ -1616,22 +1575,9 @@ const STORY={
   next:'ch3_h05'
 },
 'ch3_h05':{
-  chars:[{id:'linxiao_confident',pos:'center'}],
-  speaker:'旁白',speakerType:'narrator',
-  dialog:['挂掉电话，林晓感到一种从未有过的轻松。'],
-  next:'ch3_h06'
-},
-'ch3_h06':{
   chars:[{id:'linxiao_smile',pos:'center'}],
   speaker:'旁白',speakerType:'narrator',
-  dialog:['两天后，检察院未成年人检察部门来电：已收到举报线索，将安排检察官到学校了解情况。','林晓悬着的心终于落了地——有人在认真对待这件事了。'],
-  next:'ch3_h07'
-},
-'ch3_h07':{
-  scene:'classroom',music:'tense',
-  chars:[{id:'linxiao_worried',pos:'center'}],
-  speaker:'旁白',speakerType:'narrator',
-  dialog:['但检察官还没来，张凯的欺凌却没有停止。这天一到学校，林晓就感觉气氛不对。'],
+  dialog:['两天后，检察院来电：已收到线索，将安排检察官到学校了解情况。但张凯的欺凌还没有停止。'],
   next:'ch3_storm'
 },
 
@@ -1646,21 +1592,10 @@ const STORY={
   next:'ch3_s02'
 },
 'ch3_s02':{
-  speaker:'张凯',speakerType:'bully',
-  dialog:['（在班级群里）谁在背后搞小动作？跟我作对的人，一个都别想好过！'],
-  next:'ch3_s03'
-},
-'ch3_s03':{
-  scene:'corridor',
+  scene:'corridor',shake:true,
   chars:[{id:'linxiao_worried',pos:'left'},{id:'zhaokai_angry',pos:'right'}],
-  speaker:'旁白',speakerType:'narrator',
-  dialog:['课间，张凯带着两个跟班堵住了林晓。'],
-  next:'ch3_s04'
-},
-'ch3_s04':{
   speaker:'张凯',speakerType:'bully',
-  dialog:['林晓，是你对吧？我早就警告过你了。从今天起别想安生了。'],
-  shake:true,
+  dialog:['林晓，是你在背后搞事对吧？从今天起别想安生了。'],
   next:'ch3_s05'
 },
 'ch3_s05':{
@@ -1679,13 +1614,8 @@ const STORY={
 'ch3_s07':{
   scene:'classroom',
   chars:[{id:'teacher_serious',pos:'center'}],
-  speaker:'旁白',speakerType:'narrator',
-  dialog:['这一幕恰好被赶来的王老师看到了。她终于意识到事情远比想象中严重。'],
-  next:'ch3_s08'
-},
-'ch3_s08':{
   speaker:'王老师',speakerType:'teacher',
-  dialog:['张凯！你在做什么！所有人回教室！','（对林晓低声说）我已经联系了法治副校长。张凯的行为可能涉嫌违法，你做得对。'],
+  dialog:['张凯！你在做什么！所有人回教室！','（对林晓低声）我已经联系了法治副校长。你做得对。'],
   next:'ch4_arrive'
 },
 
@@ -1699,19 +1629,9 @@ const STORY={
   next:'ch4_02'
 },
 'ch4_02':{
-  speaker:'陈检察官',speakerType:'prosecutor',
-  dialog:['同学们好。我是陈检察官，也是学校的法治副校长。我们收到了涉及校园欺凌的线索。'],
-  next:'ch4_03'
-},
-'ch4_03':{
   chars:[{id:'prosecutor_explain',pos:'center'}],
   speaker:'陈检察官',speakerType:'prosecutor',
-  dialog:['什么是学生欺凌？学生欺凌是指学生之间蓄意或恶意通过肢体、语言及网络等手段实施欺压、侮辱，造成伤害的行为。','推搡、辱骂、孤立排挤、网上散布谣言、索要钱财——这些全部都是欺凌行为，有些已经触犯了法律。'],
-  next:'ch4_04'
-},
-'ch4_04':{
-  speaker:'陈检察官',speakerType:'prosecutor',
-  dialog:['不是所有校园欺凌都构成犯罪。偶尔的口角推搡，学校和家长教育为主。','但反复殴打、威胁恐吓、敲诈勒索——就可能触犯刑法，需要公安机关和检察机关依法处理。'],
+  dialog:['同学们好，我是陈检察官，也是学校的法治副校长。','学生欺凌是指通过肢体、语言及网络等手段实施欺压、侮辱的行为。推搡、辱骂、孤立、索要钱财——都是欺凌，有些已触犯法律。'],
   next:'ch4_legal'
 },
 'ch4_legal':{
@@ -1728,24 +1648,19 @@ const STORY={
   scene:'meeting',
   chars:[{id:'prosecutor_warm',pos:'left'},{id:'xiaomeng_relieved',pos:'right'}],
   speaker:'旁白',speakerType:'narrator',
-  dialog:['在心理辅导老师陪同下，苏小萌终于说出了一切——从开学第一周到现在，整整两个月。'],
-  next:'ch4_06'
-},
-'ch4_06':{
-  speaker:'旁白',speakerType:'narrator',
-  dialog:['评估案件性质——多次索要钱财、言语威胁，长期敲诈勒索涉嫌犯罪，且苏小萌不是唯一受害者。'],
+  dialog:['在心理辅导老师陪同下，苏小萌说出了一切——整整两个月的遭遇。'],
   next:'ch4_06b'
 },
 'ch4_06b':{
   scene:'meeting',
   chars:[{id:'prosecutor_serious',pos:'center'}],
   speaker:'陈检察官',speakerType:'prosecutor',
-  dialog:['根据了解到的情况，张凯的行为已经涉嫌敲诈勒索，不是普通的校园纠纷了。','我会将线索移交公安机关进行立案侦查。','同时，检察院会依法对案件进行法律监督。'],
+  dialog:['张凯的行为已涉嫌敲诈勒索，我会将线索移交公安机关立案侦查。'],
   next:'ch4_06c'
 },
 'ch4_06c':{
   speaker:'旁白',speakerType:'narrator',
-  dialog:['公安机关迅速介入调查。证实张凯两个月内索要超过八百元，多次暴力威胁并组织网络攻击。案件移送检察院。'],
+  dialog:['公安机关迅速介入。证实张凯两个月内索要超过八百元，多次暴力威胁。案件移送检察院。'],
   next:'ch4_07'
 },
 'ch4_07':{
@@ -1758,17 +1673,17 @@ const STORY={
 },
 'ch4_08':{
   speaker:'陈检察官',speakerType:'prosecutor',
-  dialog:['张凯同学，我是检察官。公安机关已完成侦查，你对苏小萌多次索要钱财、言语威胁，涉嫌敲诈勒索罪。你明白这意味着什么吗？'],
+  dialog:['张凯，你对苏小萌多次索要钱财、言语威胁，涉嫌敲诈勒索罪。你知道这意味着什么吗？'],
   next:'ch4_09'
 },
 'ch4_09':{
   speaker:'张凯',speakerType:'bully',
-  dialog:['我……我只是跟她开玩笑……'],
+  dialog:['我……只是跟她开玩笑……'],
   next:'ch4_10'
 },
 'ch4_10':{
   speaker:'陈检察官',speakerType:'prosecutor',
-  dialog:['开玩笑？每周拿她的钱，在群里组织孤立嘲笑她——她因此出现了严重心理问题。','开玩笑的前提是双方都觉得好笑。她有笑吗？'],
+  dialog:['开玩笑的前提是双方都觉得好笑。她笑了吗？她因此出现了严重心理问题。'],
   next:'ch4_11'
 },
 'ch4_11':{
@@ -1796,30 +1711,15 @@ const STORY={
 'ch4_15':{
   chars:[{id:'prosecutor_serious',pos:'center'}],
   speaker:'陈检察官',speakerType:'prosecutor',
-  dialog:['你的家庭情况我们会关注，但不能成为伤害别人的借口。你的行为构成敲诈勒索罪。','考虑到你是未成年人、初次犯罪且有悔罪表现，检察院决定对你适用附条件不起诉。','条件是：向苏小萌真诚道歉并赔偿损失；接受六个月心理辅导和行为矫正。','考验期内再犯，将撤销不起诉决定，依法提起公诉。'],
+  dialog:['你的家庭情况我们会关注，但不能成为伤害别人的借口。','考虑到你是未成年人、初次犯罪且有悔罪表现，检察院决定适用附条件不起诉：真诚道歉并赔偿，接受六个月心理辅导和行为矫正。考验期内再犯，依法提起公诉。'],
   next:'ch4_16'
 },
 'ch4_16':{
+  cg:'cg22',
   scene:'meeting',
   chars:[{id:'prosecutor_warm',pos:'left'},{id:'linxiao_confident',pos:'right'}],
-  speaker:'旁白',speakerType:'narrator',
-  dialog:['处理完张凯的事情后，陈检察官专门找到了林晓。'],
-  next:'ch4_17'
-},
-'ch4_17':{
   speaker:'陈检察官',speakerType:'prosecutor',
-  dialog:['林晓，这次能及时处理，你的勇气是关键。很多人知道霸凌却不愿站出来，旁观者的沉默就是给施暴者许可。'],
-  next:'ch4_18'
-},
-'ch4_18':{
-  speaker:'林晓',speakerType:'',
-  dialog:['说实话，张凯威胁我的时候我真的犹豫了。但想到小萌一个人承受这些……我做不到假装看不见。'],
-  next:'ch4_19'
-},
-'ch4_19':{
-  cg:'cg22',
-  speaker:'陈检察官',speakerType:'prosecutor',
-  dialog:['害怕是正常的。勇敢不是不害怕——是害怕了依然选择做对的事。记住，法律永远站在正义这边。'],
+  dialog:['林晓，你的勇气是关键。旁观者的沉默就是给施暴者许可。','记住，勇敢不是不害怕——是害怕了依然选择做对的事。法律永远站在正义这边。'],
   next:'ch5_branch'
 },
 
